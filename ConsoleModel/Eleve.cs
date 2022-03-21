@@ -7,7 +7,13 @@ namespace ConsoleModel
 {
     class Eleve: Model
     {
-        public string code, nom, prenom, niveau, code_fil;
+
+        public string code { get; set; }
+        public string nom { get; set; }
+        public string prenom { get; set; }
+        public string niveau { get; set; }
+        public string code_fil { get; set; }
+
 
         public override string ToString()
         {

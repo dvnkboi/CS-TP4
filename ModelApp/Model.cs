@@ -12,7 +12,7 @@ namespace ModelApp
 {
     public abstract class Model
     {
-        public int id = 0;
+        public int id { get; set; }
         private string sql = "";
 
         private Dictionary<string, T> ObjectToDictionary<T>(Object obj)
@@ -24,39 +24,34 @@ namespace ModelApp
 
         private dynamic DictionaryToObject(Dictionary<String, object> dico)
         {
-            //does not work
-            var obj = Activator.CreateInstance(this.GetType());
+            if (dico.Count == 0) return null;
 
-            foreach (var kv in dico)
-            {
-                var prop = this.GetType().GetProperty(kv.Key);
-                if (prop == null) continue;
-
-                object value = kv.Value;
-                if (value is Dictionary<string, object>)
-                {
-                    value = DictionaryToObject((Dictionary<string, object>)value, prop.PropertyType);
-                }
-
-                prop.SetValue(obj, value, null);
-            }
-            return obj;
-        }
-
-        private static dynamic DictionaryToObject(Dictionary<String, object> dico, Type type)
-        {
-            //does not work 
+            Type type = this.GetType();
             var obj = Activator.CreateInstance(type);
 
             foreach (var kv in dico)
             {
-                var prop = type.GetProperty(kv.Key);
+                PropertyInfo info = type.GetProperty(kv.Key);
+                info.SetValue(obj, kv.Value);
+            }
+            return Convert.ChangeType(obj,this.GetType());
+        }
+
+        private static dynamic DictionaryToObject<T>(Dictionary<String, object> dico)
+        {
+            if (dico.Count == 0) return null;
+
+            var obj = Activator.CreateInstance(typeof(T));
+
+            foreach (var kv in dico)
+            {
+                var prop = typeof(T).GetProperty(kv.Key);
                 if (prop == null) continue;
 
                 object value = kv.Value;
                 if (value is Dictionary<string, object>)
                 {
-                    value = DictionaryToObject((Dictionary<string, object>)value, prop.PropertyType);
+                    value = DictionaryToObject<T>((Dictionary<string, object>)value);
                 }
 
                 prop.SetValue(obj, value, null);
@@ -130,7 +125,7 @@ namespace ModelApp
             }
 
             reader.Close();
-            return DictionaryToObject(dico, this.GetType());
+            return DictionaryToObject(dico);
         }
 
         public int delete()
@@ -206,7 +201,7 @@ namespace ModelApp
                     type = SqlToType(ch.Values.ElementAt(i));
                     dico.Add(fieldName, Convert.ChangeType(reader.GetValue(i), type));
                 }
-                retList.Add(DictionaryToObject(dico,typeof(T)));
+                retList.Add((T) DictionaryToObject<T>(dico));
                 dico.Clear();
             }
 
@@ -302,7 +297,7 @@ namespace ModelApp
                 }
 
                 //add row to list
-                retList.Add(DictionaryToObject(dicoRes, typeof(T)));
+                retList.Add((T) DictionaryToObject<T>(dicoRes));
                 dicoRes.Clear();
             }
 
