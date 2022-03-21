@@ -55,6 +55,8 @@ namespace ModelApp
             {
                 res.Add(reader.GetString(0) , reader.GetString(1));
             }
+
+            reader.Close();
             return res;
         }
 
