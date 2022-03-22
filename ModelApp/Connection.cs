@@ -9,14 +9,16 @@ namespace ModelApp
 {
     public class Connection
     {
-        static IDbConnection con = null;
-        static IDbCommand cmd = null;
+        public static IDbConnection con = null;
+        public static IDbCommand cmd = null;
+        public static string Server = null;
 
         public static void Connect(string cstr, string server)
         {
+            Server = server;
             if (con != null && con.State == ConnectionState.Open) return;
 
-            switch (server)
+            switch (Server)
             {
                 case "MsSql":
                     con = new SqlConnection(cstr);
@@ -36,7 +38,15 @@ namespace ModelApp
         public static int IUD(string req)
         {
             cmd.CommandText = req;
-            return cmd.ExecuteNonQuery();
+            int scalar = cmd.ExecuteNonQuery();
+            return scalar;
+        }
+
+        public static void resetCmd()
+        {
+            cmd.CommandText = "";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Clear();
         }
 
         public static IDataReader Select(string req)
@@ -63,6 +73,24 @@ namespace ModelApp
         public static void Close()
         {
             if (con != null && con.State == ConnectionState.Open) con.Close();
+        }
+
+        public static void AddParameter(string key, Object value)
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            switch (Server)
+            {
+                case "MsSql":
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@"+key, value));
+                    break;
+                case "MySql":
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new MySqlParameter(key, value));
+                    break;
+                default:
+                    throw new Exception("database server not supported... yikes kinda cringe");
+            }
         }
     }
 }

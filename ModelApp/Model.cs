@@ -63,39 +63,72 @@ namespace ModelApp
         {
             Dictionary<string, string> dico = new Dictionary<string, string>();
             dico = ObjectToDictionary<string>(this);
+            int ret = -1;
 
             if (this.find() == null)
             {
                 //insert
-                sql = $"insert into {this.GetType().Name}(";
-
-                foreach (KeyValuePair<string, string> field in dico)
+                try
                 {
-                    sql += $"{field.Key},";
+                    Connection.resetCmd();
+                    sql = $"INSERT_{this.GetType().Name}";
+                    foreach (KeyValuePair<string, string> field in dico)
+                    {
+                        Connection.AddParameter(field.Key,field.Value);
+                    }
+                    ret = Connection.IUD(sql);
                 }
-                sql = sql.Remove(sql.Length - 1);
-                sql += ") values(";
-
-                foreach (KeyValuePair<string, string> field in dico)
+                catch (Exception e)
                 {
-                    sql += $"'{field.Value}',";
+                    Connection.resetCmd();
+                    sql = $"insert into {this.GetType().Name}(";
+
+                    foreach (KeyValuePair<string, string> field in dico)
+                    {
+                        sql += $"{field.Key},";
+                    }
+                    sql = sql.Remove(sql.Length - 1);
+                    sql += ") values(";
+
+                    foreach (KeyValuePair<string, string> field in dico)
+                    {
+                        sql += $"'{field.Value}',";
+                    }
+                    sql = sql.Remove(sql.Length - 1);
+                    sql += ")";
+                    ret = Connection.IUD(sql);
                 }
-                sql = sql.Remove(sql.Length - 1);
-                sql += ")";
             }
             else
             {
                 //update
-                sql = $"update {this.GetType().Name} set ";
-                foreach (KeyValuePair<string, string> field in dico)
+                try
                 {
-                    sql += $"{field.Key}='{field.Value}',";
+                    Connection.resetCmd();
+                    sql = $"UPDATE_{this.GetType().Name}";
+                    foreach (KeyValuePair<string, string> field in dico)
+                    {
+                        Connection.AddParameter(field.Key, field.Value);
+                    }
+                    ret = Connection.IUD(sql);
+                    
                 }
-                sql = sql.Remove(sql.Length - 1);
-                sql += $"where id='{id}'";
+                catch(Exception e)
+                {
+                    Connection.resetCmd();
+                    sql = $"update {this.GetType().Name} set ";
+                    foreach (KeyValuePair<string, string> field in dico)
+                    {
+                        sql += $"{field.Key}='{field.Value}',";
+                    }
+                    sql = sql.Remove(sql.Length - 1);
+                    sql += $" where id='{id}'";
+                    ret = Connection.IUD(sql);
+                }
             }
 
-            return Connection.IUD(sql);
+            Connection.resetCmd();
+            return ret;
         }
 
         public dynamic find()
@@ -130,8 +163,23 @@ namespace ModelApp
 
         public int delete()
         {
-            sql = $"delete from {this.GetType().Name} where id='{id}'";
-            return Connection.IUD(sql);
+            int ret = 0;
+
+            try
+            {
+                Connection.resetCmd();
+                sql = $"UPDATE_{this.GetType().Name}";
+                Connection.AddParameter("id", id);
+                ret = Connection.IUD(sql);
+            }
+            catch(Exception e)
+            {
+                Connection.resetCmd();
+                sql = $"delete from {this.GetType().Name} where id='{id}'";
+                ret = Connection.IUD(sql);
+            }
+
+            return ret;
         }
 
         public List<dynamic> All()

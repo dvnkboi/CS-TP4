@@ -29,30 +29,30 @@ namespace GestionNotes
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.gestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bilanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filieresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matieresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.etudiantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bilanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // MainMenuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestionToolStripMenuItem,
             this.affichageToolStripMenuItem,
             this.bilanToolStripMenuItem,
             this.quitterToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MainMenuStrip.Name = "MainMenuStrip";
+            this.MainMenuStrip.Size = new System.Drawing.Size(800, 24);
+            this.MainMenuStrip.TabIndex = 0;
+            this.MainMenuStrip.Text = "menuStrip1";
             // 
             // gestionToolStripMenuItem
             // 
@@ -64,6 +64,30 @@ namespace GestionNotes
             this.gestionToolStripMenuItem.Name = "gestionToolStripMenuItem";
             this.gestionToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.gestionToolStripMenuItem.Text = "Gestion";
+            // 
+            // filieresToolStripMenuItem
+            // 
+            this.filieresToolStripMenuItem.Name = "filieresToolStripMenuItem";
+            this.filieresToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.filieresToolStripMenuItem.Text = "Filieres";
+            // 
+            // matieresToolStripMenuItem
+            // 
+            this.matieresToolStripMenuItem.Name = "matieresToolStripMenuItem";
+            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.matieresToolStripMenuItem.Text = "Matieres";
+            // 
+            // etudiantsToolStripMenuItem
+            // 
+            this.etudiantsToolStripMenuItem.Name = "etudiantsToolStripMenuItem";
+            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.etudiantsToolStripMenuItem.Text = "Etudiants";
+            // 
+            // notesToolStripMenuItem
+            // 
+            this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
+            this.notesToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.notesToolStripMenuItem.Text = "Notes";
             // 
             // affichageToolStripMenuItem
             // 
@@ -83,42 +107,18 @@ namespace GestionNotes
             this.quitterToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.quitterToolStripMenuItem.Text = "Quitter";
             // 
-            // filieresToolStripMenuItem
-            // 
-            this.filieresToolStripMenuItem.Name = "filieresToolStripMenuItem";
-            this.filieresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.filieresToolStripMenuItem.Text = "Filieres";
-            // 
-            // matieresToolStripMenuItem
-            // 
-            this.matieresToolStripMenuItem.Name = "matieresToolStripMenuItem";
-            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.matieresToolStripMenuItem.Text = "Matieres";
-            // 
-            // etudiantsToolStripMenuItem
-            // 
-            this.etudiantsToolStripMenuItem.Name = "etudiantsToolStripMenuItem";
-            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.etudiantsToolStripMenuItem.Text = "Etudiants";
-            // 
-            // notesToolStripMenuItem
-            // 
-            this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
-            this.notesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.notesToolStripMenuItem.Text = "Notes";
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.MainMenuStrip);
+            this.MainMenuStrip = this.MainMenuStrip;
             this.Name = "Home";
             this.Text = "Home";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.MainMenuStrip.ResumeLayout(false);
+            this.MainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,7 +126,7 @@ namespace GestionNotes
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip MainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem gestionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filieresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matieresToolStripMenuItem;
