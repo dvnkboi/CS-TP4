@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GestionNotes
+namespace Interface
 {
-    public partial class Gestion_etudiant : Form
+    public partial class Form1 : Form
     {
-        public Gestion_etudiant()
+        public Form1()
         {
             InitializeComponent();
         }
+
     }
 }

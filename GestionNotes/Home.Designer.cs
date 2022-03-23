@@ -29,35 +29,35 @@ namespace GestionNotes
         /// </summary>
         private void InitializeComponent()
         {
-            this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.filieresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filiereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matieresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.etudiantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bilanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.billanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainMenuStrip.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // MainMenuStrip
+            // menuStrip1
             // 
-            this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestionToolStripMenuItem,
             this.affichageToolStripMenuItem,
-            this.bilanToolStripMenuItem,
+            this.billanToolStripMenuItem,
             this.quitterToolStripMenuItem});
-            this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.MainMenuStrip.Name = "MainMenuStrip";
-            this.MainMenuStrip.Size = new System.Drawing.Size(800, 24);
-            this.MainMenuStrip.TabIndex = 0;
-            this.MainMenuStrip.Text = "menuStrip1";
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // gestionToolStripMenuItem
             // 
             this.gestionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filieresToolStripMenuItem,
+            this.filiereToolStripMenuItem,
             this.matieresToolStripMenuItem,
             this.etudiantsToolStripMenuItem,
             this.notesToolStripMenuItem});
@@ -65,29 +65,31 @@ namespace GestionNotes
             this.gestionToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.gestionToolStripMenuItem.Text = "Gestion";
             // 
-            // filieresToolStripMenuItem
+            // filiereToolStripMenuItem
             // 
-            this.filieresToolStripMenuItem.Name = "filieresToolStripMenuItem";
-            this.filieresToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
-            this.filieresToolStripMenuItem.Text = "Filieres";
+            this.filiereToolStripMenuItem.Name = "filiereToolStripMenuItem";
+            this.filiereToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filiereToolStripMenuItem.Text = "Filieres";
             // 
             // matieresToolStripMenuItem
             // 
             this.matieresToolStripMenuItem.Name = "matieresToolStripMenuItem";
-            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.matieresToolStripMenuItem.Text = "Matieres";
             // 
             // etudiantsToolStripMenuItem
             // 
             this.etudiantsToolStripMenuItem.Name = "etudiantsToolStripMenuItem";
-            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.etudiantsToolStripMenuItem.Text = "Etudiants";
+            this.etudiantsToolStripMenuItem.Click += new System.EventHandler(this.etudiantsToolStripMenuItem_Click);
             // 
             // notesToolStripMenuItem
             // 
             this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
-            this.notesToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.notesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.notesToolStripMenuItem.Text = "Notes";
+            this.notesToolStripMenuItem.Click += new System.EventHandler(this.notesToolStripMenuItem_Click);
             // 
             // affichageToolStripMenuItem
             // 
@@ -95,30 +97,34 @@ namespace GestionNotes
             this.affichageToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.affichageToolStripMenuItem.Text = "Affichage";
             // 
-            // bilanToolStripMenuItem
+            // billanToolStripMenuItem
             // 
-            this.bilanToolStripMenuItem.Name = "bilanToolStripMenuItem";
-            this.bilanToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.bilanToolStripMenuItem.Text = "Bilan";
+            this.billanToolStripMenuItem.Name = "billanToolStripMenuItem";
+            this.billanToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.billanToolStripMenuItem.Text = "Billan";
             // 
             // quitterToolStripMenuItem
             // 
             this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
             this.quitterToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.quitterToolStripMenuItem.Text = "Quitter";
+            this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.MainMenuStrip);
-            this.MainMenuStrip = this.MainMenuStrip;
+            this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Home";
             this.Text = "Home";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.MainMenuStrip.ResumeLayout(false);
-            this.MainMenuStrip.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,14 +132,14 @@ namespace GestionNotes
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip MainMenuStrip;
+        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem gestionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem filieresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filiereToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matieresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem etudiantsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem notesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem affichageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bilanToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem billanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
     }
 }

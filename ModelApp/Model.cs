@@ -141,6 +141,7 @@ namespace ModelApp
             ch = Connection.GetTableFields(this.GetType().Name);
             Type type = null;
             string fieldName = "";
+            int index = 0;
 
             //sql query execution
             IDataReader reader = Connection.Select(sql);
@@ -153,7 +154,8 @@ namespace ModelApp
                 {
                     fieldName = ch.Keys.ElementAt(i);
                     type = SqlToType(ch.Values.ElementAt(i));
-                    dico.Add(fieldName, Convert.ChangeType(reader.GetValue(i), type));
+                    index = reader.GetOrdinal(fieldName);
+                    dico.Add(fieldName, Convert.ChangeType(reader.GetValue(index), type));
                 }
             }
 
@@ -194,6 +196,7 @@ namespace ModelApp
             ch = Connection.GetTableFields(this.GetType().Name);
             Type type = null;
             string fieldName = "";
+            int index = 0;
 
             //get all fields and the field(column) count
             IDataReader reader = Connection.Select(sql);
@@ -211,8 +214,11 @@ namespace ModelApp
                     //get type of field at col pos i, case insensitive
                     type = SqlToType(ch.Values.ElementAt(i));
 
+                    //get index of field in reader
+                    index = reader.GetOrdinal(fieldName);
+
                     //add column to dictionary and change the column type from object to the indicated type 
-                    dico.Add(fieldName, Convert.ChangeType(reader.GetValue(i), type));
+                    dico.Add(fieldName, Convert.ChangeType(reader.GetValue(index), type));
                 }
 
                 //add row to list
@@ -236,6 +242,7 @@ namespace ModelApp
             ch = Connection.GetTableFields(typeof(T).Name);
             Type type = null;
             string fieldName = "";
+            int index = 0;
 
 
             IDataReader reader = Connection.Select(sql);
@@ -247,7 +254,8 @@ namespace ModelApp
                 {
                     fieldName = ch.Keys.ElementAt(i);
                     type = SqlToType(ch.Values.ElementAt(i));
-                    dico.Add(fieldName, Convert.ChangeType(reader.GetValue(i), type));
+                    index = reader.GetOrdinal(fieldName);
+                    dico.Add(fieldName, Convert.ChangeType(reader.GetValue(index), type));
                 }
                 retList.Add((T) DictionaryToObject<T>(dico));
                 dico.Clear();
@@ -275,6 +283,7 @@ namespace ModelApp
             ch = Connection.GetTableFields(this.GetType().Name);
             Type type = null;
             string fieldName = "";
+            int index = 0;
 
             //get all fields and the field(column) count
             IDataReader reader = Connection.Select(sql);
@@ -292,8 +301,11 @@ namespace ModelApp
                     //get type of field at col pos i, case insensitive
                     type = SqlToType(ch.Values.ElementAt(i));
 
+                    //get index of field in reader
+                    index = reader.GetOrdinal(fieldName);
+
                     //add column to dictionary and change the column type from object to the indicated type 
-                    dicoRes.Add(fieldName, Convert.ChangeType(reader.GetValue(i), type));
+                    dicoRes.Add(fieldName, Convert.ChangeType(reader.GetValue(index), type));
                 }
 
                 //add row to list
@@ -323,6 +335,7 @@ namespace ModelApp
             ch = Connection.GetTableFields(typeof(T).Name);
             Type type = null;
             string fieldName = "";
+            int index = 0;
 
             //get all fields and the field(column) count
             IDataReader reader = Connection.Select(sql);
@@ -340,8 +353,11 @@ namespace ModelApp
                     //get type of field at col pos i, case insensitive
                     type = SqlToType(ch.Values.ElementAt(i));
 
+                    //get index of field in reader
+                    index = reader.GetOrdinal(fieldName);
+
                     //add column to dictionary and change the column type from object to the indicated type 
-                    dicoRes.Add(fieldName, Convert.ChangeType(reader.GetValue(i), type));
+                    dicoRes.Add(fieldName, Convert.ChangeType(reader.GetValue(index), type));
                 }
 
                 //add row to list
