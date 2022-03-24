@@ -58,7 +58,7 @@ namespace ModelApp
             return obj;
         }
 
-        public int save()
+        public int save(string procedure = null)
         {
             Dictionary<string, string> dico = new Dictionary<string, string>();
             dico = ObjectToDictionary<string>(this);
@@ -70,7 +70,7 @@ namespace ModelApp
                 try
                 {
                     Connection.resetCmd();
-                    sql = $"INSERT_{this.GetType().Name}";
+                    sql = procedure!=null ? procedure : throw new Exception("no procedure passed");
                     foreach (KeyValuePair<string, string> field in dico)
                     {
                         Connection.AddParameter(field.Key,field.Value);
@@ -104,7 +104,7 @@ namespace ModelApp
                 try
                 {
                     Connection.resetCmd();
-                    sql = $"UPDATE_{this.GetType().Name}";
+                    sql = procedure != null ? procedure : throw new Exception("no procedure passed");
                     foreach (KeyValuePair<string, string> field in dico)
                     {
                         Connection.AddParameter(field.Key, field.Value);
@@ -162,14 +162,14 @@ namespace ModelApp
             return DictionaryToObject(dico);
         }
 
-        public int delete()
+        public int delete(string procedure = null)
         {
             int ret = 0;
 
             try
             {
                 Connection.resetCmd();
-                sql = $"UPDATE_{this.GetType().Name}";
+                sql = procedure != null ? procedure : throw new Exception("no procedure passed");
                 Connection.AddParameter("id", id);
                 ret = Connection.IUD(sql);
             }
