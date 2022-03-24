@@ -11,7 +11,7 @@ this is the connection library, can connect to MsSql and MySql databases
 
 ### Classes:
 #### Connection 
-handles Connection to MySql and MsSql databases
+Library that handles Connection to MySql and MsSql databases
   - properties:
     - `IDbConnection con`  
     - `IDbConnection cmd`
@@ -67,7 +67,7 @@ handles Connection to MySql and MsSql databases
 
 #### Model
 inheritable abstract class that implements basic crud operations, and allows casting to a target class.  
-*side procedures used by the class have to be named `OPERATION_TABLE` example: `insert_Students`*.  
+*procedures are used by the class have to be named `OPERATION_TABLE` example: `insert_Students`*.  
 *all database operations are done on a table with the same name as the current class example: `Students`*.  
   - properties:
     - `int id`
