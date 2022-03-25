@@ -33,7 +33,7 @@ namespace Gestion_des_notes
             this.matiere = new System.Windows.Forms.Label();
             this.note = new System.Windows.Forms.Label();
             this.text_code_eleve = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.text_note = new System.Windows.Forms.TextBox();
             this.btn_nouveau = new System.Windows.Forms.Button();
             this.btn_ajouter = new System.Windows.Forms.Button();
             this.btn_modifier = new System.Windows.Forms.Button();
@@ -77,12 +77,12 @@ namespace Gestion_des_notes
             this.text_code_eleve.Size = new System.Drawing.Size(121, 23);
             this.text_code_eleve.TabIndex = 3;
             // 
-            // textBox3
+            // text_note
             // 
-            this.textBox3.Location = new System.Drawing.Point(272, 231);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 23);
-            this.textBox3.TabIndex = 5;
+            this.text_note.Location = new System.Drawing.Point(272, 231);
+            this.text_note.Name = "text_note";
+            this.text_note.Size = new System.Drawing.Size(121, 23);
+            this.text_note.TabIndex = 5;
             // 
             // btn_nouveau
             // 
@@ -148,13 +148,15 @@ namespace Gestion_des_notes
             this.Controls.Add(this.btn_modifier);
             this.Controls.Add(this.btn_ajouter);
             this.Controls.Add(this.btn_nouveau);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.text_note);
             this.Controls.Add(this.text_code_eleve);
             this.Controls.Add(this.note);
             this.Controls.Add(this.matiere);
             this.Controls.Add(this.code_eleve);
             this.Name = "Gestion_Notes";
             this.Text = "Gestion des notes";
+            this.Load += new System.EventHandler(this.Gestion_Notes_Load);
+            this.Shown += new System.EventHandler(this.Gestion_Notes_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -165,14 +167,14 @@ namespace Gestion_des_notes
         private System.Windows.Forms.Label code_eleve;
         private System.Windows.Forms.Label matiere;
         private System.Windows.Forms.Label note;
-        private System.Windows.Forms.TextBox text_code_eleve;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button btn_nouveau;
         private System.Windows.Forms.Button btn_ajouter;
         private System.Windows.Forms.Button btn_modifier;
         private System.Windows.Forms.Button btn_supprimer;
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.ComboBox comboBox_matiere;
+        public System.Windows.Forms.TextBox text_code_eleve;
+        public System.Windows.Forms.TextBox text_note;
     }
 }
 

@@ -21,5 +21,15 @@ namespace Gestion_des_notes
         {
 
         }
+
+        private void Gestion_Notes_Shown(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Gestion_Notes_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace ModelApp
 
         private dynamic DictionaryToObject(Dictionary<String, object> dico)
         {
-            if (dico.Count == 0) return null;
+            if (dico.Keys.Count == 0) return null;
 
             Type type = this.GetType();
             var obj = Activator.CreateInstance(type);
@@ -38,7 +38,7 @@ namespace ModelApp
 
         private static dynamic DictionaryToObject<T>(Dictionary<String, object> dico)
         {
-            if (dico.Count == 0) return null;
+            if (dico.Keys.Count == 0) return null;
 
             var obj = Activator.CreateInstance(typeof(T));
 
@@ -64,7 +64,9 @@ namespace ModelApp
             dico = ObjectToDictionary<string>(this);
             int ret = -1;
 
-            if (this.find() == null)
+            Model ExistanceCheck = this.find();
+
+            if (ExistanceCheck == null)
             {
                 //insert
                 try
@@ -134,7 +136,7 @@ namespace ModelApp
         {
             Dictionary<string, object> dico = new Dictionary<string, object>();
             Dictionary<string, string> ch = new Dictionary<string, string>();
-            sql = $"select * from {this.GetType().Name} where id='{id}'";
+            sql = $"select * from {this.GetType().Name} where id={id}";
 
             //field information
             ch = Connection.GetTableFields(this.GetType().Name);
@@ -322,11 +324,11 @@ namespace ModelApp
             Dictionary<string, string> ch = new Dictionary<string, string>();
             List<dynamic> retList = new List<dynamic>();
 
-            string sql = $"select * from {typeof(T).Name} where ";
+            string sql = $"select * from {typeof(T).Name} where";
 
             foreach (KeyValuePair<string, object> field in dico)
             {
-                sql += $"{field.Key} = '{field.Value.ToString()}' and";
+                sql += $" {field.Key} = '{field.Value.ToString()}' and";
             }
             sql = sql.Remove(sql.Length - 3);
 

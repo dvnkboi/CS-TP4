@@ -44,19 +44,13 @@ namespace Gestion_Etudiants
             this.check_niveau = new System.Windows.Forms.CheckBox();
             this.btn_nouveau = new System.Windows.Forms.Button();
             this.btn_ajouter = new System.Windows.Forms.Button();
-            this.btn_modifier = new System.Windows.Forms.Button();
             this.btn_supprimer = new System.Windows.Forms.Button();
             this.btn_rechercher = new System.Windows.Forms.Button();
             this.btn_gestionNotes = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.CodeElev = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prenom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.niveau = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.code_Fil = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.table_eleve = new System.Windows.Forms.DataGridView();
             this.text_filiere = new System.Windows.Forms.ComboBox();
             this.text_niveau = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.table_eleve)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -139,164 +133,128 @@ namespace Gestion_Etudiants
             // check_code
             // 
             this.check_code.AutoSize = true;
-            this.check_code.Location = new System.Drawing.Point(286, 28);
+            this.check_code.Location = new System.Drawing.Point(273, 31);
             this.check_code.Margin = new System.Windows.Forms.Padding(2);
             this.check_code.Name = "check_code";
             this.check_code.Size = new System.Drawing.Size(15, 14);
             this.check_code.TabIndex = 3;
             this.check_code.UseVisualStyleBackColor = true;
+            this.check_code.CheckedChanged += new System.EventHandler(this.check_code_CheckedChanged);
             // 
             // check_nom
             // 
             this.check_nom.AutoSize = true;
-            this.check_nom.Location = new System.Drawing.Point(286, 63);
+            this.check_nom.Location = new System.Drawing.Point(273, 66);
             this.check_nom.Margin = new System.Windows.Forms.Padding(2);
             this.check_nom.Name = "check_nom";
             this.check_nom.Size = new System.Drawing.Size(15, 14);
             this.check_nom.TabIndex = 3;
             this.check_nom.UseVisualStyleBackColor = true;
+            this.check_nom.CheckedChanged += new System.EventHandler(this.check_nom_CheckedChanged);
             // 
             // check_prenom
             // 
             this.check_prenom.AutoSize = true;
-            this.check_prenom.Location = new System.Drawing.Point(286, 95);
+            this.check_prenom.Location = new System.Drawing.Point(273, 98);
             this.check_prenom.Margin = new System.Windows.Forms.Padding(2);
             this.check_prenom.Name = "check_prenom";
             this.check_prenom.Size = new System.Drawing.Size(15, 14);
             this.check_prenom.TabIndex = 3;
             this.check_prenom.UseVisualStyleBackColor = true;
+            this.check_prenom.CheckedChanged += new System.EventHandler(this.check_prenom_CheckedChanged);
             // 
             // check_filiere
             // 
             this.check_filiere.AutoSize = true;
-            this.check_filiere.Location = new System.Drawing.Point(286, 126);
+            this.check_filiere.Location = new System.Drawing.Point(273, 128);
             this.check_filiere.Margin = new System.Windows.Forms.Padding(2);
             this.check_filiere.Name = "check_filiere";
             this.check_filiere.Size = new System.Drawing.Size(15, 14);
             this.check_filiere.TabIndex = 3;
             this.check_filiere.UseVisualStyleBackColor = true;
+            this.check_filiere.CheckedChanged += new System.EventHandler(this.check_filiere_CheckedChanged);
             // 
             // check_niveau
             // 
             this.check_niveau.AutoSize = true;
-            this.check_niveau.Location = new System.Drawing.Point(286, 157);
+            this.check_niveau.Location = new System.Drawing.Point(273, 158);
             this.check_niveau.Margin = new System.Windows.Forms.Padding(2);
             this.check_niveau.Name = "check_niveau";
             this.check_niveau.Size = new System.Drawing.Size(15, 14);
             this.check_niveau.TabIndex = 3;
             this.check_niveau.UseVisualStyleBackColor = true;
+            this.check_niveau.CheckedChanged += new System.EventHandler(this.check_niveau_CheckedChanged);
             // 
             // btn_nouveau
             // 
-            this.btn_nouveau.Location = new System.Drawing.Point(366, 25);
+            this.btn_nouveau.Location = new System.Drawing.Point(506, 27);
             this.btn_nouveau.Margin = new System.Windows.Forms.Padding(2);
             this.btn_nouveau.Name = "btn_nouveau";
-            this.btn_nouveau.Size = new System.Drawing.Size(149, 22);
+            this.btn_nouveau.Size = new System.Drawing.Size(149, 27);
             this.btn_nouveau.TabIndex = 4;
             this.btn_nouveau.Text = "Nouveau";
             this.btn_nouveau.UseVisualStyleBackColor = true;
+            this.btn_nouveau.Click += new System.EventHandler(this.btn_nouveau_Click);
             // 
             // btn_ajouter
             // 
-            this.btn_ajouter.Location = new System.Drawing.Point(366, 59);
+            this.btn_ajouter.Location = new System.Drawing.Point(506, 58);
             this.btn_ajouter.Margin = new System.Windows.Forms.Padding(2);
             this.btn_ajouter.Name = "btn_ajouter";
-            this.btn_ajouter.Size = new System.Drawing.Size(149, 22);
+            this.btn_ajouter.Size = new System.Drawing.Size(149, 27);
             this.btn_ajouter.TabIndex = 5;
-            this.btn_ajouter.Text = "Ajouter";
+            this.btn_ajouter.Text = "Sauvgarder";
             this.btn_ajouter.UseVisualStyleBackColor = true;
-            // 
-            // btn_modifier
-            // 
-            this.btn_modifier.Location = new System.Drawing.Point(366, 94);
-            this.btn_modifier.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_modifier.Name = "btn_modifier";
-            this.btn_modifier.Size = new System.Drawing.Size(149, 20);
-            this.btn_modifier.TabIndex = 6;
-            this.btn_modifier.Text = "Modifier";
-            this.btn_modifier.UseVisualStyleBackColor = true;
+            this.btn_ajouter.Click += new System.EventHandler(this.btn_ajouter_Click);
             // 
             // btn_supprimer
             // 
-            this.btn_supprimer.Location = new System.Drawing.Point(366, 121);
+            this.btn_supprimer.Location = new System.Drawing.Point(506, 89);
             this.btn_supprimer.Margin = new System.Windows.Forms.Padding(2);
             this.btn_supprimer.Name = "btn_supprimer";
-            this.btn_supprimer.Size = new System.Drawing.Size(149, 20);
+            this.btn_supprimer.Size = new System.Drawing.Size(149, 27);
             this.btn_supprimer.TabIndex = 7;
             this.btn_supprimer.Text = "Supprimer";
             this.btn_supprimer.UseVisualStyleBackColor = true;
+            this.btn_supprimer.Click += new System.EventHandler(this.btn_supprimer_Click);
             // 
             // btn_rechercher
             // 
-            this.btn_rechercher.Location = new System.Drawing.Point(366, 151);
+            this.btn_rechercher.Location = new System.Drawing.Point(506, 120);
             this.btn_rechercher.Margin = new System.Windows.Forms.Padding(2);
             this.btn_rechercher.Name = "btn_rechercher";
-            this.btn_rechercher.Size = new System.Drawing.Size(149, 22);
+            this.btn_rechercher.Size = new System.Drawing.Size(149, 27);
             this.btn_rechercher.TabIndex = 8;
             this.btn_rechercher.Text = "Rechercher";
             this.btn_rechercher.UseVisualStyleBackColor = true;
+            this.btn_rechercher.Click += new System.EventHandler(this.btn_rechercher_Click);
             // 
             // btn_gestionNotes
             // 
-            this.btn_gestionNotes.Location = new System.Drawing.Point(366, 181);
+            this.btn_gestionNotes.Location = new System.Drawing.Point(453, 201);
             this.btn_gestionNotes.Margin = new System.Windows.Forms.Padding(2);
             this.btn_gestionNotes.Name = "btn_gestionNotes";
-            this.btn_gestionNotes.Size = new System.Drawing.Size(202, 22);
+            this.btn_gestionNotes.Size = new System.Drawing.Size(202, 27);
             this.btn_gestionNotes.TabIndex = 9;
             this.btn_gestionNotes.Text = "Gestion des notes";
             this.btn_gestionNotes.UseVisualStyleBackColor = true;
+            this.btn_gestionNotes.Click += new System.EventHandler(this.btn_gestionNotes_Click);
             // 
-            // dataGridView1
+            // table_eleve
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CodeElev,
-            this.nom,
-            this.prenom,
-            this.niveau,
-            this.code_Fil});
-            this.dataGridView1.Location = new System.Drawing.Point(10, 232);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(645, 184);
-            this.dataGridView1.TabIndex = 10;
-            // 
-            // CodeElev
-            // 
-            this.CodeElev.HeaderText = "CodeElev";
-            this.CodeElev.MinimumWidth = 8;
-            this.CodeElev.Name = "CodeElev";
-            this.CodeElev.Width = 150;
-            // 
-            // nom
-            // 
-            this.nom.HeaderText = "nom";
-            this.nom.MinimumWidth = 8;
-            this.nom.Name = "nom";
-            this.nom.Width = 150;
-            // 
-            // prenom
-            // 
-            this.prenom.HeaderText = "prenom";
-            this.prenom.MinimumWidth = 8;
-            this.prenom.Name = "prenom";
-            this.prenom.Width = 150;
-            // 
-            // niveau
-            // 
-            this.niveau.HeaderText = "niveau";
-            this.niveau.MinimumWidth = 8;
-            this.niveau.Name = "niveau";
-            this.niveau.Width = 150;
-            // 
-            // code_Fil
-            // 
-            this.code_Fil.HeaderText = "code_fil";
-            this.code_Fil.MinimumWidth = 8;
-            this.code_Fil.Name = "code_Fil";
-            this.code_Fil.Width = 150;
+            this.table_eleve.AllowUserToAddRows = false;
+            this.table_eleve.AllowUserToDeleteRows = false;
+            this.table_eleve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.table_eleve.Location = new System.Drawing.Point(10, 232);
+            this.table_eleve.Margin = new System.Windows.Forms.Padding(2);
+            this.table_eleve.Name = "table_eleve";
+            this.table_eleve.ReadOnly = true;
+            this.table_eleve.RowHeadersWidth = 62;
+            this.table_eleve.RowTemplate.Height = 28;
+            this.table_eleve.Size = new System.Drawing.Size(668, 184);
+            this.table_eleve.TabIndex = 10;
+            this.table_eleve.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_eleve_CellContentClick);
+            this.table_eleve.SelectionChanged += new System.EventHandler(this.table_eleve_SelectionChanged);
             // 
             // text_filiere
             // 
@@ -306,6 +264,7 @@ namespace Gestion_Etudiants
             this.text_filiere.Name = "text_filiere";
             this.text_filiere.Size = new System.Drawing.Size(157, 23);
             this.text_filiere.TabIndex = 11;
+            this.text_filiere.SelectedIndexChanged += new System.EventHandler(this.text_filiere_SelectedIndexChanged);
             // 
             // text_niveau
             // 
@@ -323,11 +282,10 @@ namespace Gestion_Etudiants
             this.ClientSize = new System.Drawing.Size(689, 425);
             this.Controls.Add(this.text_niveau);
             this.Controls.Add(this.text_filiere);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.table_eleve);
             this.Controls.Add(this.btn_gestionNotes);
             this.Controls.Add(this.btn_rechercher);
             this.Controls.Add(this.btn_supprimer);
-            this.Controls.Add(this.btn_modifier);
             this.Controls.Add(this.btn_ajouter);
             this.Controls.Add(this.btn_nouveau);
             this.Controls.Add(this.check_niveau);
@@ -346,7 +304,8 @@ namespace Gestion_Etudiants
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Gestion_Etudiants";
             this.Text = "Gestion des étudiants";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Gestion_Etudiants_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.table_eleve)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,16 +328,10 @@ namespace Gestion_Etudiants
         private System.Windows.Forms.CheckBox check_niveau;
         private System.Windows.Forms.Button btn_nouveau;
         private System.Windows.Forms.Button btn_ajouter;
-        private System.Windows.Forms.Button btn_modifier;
         private System.Windows.Forms.Button btn_supprimer;
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.Button btn_gestionNotes;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CodeElev;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prenom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn niveau;
-        private System.Windows.Forms.DataGridViewTextBoxColumn code_Fil;
+        private System.Windows.Forms.DataGridView table_eleve;
         private System.Windows.Forms.ComboBox text_filiere;
         private System.Windows.Forms.ComboBox text_niveau;
     }
