@@ -50,7 +50,7 @@ namespace Gestion_Etudiants
             text_niveau.Enabled = false;
             text_nom.Enabled = false;
             text_prenom.Enabled = false;
-            
+
         }
 
         private void table_eleve_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -101,10 +101,18 @@ namespace Gestion_Etudiants
                            select a.id).FirstOrDefault<int>() + 1;
 
             Eleve existanceCheck = (from Eleve a in elvs
-                           where a.code == text_code.Text
-                           select a).FirstOrDefault<Eleve>();
+                                    where a.code == text_code.Text
+                                    select a).FirstOrDefault<Eleve>();
 
-            Eleve elv = new Eleve { id = existanceCheck != null ? existanceCheck.id : nextInt  , code = text_code.Text, nom = text_nom.Text, prenom = text_prenom.Text, code_fil = text_filiere.Text, niveau = text_niveau.Text };
+            Eleve elv = new Eleve
+            {
+                id = existanceCheck != null ? existanceCheck.id : nextInt,
+                code = text_code.Text,
+                nom = text_nom.Text,
+                prenom = text_prenom.Text,
+                code_fil = text_filiere.Text,
+                niveau = text_niveau.Text
+            };
             elv.save();
             elvs = Eleve.All<Eleve>();
             table_eleve.DataSource = null;
@@ -126,10 +134,10 @@ namespace Gestion_Etudiants
         private void btn_rechercher_Click(object sender, EventArgs e)
         {
             Eleve elv = (Eleve)Eleve.select<Eleve>(GenCriteria()).First();
-            setInputs(elv.code,elv.nom,elv.prenom,elv.code_fil,elv.niveau);
+            setInputs(elv.code, elv.nom, elv.prenom, elv.code_fil, elv.niveau);
         }
 
-        private Dictionary<string,object> GenCriteria()
+        private Dictionary<string, object> GenCriteria()
         {
             Dictionary<string, object> criteria = new Dictionary<string, object>();
             if (text_code.Enabled == true) criteria.Add("code", text_code.Text);
@@ -142,7 +150,7 @@ namespace Gestion_Etudiants
 
         private void setInputs(string cod, string nom, string pre, string fil, string niv)
         {
-            text_code.Text = cod; 
+            text_code.Text = cod;
             text_nom.Text = nom;
             text_prenom.Text = pre;
             text_filiere.Text = fil;
@@ -158,11 +166,8 @@ namespace Gestion_Etudiants
         private void btn_gestionNotes_Click(object sender, EventArgs e)
         {
             Gestion_des_notes.Gestion_Notes gn = new Gestion_des_notes.Gestion_Notes();
-            gn.text_code_eleve.Text = ((Eleve) table_eleve.Rows?[table_eleve.SelectedCells.Count > 0 ? table_eleve.SelectedCells[0].RowIndex : 0].DataBoundItem).code;
+            gn.text_code_eleve.Text = ((Eleve)table_eleve.Rows?[table_eleve.SelectedCells.Count > 0 ? table_eleve.SelectedCells[0].RowIndex : 0].DataBoundItem).code;
             gn.ShowDialog();
-
-
-
         }
     }
 }

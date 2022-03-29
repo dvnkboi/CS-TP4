@@ -31,7 +31,7 @@ namespace ModelApp
             foreach (var kv in dico)
             {
                 PropertyInfo info = type.GetProperty(kv.Key);
-                info.SetValue(obj, kv.Value);
+                info.SetValue(obj, Convert.ChangeType(kv.Value, info.PropertyType));
             }
             return Convert.ChangeType(obj,this.GetType());
         }
@@ -53,7 +53,7 @@ namespace ModelApp
                     value = DictionaryToObject<T>((Dictionary<string, object>)value);
                 }
 
-                prop.SetValue(obj, value, null);
+                prop.SetValue(obj, Convert.ChangeType(value, prop.PropertyType) , null);
             }
             return obj;
         }

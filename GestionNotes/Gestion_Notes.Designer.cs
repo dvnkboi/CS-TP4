@@ -35,8 +35,7 @@ namespace Gestion_des_notes
             this.text_code_eleve = new System.Windows.Forms.TextBox();
             this.text_note = new System.Windows.Forms.TextBox();
             this.btn_nouveau = new System.Windows.Forms.Button();
-            this.btn_ajouter = new System.Windows.Forms.Button();
-            this.btn_modifier = new System.Windows.Forms.Button();
+            this.btn_save = new System.Windows.Forms.Button();
             this.btn_supprimer = new System.Windows.Forms.Button();
             this.btn_rechercher = new System.Windows.Forms.Button();
             this.comboBox_matiere = new System.Windows.Forms.ComboBox();
@@ -92,24 +91,17 @@ namespace Gestion_des_notes
             this.btn_nouveau.TabIndex = 6;
             this.btn_nouveau.Text = "Nouveau";
             this.btn_nouveau.UseVisualStyleBackColor = true;
+            this.btn_nouveau.Click += new System.EventHandler(this.btn_nouveau_Click);
             // 
-            // btn_ajouter
+            // btn_save
             // 
-            this.btn_ajouter.Location = new System.Drawing.Point(544, 151);
-            this.btn_ajouter.Name = "btn_ajouter";
-            this.btn_ajouter.Size = new System.Drawing.Size(141, 23);
-            this.btn_ajouter.TabIndex = 7;
-            this.btn_ajouter.Text = "Ajouter";
-            this.btn_ajouter.UseVisualStyleBackColor = true;
-            // 
-            // btn_modifier
-            // 
-            this.btn_modifier.Location = new System.Drawing.Point(544, 230);
-            this.btn_modifier.Name = "btn_modifier";
-            this.btn_modifier.Size = new System.Drawing.Size(141, 23);
-            this.btn_modifier.TabIndex = 8;
-            this.btn_modifier.Text = "Modifier";
-            this.btn_modifier.UseVisualStyleBackColor = true;
+            this.btn_save.Location = new System.Drawing.Point(544, 151);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(141, 23);
+            this.btn_save.TabIndex = 7;
+            this.btn_save.Text = "Sauvegarder";
+            this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
             // btn_supprimer
             // 
@@ -119,6 +111,7 @@ namespace Gestion_des_notes
             this.btn_supprimer.TabIndex = 9;
             this.btn_supprimer.Text = "Supprimer";
             this.btn_supprimer.UseVisualStyleBackColor = true;
+            this.btn_supprimer.Click += new System.EventHandler(this.btn_supprimer_Click);
             // 
             // btn_rechercher
             // 
@@ -128,6 +121,7 @@ namespace Gestion_des_notes
             this.btn_rechercher.TabIndex = 10;
             this.btn_rechercher.Text = "Rechercher";
             this.btn_rechercher.UseVisualStyleBackColor = true;
+            this.btn_rechercher.Click += new System.EventHandler(this.btn_rechercher_Click);
             // 
             // comboBox_matiere
             // 
@@ -136,6 +130,7 @@ namespace Gestion_des_notes
             this.comboBox_matiere.Name = "comboBox_matiere";
             this.comboBox_matiere.Size = new System.Drawing.Size(121, 23);
             this.comboBox_matiere.TabIndex = 11;
+            this.comboBox_matiere.SelectedIndexChanged += new System.EventHandler(this.comboBox_matiere_SelectedIndexChanged);
             // 
             // Gestion_Notes
             // 
@@ -145,8 +140,7 @@ namespace Gestion_des_notes
             this.Controls.Add(this.comboBox_matiere);
             this.Controls.Add(this.btn_rechercher);
             this.Controls.Add(this.btn_supprimer);
-            this.Controls.Add(this.btn_modifier);
-            this.Controls.Add(this.btn_ajouter);
+            this.Controls.Add(this.btn_save);
             this.Controls.Add(this.btn_nouveau);
             this.Controls.Add(this.text_note);
             this.Controls.Add(this.text_code_eleve);
@@ -168,8 +162,7 @@ namespace Gestion_des_notes
         private System.Windows.Forms.Label matiere;
         private System.Windows.Forms.Label note;
         private System.Windows.Forms.Button btn_nouveau;
-        private System.Windows.Forms.Button btn_ajouter;
-        private System.Windows.Forms.Button btn_modifier;
+        private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.Button btn_supprimer;
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.ComboBox comboBox_matiere;
