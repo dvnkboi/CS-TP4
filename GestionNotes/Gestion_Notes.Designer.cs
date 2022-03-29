@@ -39,6 +39,7 @@ namespace Gestion_des_notes
             this.btn_supprimer = new System.Windows.Forms.Button();
             this.btn_rechercher = new System.Windows.Forms.Button();
             this.comboBox_matiere = new System.Windows.Forms.ComboBox();
+            this.label_state = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // code_eleve
@@ -132,11 +133,23 @@ namespace Gestion_des_notes
             this.comboBox_matiere.TabIndex = 11;
             this.comboBox_matiere.SelectedIndexChanged += new System.EventHandler(this.comboBox_matiere_SelectedIndexChanged);
             // 
+            // label_state
+            // 
+            this.label_state.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_state.AutoSize = true;
+            this.label_state.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label_state.Location = new System.Drawing.Point(892, 262);
+            this.label_state.Name = "label_state";
+            this.label_state.Size = new System.Drawing.Size(0, 15);
+            this.label_state.TabIndex = 12;
+            this.label_state.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Gestion_Notes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(946, 290);
+            this.Controls.Add(this.label_state);
             this.Controls.Add(this.comboBox_matiere);
             this.Controls.Add(this.btn_rechercher);
             this.Controls.Add(this.btn_supprimer);
@@ -147,6 +160,9 @@ namespace Gestion_des_notes
             this.Controls.Add(this.note);
             this.Controls.Add(this.matiere);
             this.Controls.Add(this.code_eleve);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximumSize = new System.Drawing.Size(962, 329);
+            this.MinimumSize = new System.Drawing.Size(962, 329);
             this.Name = "Gestion_Notes";
             this.Text = "Gestion des notes";
             this.Load += new System.EventHandler(this.Gestion_Notes_Load);
@@ -168,6 +184,7 @@ namespace Gestion_des_notes
         private System.Windows.Forms.ComboBox comboBox_matiere;
         public System.Windows.Forms.TextBox text_code_eleve;
         public System.Windows.Forms.TextBox text_note;
+        private System.Windows.Forms.Label label_state;
     }
 }
 

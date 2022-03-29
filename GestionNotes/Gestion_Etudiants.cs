@@ -12,6 +12,9 @@ namespace Gestion_Etudiants
         List<dynamic> elvs = null;
         List<dynamic> fil = null;
         List<dynamic> niv = null;
+        private Eleve selectedElv;
+        private bool tableSet;
+
         public Gestion_Etudiants()
         {
             elvs = Eleve.All<Eleve>();
@@ -94,57 +97,83 @@ namespace Gestion_Etudiants
 
         private void btn_ajouter_Click(object sender, EventArgs e)
         {
+            opDone("");
             if (text_code.Text == "" || text_filiere.Text == "") return;
 
-            int nextInt = (from Eleve a in elvs
-                           orderby a.id descending
-                           select a.id).FirstOrDefault<int>() + 1;
+            int unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
 
             Eleve existanceCheck = (from Eleve a in elvs
                                     where a.code == text_code.Text
                                     select a).FirstOrDefault<Eleve>();
 
-            Eleve elv = new Eleve
+            selectedElv = new Eleve
             {
-                id = existanceCheck != null ? existanceCheck.id : nextInt,
+                id = existanceCheck != null ? existanceCheck.id : unixTimestamp,
                 code = text_code.Text,
                 nom = text_nom.Text,
                 prenom = text_prenom.Text,
                 code_fil = text_filiere.Text,
                 niveau = text_niveau.Text
             };
-            elv.save();
-            elvs = Eleve.All<Eleve>();
-            table_eleve.DataSource = null;
-            table_eleve.DataSource = elvs;
+
+            selectedElv.save();
+
+            resetTable();
+            selectCurrent();
+            opDone("Saved");
         }
 
         private void btn_supprimer_Click(object sender, EventArgs e)
         {
-            Eleve elv = (Eleve)Eleve.select<Eleve>(GenCriteria()).First();
-            if (elv != null)
-            {
-                elv.delete();
-                elvs = Eleve.All<Eleve>();
-                table_eleve.DataSource = null;
-                table_eleve.DataSource = elvs;
-            }
+            opDone("");
+            selectedElv.delete();
+            resetTable();
+            opDone("Deleted");
         }
 
         private void btn_rechercher_Click(object sender, EventArgs e)
         {
-            Eleve elv = (Eleve)Eleve.select<Eleve>(GenCriteria()).First();
-            setInputs(elv.code, elv.nom, elv.prenom, elv.code_fil, elv.niveau);
+            Dictionary<string, object> criteria = GenCriteria();
+
+            if (criteria.Count == 0)
+            {
+                MessageBox.Show(
+                    "No search criteria was given",
+                    "Empty criteria",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            selectedElv = (Eleve)Eleve.select<Eleve>(criteria).FirstOrDefault();
+
+            if (selectedElv == null)
+            {
+                MessageBox.Show(
+                    "No Student found with the given criteria",
+                    "No result found",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            setInputs(selectedElv.code, selectedElv.nom, selectedElv.prenom, selectedElv.code_fil, selectedElv.niveau);
+            selectCurrent();
         }
 
         private Dictionary<string, object> GenCriteria()
         {
             Dictionary<string, object> criteria = new Dictionary<string, object>();
-            if (text_code.Enabled == true) criteria.Add("code", text_code.Text);
-            if (text_nom.Enabled == true) criteria.Add("nom", text_nom.Text);
-            if (text_prenom.Enabled == true) criteria.Add("prenom", text_prenom.Text);
-            if (text_niveau.Enabled == true) criteria.Add("niveau", text_niveau.Text);
-            if (text_filiere.Enabled == true) criteria.Add("code_fil", text_filiere.Text);
+            if (text_code.Enabled == true && text_code.Text != "") {
+                criteria.Add("code", text_code.Text);
+                return criteria;
+            };
+            if (text_nom.Enabled == true && text_nom.Text != "") criteria.Add("nom", text_nom.Text);
+            if (text_prenom.Enabled == true && text_prenom.Text != "") criteria.Add("prenom", text_prenom.Text);
+            if (text_niveau.Enabled == true && text_niveau.Text != "") criteria.Add("niveau", text_niveau.Text);
+            if (text_filiere.Enabled == true && text_filiere.Text != "") criteria.Add("code_fil", text_filiere.Text);
             return criteria;
         }
 
@@ -159,15 +188,40 @@ namespace Gestion_Etudiants
 
         private void table_eleve_SelectionChanged(object sender, EventArgs e)
         {
-            Eleve elv = (Eleve)table_eleve.Rows?[table_eleve.SelectedCells.Count > 0 ? table_eleve.SelectedCells[0].RowIndex : 0].DataBoundItem;
-            setInputs(elv.code, elv.nom, elv.prenom, elv.code_fil, elv.niveau);
+            if (tableSet) return;
+            selectedElv = (Eleve)table_eleve.Rows?[table_eleve.SelectedCells.Count > 0 ? table_eleve.SelectedCells[0].RowIndex : 0].DataBoundItem;
+            setInputs(selectedElv.code, selectedElv.nom, selectedElv.prenom, selectedElv.code_fil, selectedElv.niveau);
         }
 
         private void btn_gestionNotes_Click(object sender, EventArgs e)
         {
             Gestion_des_notes.Gestion_Notes gn = new Gestion_des_notes.Gestion_Notes();
-            gn.text_code_eleve.Text = ((Eleve)table_eleve.Rows?[table_eleve.SelectedCells.Count > 0 ? table_eleve.SelectedCells[0].RowIndex : 0].DataBoundItem).code;
+            gn.text_code_eleve.Text = selectedElv.code;
             gn.ShowDialog();
+        }
+
+        private void resetTable()
+        {
+            elvs = Eleve.All<Eleve>();
+            table_eleve.DataSource = null;
+            table_eleve.DataSource = elvs;
+        }
+
+        private void selectCurrent()
+        {
+            tableSet = true;
+            table_eleve.ClearSelection();
+            table_eleve.Rows
+                .OfType<DataGridViewRow>()
+                 .Where(elv => (string)elv.Cells["code"].Value == selectedElv.code)
+                 .ToArray<DataGridViewRow>()[0]
+                 .Selected = true;
+            tableSet = false;
+        }
+
+        private void opDone(string msg = "Done")
+        {
+            label_state.Text = msg;
         }
     }
 }

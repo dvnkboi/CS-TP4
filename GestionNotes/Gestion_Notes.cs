@@ -17,6 +17,7 @@ namespace Gestion_des_notes
         private Matiere selectedMat;
         private Eleve selectedElv;
         private Note selectedNote;
+        private int init;
 
         public Gestion_Notes()
         {
@@ -37,6 +38,7 @@ namespace Gestion_des_notes
         private void Gestion_Notes_Load(object sender, EventArgs e)
         {
             btn_rechercher_Click(sender, e);
+            init++;
         }
 
         private void btn_nouveau_Click(object sender, EventArgs e)
@@ -49,9 +51,36 @@ namespace Gestion_des_notes
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            int unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            Note note = new Note { id = unixTimestamp, code_mat = selectedMat.code, code_elv = selectedElv.code, note = text_note.Text != "" ? float.Parse(text_note.Text) : 0 };
-            note.save();
+            opDone("");
+            int unixTimestamp = selectedNote == null ? (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds : selectedNote.id;
+
+            try
+            {
+                if (float.Parse(text_note.Text) < 0 || float.Parse(text_note.Text) > 20)
+                {
+                    MessageBox.Show(
+                        "Note cannot be above 20 or bellow 0",
+                        "invalid note",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Note has to be a number",
+                    "invalid note",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            selectedNote = new Note { id = unixTimestamp, code_mat = selectedMat.code, code_elv = selectedElv.code, note = text_note.Text != "" ? float.Parse(text_note.Text) : 0 };
+            selectedNote.save();
+            opDone("Saved");
         }
 
         private void comboBox_matiere_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,9 +96,31 @@ namespace Gestion_des_notes
 
         private void btn_rechercher_Click(object sender, EventArgs e)
         {
+            if (text_code_eleve.Text == "" && init > 0)
+            {
+                MessageBox.Show(
+                    "Student ID can't be empty",
+                    "Empty criteria",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            if (text_code_eleve.Text == "") return;
+
             Dictionary<string, object> criteria = new Dictionary<string, object>();
             criteria.Add("code", text_code_eleve.Text);
             selectedElv = (Eleve)Eleve.select<Eleve>(criteria).FirstOrDefault();
+            if (selectedElv == null && init > 0)
+            {
+                MessageBox.Show(
+                    "No Student found with this student ID",
+                    "No result found",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
             if (selectedElv == null) return;
 
             matieres.Clear();
@@ -99,8 +150,15 @@ namespace Gestion_des_notes
 
         private void btn_supprimer_Click(object sender, EventArgs e)
         {
+            opDone("");
             selectedNote.delete();
             text_note.Text = "";
+            opDone("Deleted");
+        }
+
+        private void opDone(string msg = "Done")
+        {
+            label_state.Text = msg;
         }
     }
 }

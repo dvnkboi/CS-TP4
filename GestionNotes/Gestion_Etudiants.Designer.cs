@@ -50,13 +50,14 @@ namespace Gestion_Etudiants
             this.table_eleve = new System.Windows.Forms.DataGridView();
             this.text_filiere = new System.Windows.Forms.ComboBox();
             this.text_niveau = new System.Windows.Forms.ComboBox();
+            this.label_state = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.table_eleve)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(47, 27);
+            this.label1.Location = new System.Drawing.Point(32, 28);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 15);
@@ -67,7 +68,7 @@ namespace Gestion_Etudiants
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 60);
+            this.label2.Location = new System.Drawing.Point(32, 61);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 15);
@@ -78,7 +79,7 @@ namespace Gestion_Etudiants
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(47, 94);
+            this.label3.Location = new System.Drawing.Point(32, 95);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 15);
@@ -88,7 +89,7 @@ namespace Gestion_Etudiants
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(47, 124);
+            this.label4.Location = new System.Drawing.Point(32, 125);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 15);
@@ -98,7 +99,7 @@ namespace Gestion_Etudiants
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(47, 158);
+            this.label5.Location = new System.Drawing.Point(32, 159);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 15);
@@ -107,7 +108,7 @@ namespace Gestion_Etudiants
             // 
             // text_nom
             // 
-            this.text_nom.Location = new System.Drawing.Point(103, 62);
+            this.text_nom.Location = new System.Drawing.Point(88, 63);
             this.text_nom.Margin = new System.Windows.Forms.Padding(2);
             this.text_nom.Name = "text_nom";
             this.text_nom.Size = new System.Drawing.Size(157, 23);
@@ -115,7 +116,7 @@ namespace Gestion_Etudiants
             // 
             // text_code
             // 
-            this.text_code.Location = new System.Drawing.Point(103, 27);
+            this.text_code.Location = new System.Drawing.Point(88, 28);
             this.text_code.Margin = new System.Windows.Forms.Padding(2);
             this.text_code.Name = "text_code";
             this.text_code.Size = new System.Drawing.Size(157, 23);
@@ -124,7 +125,7 @@ namespace Gestion_Etudiants
             // 
             // text_prenom
             // 
-            this.text_prenom.Location = new System.Drawing.Point(103, 94);
+            this.text_prenom.Location = new System.Drawing.Point(88, 95);
             this.text_prenom.Margin = new System.Windows.Forms.Padding(2);
             this.text_prenom.Name = "text_prenom";
             this.text_prenom.Size = new System.Drawing.Size(157, 23);
@@ -133,7 +134,7 @@ namespace Gestion_Etudiants
             // check_code
             // 
             this.check_code.AutoSize = true;
-            this.check_code.Location = new System.Drawing.Point(273, 31);
+            this.check_code.Location = new System.Drawing.Point(258, 32);
             this.check_code.Margin = new System.Windows.Forms.Padding(2);
             this.check_code.Name = "check_code";
             this.check_code.Size = new System.Drawing.Size(15, 14);
@@ -144,7 +145,7 @@ namespace Gestion_Etudiants
             // check_nom
             // 
             this.check_nom.AutoSize = true;
-            this.check_nom.Location = new System.Drawing.Point(273, 66);
+            this.check_nom.Location = new System.Drawing.Point(258, 67);
             this.check_nom.Margin = new System.Windows.Forms.Padding(2);
             this.check_nom.Name = "check_nom";
             this.check_nom.Size = new System.Drawing.Size(15, 14);
@@ -155,7 +156,7 @@ namespace Gestion_Etudiants
             // check_prenom
             // 
             this.check_prenom.AutoSize = true;
-            this.check_prenom.Location = new System.Drawing.Point(273, 98);
+            this.check_prenom.Location = new System.Drawing.Point(258, 99);
             this.check_prenom.Margin = new System.Windows.Forms.Padding(2);
             this.check_prenom.Name = "check_prenom";
             this.check_prenom.Size = new System.Drawing.Size(15, 14);
@@ -166,7 +167,7 @@ namespace Gestion_Etudiants
             // check_filiere
             // 
             this.check_filiere.AutoSize = true;
-            this.check_filiere.Location = new System.Drawing.Point(273, 128);
+            this.check_filiere.Location = new System.Drawing.Point(258, 129);
             this.check_filiere.Margin = new System.Windows.Forms.Padding(2);
             this.check_filiere.Name = "check_filiere";
             this.check_filiere.Size = new System.Drawing.Size(15, 14);
@@ -177,7 +178,7 @@ namespace Gestion_Etudiants
             // check_niveau
             // 
             this.check_niveau.AutoSize = true;
-            this.check_niveau.Location = new System.Drawing.Point(273, 158);
+            this.check_niveau.Location = new System.Drawing.Point(258, 159);
             this.check_niveau.Margin = new System.Windows.Forms.Padding(2);
             this.check_niveau.Name = "check_niveau";
             this.check_niveau.Size = new System.Drawing.Size(15, 14);
@@ -244,6 +245,7 @@ namespace Gestion_Etudiants
             // 
             this.table_eleve.AllowUserToAddRows = false;
             this.table_eleve.AllowUserToDeleteRows = false;
+            this.table_eleve.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.table_eleve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.table_eleve.Location = new System.Drawing.Point(10, 232);
             this.table_eleve.Margin = new System.Windows.Forms.Padding(2);
@@ -259,7 +261,7 @@ namespace Gestion_Etudiants
             // text_filiere
             // 
             this.text_filiere.FormattingEnabled = true;
-            this.text_filiere.Location = new System.Drawing.Point(103, 124);
+            this.text_filiere.Location = new System.Drawing.Point(88, 125);
             this.text_filiere.Margin = new System.Windows.Forms.Padding(2);
             this.text_filiere.Name = "text_filiere";
             this.text_filiere.Size = new System.Drawing.Size(157, 23);
@@ -269,17 +271,28 @@ namespace Gestion_Etudiants
             // text_niveau
             // 
             this.text_niveau.FormattingEnabled = true;
-            this.text_niveau.Location = new System.Drawing.Point(103, 154);
+            this.text_niveau.Location = new System.Drawing.Point(88, 155);
             this.text_niveau.Margin = new System.Windows.Forms.Padding(2);
             this.text_niveau.Name = "text_niveau";
             this.text_niveau.Size = new System.Drawing.Size(157, 23);
             this.text_niveau.TabIndex = 11;
             // 
+            // label_state
+            // 
+            this.label_state.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_state.AutoSize = true;
+            this.label_state.Location = new System.Drawing.Point(642, 418);
+            this.label_state.Name = "label_state";
+            this.label_state.Size = new System.Drawing.Size(0, 15);
+            this.label_state.TabIndex = 13;
+            this.label_state.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Gestion_Etudiants
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(689, 425);
+            this.ClientSize = new System.Drawing.Size(689, 442);
+            this.Controls.Add(this.label_state);
             this.Controls.Add(this.text_niveau);
             this.Controls.Add(this.text_filiere);
             this.Controls.Add(this.table_eleve);
@@ -301,7 +314,10 @@ namespace Gestion_Etudiants
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximumSize = new System.Drawing.Size(705, 481);
+            this.MinimumSize = new System.Drawing.Size(705, 481);
             this.Name = "Gestion_Etudiants";
             this.Text = "Gestion des étudiants";
             this.Load += new System.EventHandler(this.Gestion_Etudiants_Load);
@@ -334,6 +350,7 @@ namespace Gestion_Etudiants
         private System.Windows.Forms.DataGridView table_eleve;
         private System.Windows.Forms.ComboBox text_filiere;
         private System.Windows.Forms.ComboBox text_niveau;
+        private System.Windows.Forms.Label label_state;
     }
 }
 
