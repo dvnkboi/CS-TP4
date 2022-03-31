@@ -14,7 +14,7 @@ namespace Bilan_Annuel
     public partial class Bilan_Annuel : Form
     {
         private List<dynamic> filieres;
-        private List<dynamic> matieres;
+        private List<dynamic> eleves;
         private List<dynamic> niveaus;
         private Eleve selectedElv;
         private Filiere selectedFil;
@@ -53,6 +53,7 @@ namespace Bilan_Annuel
             comboBox_niveau.Items.Clear();
             niveaus = (from m in Module.@select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code } })
                        select m.niveau).Distinct().ToList();
+
             comboBox_niveau.Items.AddRange(niveaus.ToArray());
 
             comboBox_niveau.Enabled = true;
@@ -60,7 +61,7 @@ namespace Bilan_Annuel
 
         private void comboBox_etudiant_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedElv = (from Eleve elv in matieres
+            selectedElv = (from Eleve elv in eleves
                            where elv.nom == comboBox_etudiant.Text.Split(" - ")[0] && elv.prenom == comboBox_etudiant.Text.Split(" - ")[1]
                            select elv).FirstOrDefault();
 
@@ -73,10 +74,10 @@ namespace Bilan_Annuel
 
             comboBox_etudiant.Items.Clear();
 
-            matieres = (from elv in Eleve.@select<Eleve>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
+            eleves = (from elv in Eleve.@select<Eleve>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
                       select elv).ToList();
 
-            string[] eleveNames = (from Eleve elv in matieres
+            string[] eleveNames = (from Eleve elv in eleves
                                    select $"{elv.nom} - {elv.prenom}").ToArray();
 
             comboBox_etudiant.Items.AddRange(eleveNames);
