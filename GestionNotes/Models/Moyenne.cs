@@ -8,10 +8,10 @@ namespace GestionNotes.Models
 {
     public class Moyenne : ModelApp.Model
     {
-        public string niveau { get; set; }
+        public int niveau { get; set; }
         public string code_elv { get; set; }
         public string code_fil { get; set; }
-        public float moyenne { get; set; }
+        public double moyenne { get; set; }
 
 
         public override string ToString()

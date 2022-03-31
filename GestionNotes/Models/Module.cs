@@ -10,7 +10,7 @@ namespace GestionNotes.Models
     {
         public string code { get; set; }
         public string designation { get; set; }
-        public string niveau { get; set; }
+        public int niveau { get; set; }
         public string semestre { get; set; }
         public string code_fil { get; set; }
 

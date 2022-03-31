@@ -260,6 +260,7 @@ namespace Gestion_Etudiants
             // 
             // text_filiere
             // 
+            this.text_filiere.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.text_filiere.FormattingEnabled = true;
             this.text_filiere.Location = new System.Drawing.Point(88, 125);
             this.text_filiere.Margin = new System.Windows.Forms.Padding(2);
@@ -270,6 +271,7 @@ namespace Gestion_Etudiants
             // 
             // text_niveau
             // 
+            this.text_niveau.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.text_niveau.FormattingEnabled = true;
             this.text_niveau.Location = new System.Drawing.Point(88, 155);
             this.text_niveau.Margin = new System.Windows.Forms.Padding(2);

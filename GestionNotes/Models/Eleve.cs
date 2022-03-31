@@ -11,7 +11,7 @@ namespace GestionNotes.Models
         public string code { get; set; }
         public string nom { get; set; }
         public string prenom { get; set; }
-        public string niveau { get; set; }
+        public int niveau { get; set; }
         public string code_fil { get; set; }
 
 

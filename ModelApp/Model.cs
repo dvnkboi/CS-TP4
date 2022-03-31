@@ -79,7 +79,7 @@ namespace ModelApp
                     }
                     ret = Connection.IUD(sql);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Connection.resetCmd();
                     sql = $"insert into {this.GetType().Name}(";
@@ -114,7 +114,7 @@ namespace ModelApp
                     ret = Connection.IUD(sql);
                     
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     Connection.resetCmd();
                     sql = $"update {this.GetType().Name} set ";
@@ -175,7 +175,7 @@ namespace ModelApp
                 Connection.AddParameter("id", id);
                 ret = Connection.IUD(sql);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 Connection.resetCmd();
                 sql = $"delete from {this.GetType().Name} where id='{id}'";

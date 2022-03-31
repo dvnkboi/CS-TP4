@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestionNotes.Models;
+using GestionNotes.utils;
 
-namespace Gestion_des_notes
+namespace Gestion_Notes
 {
     public partial class Gestion_Notes : Form
     {
@@ -52,7 +53,7 @@ namespace Gestion_des_notes
         private void btn_save_Click(object sender, EventArgs e)
         {
             opDone("");
-            int unixTimestamp = selectedNote == null ? (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds : selectedNote.id;
+            int unixTimestamp = selectedNote == null ? Generator.generateID() : selectedNote.id;
 
             try
             {
@@ -80,6 +81,27 @@ namespace Gestion_des_notes
 
             selectedNote = new Note { id = unixTimestamp, code_mat = selectedMat.code, code_elv = selectedElv.code, note = text_note.Text != "" ? float.Parse(text_note.Text) : 0 };
             selectedNote.save();
+
+            List<dynamic> notesEtudiant = ModelApp.Model.select<Note>(new Dictionary<string, object>() { { "code_elv", selectedElv.code } });
+
+            if (notesEtudiant.Count == matieres.Count)
+            {
+                double moyenne = (from Note n in notesEtudiant
+                                  select n.note).Average();
+
+
+
+                Moyenne moy = new Moyenne() { code_elv = selectedElv.code, code_fil = selectedElv.code_fil, id = Generator.generateID(), moyenne = moyenne, niveau = selectedElv.niveau };
+
+                moy.save();
+
+                if (moyenne >= 12)
+                {
+                    selectedElv.niveau++;
+                    selectedElv.save();
+                }
+            }
+
             opDone("Saved");
         }
 
@@ -89,7 +111,7 @@ namespace Gestion_des_notes
                            where comboBox_matiere.Text == m.code
                            select m).FirstOrDefault();
 
-            selectedNote = (Note)Note.select<Note>(new Dictionary<string, object> { { "code_mat", selectedMat.code }, { "code_elv", selectedElv.code } }).FirstOrDefault();
+            selectedNote = (Note)ModelApp.Model.select<Note>(new Dictionary<string, object> { { "code_mat", selectedMat.code }, { "code_elv", selectedElv.code } }).FirstOrDefault();
 
             text_note.Text = selectedNote?.note.ToString();
         }
@@ -110,7 +132,7 @@ namespace Gestion_des_notes
 
             Dictionary<string, object> criteria = new Dictionary<string, object>();
             criteria.Add("code", text_code_eleve.Text);
-            selectedElv = (Eleve)Eleve.select<Eleve>(criteria).FirstOrDefault();
+            selectedElv = (Eleve)ModelApp.Model.select<Eleve>(criteria).FirstOrDefault();
             if (selectedElv == null && init > 0)
             {
                 MessageBox.Show(
@@ -130,12 +152,13 @@ namespace Gestion_des_notes
 
             criteria.Clear();
             criteria.Add("code_fil", code_fil);
+            criteria.Add("niveau", selectedElv.niveau);
 
-            List<dynamic> modules = Module.select<Module>(criteria);
+            List<dynamic> modules = ModelApp.Model.select<Module>(criteria);
 
             foreach (Module mod in modules)
             {
-                List<dynamic> mats = Matiere.select<Matiere>(new Dictionary<string, object> { { "code_mod", mod.code } });
+                List<dynamic> mats = ModelApp.Model.select<Matiere>(new Dictionary<string, object> { { "code_mod", mod.code } });
                 foreach (Matiere mat in mats)
                 {
                     matieres.Add(mat);

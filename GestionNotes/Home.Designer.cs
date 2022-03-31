@@ -1,5 +1,5 @@
 ﻿
-namespace GestionNotes
+namespace Home
 {
     partial class Home
     {
@@ -68,26 +68,26 @@ namespace GestionNotes
             // filiereToolStripMenuItem
             // 
             this.filiereToolStripMenuItem.Name = "filiereToolStripMenuItem";
-            this.filiereToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filiereToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.filiereToolStripMenuItem.Text = "Filieres";
             // 
             // matieresToolStripMenuItem
             // 
             this.matieresToolStripMenuItem.Name = "matieresToolStripMenuItem";
-            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.matieresToolStripMenuItem.Text = "Matieres";
             // 
             // etudiantsToolStripMenuItem
             // 
             this.etudiantsToolStripMenuItem.Name = "etudiantsToolStripMenuItem";
-            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.etudiantsToolStripMenuItem.Text = "Etudiants";
             this.etudiantsToolStripMenuItem.Click += new System.EventHandler(this.etudiantsToolStripMenuItem_Click);
             // 
             // notesToolStripMenuItem
             // 
             this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
-            this.notesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.notesToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.notesToolStripMenuItem.Text = "Notes";
             this.notesToolStripMenuItem.Click += new System.EventHandler(this.notesToolStripMenuItem_Click);
             // 
@@ -102,6 +102,7 @@ namespace GestionNotes
             this.billanToolStripMenuItem.Name = "billanToolStripMenuItem";
             this.billanToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.billanToolStripMenuItem.Text = "Billan";
+            this.billanToolStripMenuItem.Click += new System.EventHandler(this.billanToolStripMenuItem_Click);
             // 
             // quitterToolStripMenuItem
             // 

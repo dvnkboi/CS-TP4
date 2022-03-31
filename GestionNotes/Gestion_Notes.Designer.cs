@@ -1,5 +1,5 @@
 ﻿
-namespace Gestion_des_notes
+namespace Gestion_Notes
 {
     partial class Gestion_Notes
     {
@@ -126,6 +126,7 @@ namespace Gestion_des_notes
             // 
             // comboBox_matiere
             // 
+            this.comboBox_matiere.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_matiere.FormattingEnabled = true;
             this.comboBox_matiere.Location = new System.Drawing.Point(272, 147);
             this.comboBox_matiere.Name = "comboBox_matiere";

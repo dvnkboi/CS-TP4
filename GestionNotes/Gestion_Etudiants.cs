@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using GestionNotes.utils;
 
 namespace Gestion_Etudiants
 {
@@ -19,6 +20,8 @@ namespace Gestion_Etudiants
         {
             elvs = Eleve.All<Eleve>();
             fil = Filiere.All<Filiere>();
+            niv = (from m in Module.All<Module>()
+                   select m.niveau).Distinct().ToList();
             InitializeComponent();
 
         }
@@ -47,6 +50,7 @@ namespace Gestion_Etudiants
         {
             table_eleve.DataSource = elvs;
             text_filiere.Items.AddRange(fil.Select(fil => fil.code).ToArray());
+            text_niveau.Items.AddRange(niv.ToArray());
 
             text_code.Enabled = false;
             text_filiere.Enabled = false;
@@ -100,20 +104,18 @@ namespace Gestion_Etudiants
             opDone("");
             if (text_code.Text == "" || text_filiere.Text == "") return;
 
-            int unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-
             Eleve existanceCheck = (from Eleve a in elvs
                                     where a.code == text_code.Text
                                     select a).FirstOrDefault<Eleve>();
 
             selectedElv = new Eleve
             {
-                id = existanceCheck != null ? existanceCheck.id : unixTimestamp,
+                id = existanceCheck != null ? existanceCheck.id : Generator.generateID(),
                 code = text_code.Text,
                 nom = text_nom.Text,
                 prenom = text_prenom.Text,
                 code_fil = text_filiere.Text,
-                niveau = text_niveau.Text
+                niveau = int.Parse(text_niveau.Text) 
             };
 
             selectedElv.save();
@@ -159,7 +161,7 @@ namespace Gestion_Etudiants
                 return;
             }
 
-            setInputs(selectedElv.code, selectedElv.nom, selectedElv.prenom, selectedElv.code_fil, selectedElv.niveau);
+            setInputs(selectedElv.code, selectedElv.nom, selectedElv.prenom, selectedElv.code_fil, selectedElv.niveau.ToString());
             selectCurrent();
         }
 
@@ -190,12 +192,12 @@ namespace Gestion_Etudiants
         {
             if (tableSet) return;
             selectedElv = (Eleve)table_eleve.Rows?[table_eleve.SelectedCells.Count > 0 ? table_eleve.SelectedCells[0].RowIndex : 0].DataBoundItem;
-            setInputs(selectedElv.code, selectedElv.nom, selectedElv.prenom, selectedElv.code_fil, selectedElv.niveau);
+            setInputs(selectedElv.code, selectedElv.nom, selectedElv.prenom, selectedElv.code_fil, selectedElv.niveau.ToString());
         }
 
         private void btn_gestionNotes_Click(object sender, EventArgs e)
         {
-            Gestion_des_notes.Gestion_Notes gn = new Gestion_des_notes.Gestion_Notes();
+            Gestion_Notes.Gestion_Notes gn = new Gestion_Notes.Gestion_Notes();
             gn.text_code_eleve.Text = selectedElv.code;
             gn.ShowDialog();
         }
