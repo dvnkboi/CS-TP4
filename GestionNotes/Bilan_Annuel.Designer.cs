@@ -94,6 +94,7 @@ namespace Bilan_Annuel
             this.table_bilan.Name = "table_bilan";
             this.table_bilan.ReadOnly = true;
             this.table_bilan.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.table_bilan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.table_bilan.Size = new System.Drawing.Size(905, 271);
             this.table_bilan.TabIndex = 4;
             // 
@@ -181,7 +182,6 @@ namespace Bilan_Annuel
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox comboBox_filiere;
         private System.Windows.Forms.ComboBox comboBox_niveau;
         private System.Windows.Forms.ComboBox comboBox_etudiant;

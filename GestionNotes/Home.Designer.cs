@@ -70,6 +70,7 @@ namespace Home
             this.filiereToolStripMenuItem.Name = "filiereToolStripMenuItem";
             this.filiereToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.filiereToolStripMenuItem.Text = "Filieres";
+            this.filiereToolStripMenuItem.Click += new System.EventHandler(this.filiereToolStripMenuItem_Click);
             // 
             // matieresToolStripMenuItem
             // 
@@ -96,6 +97,7 @@ namespace Home
             this.affichageToolStripMenuItem.Name = "affichageToolStripMenuItem";
             this.affichageToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.affichageToolStripMenuItem.Text = "Affichage";
+            this.affichageToolStripMenuItem.Click += new System.EventHandler(this.affichageToolStripMenuItem_Click);
             // 
             // billanToolStripMenuItem
             // 

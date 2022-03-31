@@ -36,5 +36,15 @@ namespace Home
         {
             new Bilan_Annuel.Bilan_Annuel().ShowDialog();
         }
+
+        private void filiereToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Gestion_Filieres.Gestion_Filieres().ShowDialog();
+        }
+
+        private void affichageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Consultation_Notes.Consultation_Notes().ShowDialog();
+        }
     }
 }

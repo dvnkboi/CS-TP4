@@ -14,11 +14,11 @@ namespace Bilan_Annuel
     public partial class Bilan_Annuel : Form
     {
         private List<dynamic> filieres;
-        private List<dynamic> eleves;
+        private List<dynamic> matieres;
         private List<dynamic> niveaus;
         private Eleve selectedElv;
         private Filiere selectedFil;
-        private int selectedNiveau;
+        private int? selectedNiveau;
 
         public Bilan_Annuel()
         {
@@ -60,7 +60,7 @@ namespace Bilan_Annuel
 
         private void comboBox_etudiant_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedElv = (from Eleve elv in eleves
+            selectedElv = (from Eleve elv in matieres
                            where elv.nom == comboBox_etudiant.Text.Split(" - ")[0] && elv.prenom == comboBox_etudiant.Text.Split(" - ")[1]
                            select elv).FirstOrDefault();
 
@@ -73,10 +73,10 @@ namespace Bilan_Annuel
 
             comboBox_etudiant.Items.Clear();
 
-            eleves = (from elv in Eleve.@select<Eleve>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
+            matieres = (from elv in Eleve.@select<Eleve>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
                       select elv).ToList();
 
-            string[] eleveNames = (from Eleve elv in eleves
+            string[] eleveNames = (from Eleve elv in matieres
                                    select $"{elv.nom} - {elv.prenom}").ToArray();
 
             comboBox_etudiant.Items.AddRange(eleveNames);
@@ -85,12 +85,16 @@ namespace Bilan_Annuel
 
         private void btn_rechercher_Click(object sender, EventArgs e)
         {
+            if (selectedElv == null || selectedFil == null || selectedNiveau == null) return;
+
             List<Module> modules = (from Module mod in Module.@select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code } })
-                                select mod
+                                    select mod
                              ).ToList();
 
             Dictionary<string, List<Matiere>> matieres = new Dictionary<string, List<Matiere>>();
             List<object> bilan = new List<object>();
+
+            if (modules.Count == 0) return;
 
             foreach (Module mod in modules)
             {
@@ -99,7 +103,10 @@ namespace Bilan_Annuel
                                           ).ToList<Matiere>());
             }
 
+            if (matieres.Count == 0) return;
+
             Note noteTmp;
+
 
             foreach(KeyValuePair<string,List<Matiere>> matObj in matieres)
             {
@@ -120,6 +127,8 @@ namespace Bilan_Annuel
                 }
             }
 
+            if (bilan.Count == 0) return;
+
             text_moyenne_annuelle.Text = (from Bilan bil in bilan
                               select bil.note).Average().ToString();
 
@@ -129,13 +138,14 @@ namespace Bilan_Annuel
             
         }
     }
+
+    public class Bilan
+    {
+        public string code_mat { get; set; }
+        public string designation { get; set; }
+        public string semestre { get; set; }
+        public double note { get; set; }
+
+    }
 }
 
-public class Bilan
-{
-    public string code_mat { get; set; }
-    public string designation { get; set; }
-    public string semestre { get; set; }
-    public double note { get; set; }
-
-}
