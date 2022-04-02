@@ -166,7 +166,7 @@ namespace Gestion_Notes
             }
 
             comboBox_matiere.Items.AddRange(matieres.Select(mat => mat.code).ToArray());
-            comboBox_matiere.SelectedIndex = 0;
+            if(comboBox_matiere.Items.Count != 0) comboBox_matiere.SelectedIndex = 0;
 
             comboBox_matiere_SelectedIndexChanged(sender, e);
         }

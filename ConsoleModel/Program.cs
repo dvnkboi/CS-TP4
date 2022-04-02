@@ -22,10 +22,10 @@ namespace ConsoleModel
 
 
             //create student
-            Eleve elv1 = new Eleve() { id = 0, code = "CB0000", nom = "dabdoubi", prenom = "aymane", code_fil = "ginf2", niveau = 2 };
-            Eleve elv2 = new Eleve() { id = 1, code = "BC1111", nom = "oulad sine", prenom = "Saloua", code_fil = "ginf2", niveau = 2 };
-            Eleve elv3 = new Eleve() { id = 2, code = "X01010", nom = "Ramy", prenom = "Ayman", code_fil = "ginf2", niveau = 2 };
-            Eleve elv4 = new Eleve() { id = 3, code = "X10101", nom = "benkhanous", prenom = "Salaheddine", code_fil = "ginf2", niveau =2 };
+            Eleve elv1 = new Eleve() { id = 0, code = "CB0000", nom = "dabdoubi", prenom = "aymane", code_fil = "ginf", niveau = 2 };
+            Eleve elv2 = new Eleve() { id = 1, code = "BC1111", nom = "oulad sine", prenom = "Saloua", code_fil = "ginf", niveau = 2 };
+            Eleve elv3 = new Eleve() { id = 2, code = "X01010", nom = "Ramy", prenom = "Ayman", code_fil = "ginf", niveau = 2 };
+            Eleve elv4 = new Eleve() { id = 3, code = "X10101", nom = "benkhanous", prenom = "Salaheddine", code_fil = "ginf", niveau =2 };
 
             //save student 
             elv1.save();
