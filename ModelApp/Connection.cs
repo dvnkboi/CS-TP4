@@ -16,17 +16,17 @@ namespace ModelApp
 
         public static void Connect(string cstr, string server)
         {
-            Server = server;
+            Server = server.Trim().ToLower();
             if (con != null && con.State == ConnectionState.Open) return;
 
             switch (Server)
             {
-                case "MsSql":
+                case "mssql":
                     con = new SqlConnection(cstr);
                     cmd = new SqlCommand("", (SqlConnection) con);
                     con.Open();
                     break;
-                case "MySql":
+                case "mysql":
                     con = new MySqlConnection(cstr);
                     cmd = new MySqlCommand("",(MySqlConnection) con);
                     con.Open();
@@ -59,7 +59,19 @@ namespace ModelApp
         public static Dictionary<string, string> GetTableFields(string table)
         {
             if (_schemaMap.ContainsKey(table)) return _schemaMap[table];
-            cmd.CommandText = $"SELECT COLUMN_NAME,COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '{con.Database}' AND TABLE_NAME = '{table}'";
+
+            switch (Server)
+            {
+                case "mssql":
+                    cmd.CommandText = $"SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{table}'";
+                    break;
+                case "mysql":
+                    cmd.CommandText = $"SELECT COLUMN_NAME,COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '{con.Database}' AND TABLE_NAME = '{table}'";
+                    break;
+                default:
+                    throw new Exception("database server not supported... yikes kinda cringe");
+            }
+            
             IDataReader reader = cmd.ExecuteReader();
             Dictionary<string, string> res = new Dictionary<string,string>();
 
@@ -83,11 +95,11 @@ namespace ModelApp
             cmd.CommandType = CommandType.StoredProcedure;
             switch (Server)
             {
-                case "MsSql":
+                case "mssql":
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@"+key, value));
                     break;
-                case "MySql":
+                case "mysql":
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new MySqlParameter(key, value));
                     break;
