@@ -79,7 +79,7 @@ namespace ModelApp
                     }
                     ret = Connection.IUD(sql);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     Connection.resetCmd();
                     sql = $"insert into {this.GetType().Name}(";
@@ -117,13 +117,15 @@ namespace ModelApp
                 catch(Exception)
                 {
                     Connection.resetCmd();
-                    sql = $"update {this.GetType().Name} set ";
+                    string tableAlias = this.GetType().Name.Substring(0, 1);
+                    sql = $"update {this.GetType().Name} {tableAlias} set ";
+                    dico.Remove("id");
                     foreach (KeyValuePair<string, string> field in dico)
                     {
-                        sql += $"{field.Key}='{field.Value}',";
+                        sql += $"{tableAlias}.{field.Key}='{field.Value}',";
                     }
                     sql = sql.Remove(sql.Length - 1);
-                    sql += $" where id='{id}'";
+                    sql += $" where {tableAlias}.id='{id}'";
                     ret = Connection.IUD(sql);
                 }
             }
@@ -175,13 +177,14 @@ namespace ModelApp
                 Connection.AddParameter("id", id);
                 ret = Connection.IUD(sql);
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 Connection.resetCmd();
                 sql = $"delete from {this.GetType().Name} where id='{id}'";
                 ret = Connection.IUD(sql);
             }
 
+            Connection.resetCmd();
             return ret;
         }
 

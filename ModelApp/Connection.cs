@@ -12,6 +12,7 @@ namespace ModelApp
         public static IDbConnection con = null;
         public static IDbCommand cmd = null;
         public static string Server = null;
+        public static Dictionary<string, Dictionary<string, string>> _schemaMap = new Dictionary<string, Dictionary<string, string>>();
 
         public static void Connect(string cstr, string server)
         {
@@ -57,7 +58,8 @@ namespace ModelApp
 
         public static Dictionary<string, string> GetTableFields(string table)
         {
-            cmd.CommandText = $"SELECT COLUMN_NAME,COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '{con.Database}' AND TABLE_NAME = '{table}'; ";
+            if (_schemaMap.ContainsKey(table)) return _schemaMap[table];
+            cmd.CommandText = $"SELECT COLUMN_NAME,COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '{con.Database}' AND TABLE_NAME = '{table}'";
             IDataReader reader = cmd.ExecuteReader();
             Dictionary<string, string> res = new Dictionary<string,string>();
 
@@ -67,6 +69,7 @@ namespace ModelApp
             }
 
             reader.Close();
+            _schemaMap.Add(table, res);
             return res;
         }
 

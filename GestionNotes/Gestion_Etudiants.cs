@@ -115,7 +115,7 @@ namespace Gestion_Etudiants
                 nom = text_nom.Text,
                 prenom = text_prenom.Text,
                 code_fil = text_filiere.Text,
-                niveau = int.Parse(text_niveau.Text) 
+                niveau = int.Parse(text_niveau.Text)
             };
 
             selectedElv.save();
@@ -168,7 +168,8 @@ namespace Gestion_Etudiants
         private Dictionary<string, object> GenCriteria()
         {
             Dictionary<string, object> criteria = new Dictionary<string, object>();
-            if (text_code.Enabled == true && text_code.Text != "") {
+            if (text_code.Enabled == true && text_code.Text != "")
+            {
                 criteria.Add("code", text_code.Text);
                 return criteria;
             };

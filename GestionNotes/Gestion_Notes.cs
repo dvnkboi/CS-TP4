@@ -82,25 +82,25 @@ namespace Gestion_Notes
             selectedNote = new Note { id = unixTimestamp, code_mat = selectedMat.code, code_elv = selectedElv.code, note = text_note.Text != "" ? float.Parse(text_note.Text) : 0 };
             selectedNote.save();
 
-            List<dynamic> notesEtudiant = ModelApp.Model.select<Note>(new Dictionary<string, object>() { { "code_elv", selectedElv.code } });
+            //List<dynamic> notesEtudiant = ModelApp.Model.select<Note>(new Dictionary<string, object>() { { "code_elv", selectedElv.code } });
 
-            if (notesEtudiant.Count == matieres.Count)
-            {
-                double moyenne = (from Note n in notesEtudiant
-                                  select n.note).Average();
+            //if (notesEtudiant.Count == matieres.Count)
+            //{
+            //    double moyenne = (from Note n in notesEtudiant
+            //                      select n.note).Average();
 
 
 
-                Moyenne moy = new Moyenne() { code_elv = selectedElv.code, code_fil = selectedElv.code_fil, id = Generator.generateID(), moyenne = moyenne, niveau = selectedElv.niveau };
+            //    Moyenne moy = new Moyenne() { code_elv = selectedElv.code, code_fil = selectedElv.code_fil, id = Generator.generateID(), moyenne = moyenne, niveau = selectedElv.niveau };
 
-                moy.save();
+            //    moy.save();
 
-                if (moyenne >= 12)
-                {
-                    selectedElv.niveau++;
-                    selectedElv.save();
-                }
-            }
+            //    if (moyenne >= 12)
+            //    {
+            //        selectedElv.niveau++;
+            //        selectedElv.save();
+            //    }
+            //}
 
             opDone("Saved");
         }
