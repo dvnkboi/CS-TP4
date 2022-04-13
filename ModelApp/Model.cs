@@ -79,7 +79,7 @@ namespace ModelApp
                     }
                     ret = Connection.IUD(sql);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Connection.resetCmd();
                     sql = $"insert into {this.GetType().Name}(";
@@ -166,6 +166,38 @@ namespace ModelApp
             return DictionaryToObject(dico);
         }
 
+        public static dynamic find<T>(object id)
+        {
+            Dictionary<string, object> dico = new Dictionary<string, object>();
+            Dictionary<string, string> ch = new Dictionary<string, string>();
+            string sql = $"select * from {typeof(T).Name} where id={id}";
+
+            //field information
+            ch = Connection.GetTableFields(typeof(T).Name);
+            Type type = null;
+            string fieldName = "";
+            int index = 0;
+
+            //sql query execution
+            IDataReader reader = Connection.Select(sql);
+            int fieldCount = reader.FieldCount;
+
+            //since id has to be unique (primary key) we dont have to check for unicity 
+            while (reader.Read())
+            {
+                for (int i = 0; i < fieldCount; i++)
+                {
+                    fieldName = ch.Keys.ElementAt(i);
+                    type = SqlToType(ch.Values.ElementAt(i));
+                    index = reader.GetOrdinal(fieldName);
+                    dico.Add(fieldName, Convert.ChangeType(reader.GetValue(index), type));
+                }
+            }
+
+            reader.Close();
+            return DictionaryToObject<T>(dico);
+        }
+
         public int delete(string procedure = null)
         {
             int ret = 0;
@@ -177,7 +209,7 @@ namespace ModelApp
                 Connection.AddParameter("id", id);
                 ret = Connection.IUD(sql);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 Connection.resetCmd();
                 sql = $"delete from {this.GetType().Name} where id='{id}'";

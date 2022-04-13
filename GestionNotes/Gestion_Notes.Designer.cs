@@ -165,6 +165,7 @@ namespace Gestion_Notes
             this.MaximumSize = new System.Drawing.Size(962, 329);
             this.MinimumSize = new System.Drawing.Size(962, 329);
             this.Name = "Gestion_Notes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestion des notes";
             this.Load += new System.EventHandler(this.Gestion_Notes_Load);
             this.Shown += new System.EventHandler(this.Gestion_Notes_Shown);

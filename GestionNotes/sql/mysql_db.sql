@@ -80,7 +80,7 @@ CREATE TABLE `module` (
   PRIMARY KEY (`id`, `code`),
   UNIQUE KEY `code` (`code`),
   KEY `code_fil` (`code_fil`),
-  CONSTRAINT `module_ibfk_1` FOREIGN KEY (`code_fil`) REFERENCES `filiere` (`code`)
+  CONSTRAINT `module_ibfk_1` FOREIGN KEY (`code_fil`) REFERENCES `filiere` (`code`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --

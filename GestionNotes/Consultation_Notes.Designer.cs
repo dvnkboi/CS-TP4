@@ -168,6 +168,7 @@ namespace Consultation_Notes
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Consultation_Notes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consultation_Notes";
             this.Load += new System.EventHandler(this.Consultation_Notes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_consutation)).EndInit();

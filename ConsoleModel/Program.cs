@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using GestionNotes.utils;
+using System.Linq;
+using System.IO;
 
 namespace ConsoleModel
 {
@@ -54,7 +56,9 @@ namespace ConsoleModel
 
             //check if eleve exists in db
             Eleve elvFound = (Eleve)elv1.find();
-            Console.WriteLine(elvFound?.ToString() ?? "not found");
+            Eleve elvFoundStatic = (Eleve)Eleve.find<Eleve>(elv1.id);
+            Console.WriteLine("non static " + elvFound?.ToString() ?? "not found");
+            Console.WriteLine("static " + elvFoundStatic?.ToString() ?? "not found static");
 
             //delete student
             elv1.delete();
@@ -100,6 +104,15 @@ namespace ConsoleModel
             }
 
             Console.WriteLine("\n------------------SELECT OK-------------------");
+            Console.WriteLine("\n--------------------EXPORT--------------------");
+
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            ConvEngine.CreateCSV<Eleve>(Eleve.All<Eleve>().OfType<Eleve>().ToList<Eleve>(), Path.Combine(docPath, "test.csv"));
+            Console.WriteLine("wrote CSV at " + Path.Combine(docPath, "test.csv"));
+            ConvEngine.CreateXLS<Eleve>(Eleve.All<Eleve>().OfType<Eleve>().ToList<Eleve>(), Path.Combine(docPath, "test.xlsx"));
+            Console.WriteLine("wrote CSV at " + Path.Combine(docPath, "test.xlsx"));
+
+            Console.WriteLine("\n------------------EXPORT OK-------------------");
             Console.WriteLine("\n-------------------CLEAN UP-------------------");
 
             elv1.delete();
@@ -110,6 +123,8 @@ namespace ConsoleModel
             Console.WriteLine("\n-----------------CLEAN UP OK------------------");
             Console.WriteLine("\n------------------TEST DONE-------------------");
 
+
+            
         }
     }
 }

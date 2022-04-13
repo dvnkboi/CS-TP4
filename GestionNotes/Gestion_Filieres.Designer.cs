@@ -199,6 +199,7 @@ namespace Gestion_Filieres
             this.MaximumSize = new System.Drawing.Size(705, 481);
             this.MinimumSize = new System.Drawing.Size(705, 481);
             this.Name = "Gestion_Filieres";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestion des filieres";
             this.Load += new System.EventHandler(this.Gestion_Filieres_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_filiere)).EndInit();
