@@ -84,6 +84,11 @@ inheritable abstract class that implements basic crud operations, and allows cas
         - ` none`
       - **Returns**
         - `Object` result of the find query, castable to the current class
+    - `find<T>()` retrieves the current instance from the database using the id property
+      - **parameters**
+        - ` object id` primary key of element to find, castable to calling class 
+      - **Returns**
+        - `Object` result of the find query, castable to the current class
 
 
     - `delete()` deletes the current instance from the database using the id property
