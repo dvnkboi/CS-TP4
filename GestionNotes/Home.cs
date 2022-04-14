@@ -53,8 +53,10 @@ namespace Home
         {
             menuStrip1.Renderer = new MenuStripRenderer();
 
-            this.BackColor = Color.FromArgb(220, Color.Black);
-            menuStrip1.BackColor = Color.FromArgb(254, 16,16,16);
+            Color themeColor = WinTheme.GetAccentColor();
+
+            this.BackColor = Color.FromArgb(220, ControlPaint.Dark(themeColor,0.92f));
+            menuStrip1.BackColor = Color.FromArgb(254, themeColor);
 
             MARGINS margins = new MARGINS();
             margins.Top = Height;
