@@ -39,6 +39,7 @@ namespace Bilan_Annuel
             this.comboBox_etudiant = new System.Windows.Forms.ComboBox();
             this.text_moyenne_annuelle = new System.Windows.Forms.TextBox();
             this.btn_rechercher = new System.Windows.Forms.Button();
+            this.export_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table_bilan)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,6 +98,7 @@ namespace Bilan_Annuel
             this.table_bilan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.table_bilan.Size = new System.Drawing.Size(905, 271);
             this.table_bilan.TabIndex = 4;
+            this.table_bilan.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_bilan_CellContentClick);
             // 
             // comboBox_filiere
             // 
@@ -151,11 +153,22 @@ namespace Bilan_Annuel
             this.btn_rechercher.UseVisualStyleBackColor = true;
             this.btn_rechercher.Click += new System.EventHandler(this.btn_rechercher_Click);
             // 
+            // export_btn
+            // 
+            this.export_btn.Location = new System.Drawing.Point(14, 420);
+            this.export_btn.Name = "export_btn";
+            this.export_btn.Size = new System.Drawing.Size(75, 23);
+            this.export_btn.TabIndex = 11;
+            this.export_btn.Text = "export";
+            this.export_btn.UseVisualStyleBackColor = true;
+            this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
+            // 
             // Bilan_Annuel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 455);
+            this.Controls.Add(this.export_btn);
             this.Controls.Add(this.btn_rechercher);
             this.Controls.Add(this.text_moyenne_annuelle);
             this.Controls.Add(this.comboBox_etudiant);
@@ -167,6 +180,8 @@ namespace Bilan_Annuel
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximumSize = new System.Drawing.Size(949, 494);
+            this.MinimumSize = new System.Drawing.Size(949, 494);
             this.Name = "Bilan_Annuel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bilan_Annuel";
@@ -189,5 +204,6 @@ namespace Bilan_Annuel
         private System.Windows.Forms.TextBox text_moyenne_annuelle;
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.DataGridView table_bilan;
+        private System.Windows.Forms.Button export_btn;
     }
 }

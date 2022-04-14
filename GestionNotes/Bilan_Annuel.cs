@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestionNotes.Models;
+using ModelApp;
 
 namespace Bilan_Annuel
 {
@@ -16,6 +18,7 @@ namespace Bilan_Annuel
         private List<dynamic> filieres;
         private List<dynamic> eleves;
         private List<dynamic> niveaus;
+        private List<dynamic> bilan;
         private Eleve selectedElv;
         private Filiere selectedFil;
         private int? selectedNiveau;
@@ -93,7 +96,7 @@ namespace Bilan_Annuel
                              ).ToList();
 
             Dictionary<string, List<Matiere>> matieres = new Dictionary<string, List<Matiere>>();
-            List<object> bilan = new List<object>();
+            bilan = new List<dynamic>();
 
             if (modules.Count == 0) return;
 
@@ -109,12 +112,12 @@ namespace Bilan_Annuel
             Note noteTmp;
 
 
-            foreach(KeyValuePair<string,List<Matiere>> matObj in matieres)
+            foreach (KeyValuePair<string, List<Matiere>> matObj in matieres)
             {
-                foreach(Matiere mat in matObj.Value)
+                foreach (Matiere mat in matObj.Value)
                 {
                     noteTmp = Note.@select<Note>(new Dictionary<string, object>() { { "code_mat", mat.code }, { "code_elv", selectedElv.code } }).FirstOrDefault();
-                    if(noteTmp != null)
+                    if (noteTmp != null)
                     {
                         bilan.Add(new Bilan()
                         {
@@ -124,19 +127,37 @@ namespace Bilan_Annuel
                             note = noteTmp.note
                         });
                     }
-                    
+
                 }
             }
 
             if (bilan.Count == 0) return;
 
             text_moyenne_annuelle.Text = (from Bilan bil in bilan
-                              select bil.note).Average().ToString();
+                                          select bil.note).Average().ToString();
 
             table_bilan.DataSource = null;
             table_bilan.DataSource = bilan;
 
-            
+
+        }
+
+        private void export_btn_Click(object sender, EventArgs e)
+        {
+            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"bilan_{comboBox_niveau.Text}_{comboBox_etudiant.Text}.xlsx");
+            ConvEngine.CreateXLS<Bilan>((from Bilan b in bilan select b).ToList<Bilan>(), docPath);
+
+            MessageBox.Show(
+                    $"Exported excel sheet at {docPath}",
+                    "Export",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.None
+                );
+        }
+
+        private void table_bilan_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 

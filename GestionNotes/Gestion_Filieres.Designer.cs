@@ -41,6 +41,7 @@ namespace Gestion_Filieres
             this.btn_rechercher = new System.Windows.Forms.Button();
             this.table_filiere = new System.Windows.Forms.DataGridView();
             this.label_state = new System.Windows.Forms.Label();
+            this.export_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table_filiere)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,7 +163,7 @@ namespace Gestion_Filieres
             this.table_filiere.RowHeadersWidth = 62;
             this.table_filiere.RowTemplate.Height = 28;
             this.table_filiere.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.table_filiere.Size = new System.Drawing.Size(668, 265);
+            this.table_filiere.Size = new System.Drawing.Size(668, 258);
             this.table_filiere.TabIndex = 10;
             this.table_filiere.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_eleve_CellContentClick);
             this.table_filiere.SelectionChanged += new System.EventHandler(this.table_eleve_SelectionChanged);
@@ -177,11 +178,22 @@ namespace Gestion_Filieres
             this.label_state.TabIndex = 13;
             this.label_state.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // export_btn
+            // 
+            this.export_btn.Location = new System.Drawing.Point(10, 414);
+            this.export_btn.Name = "export_btn";
+            this.export_btn.Size = new System.Drawing.Size(75, 23);
+            this.export_btn.TabIndex = 14;
+            this.export_btn.Text = "export";
+            this.export_btn.UseVisualStyleBackColor = true;
+            this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
+            // 
             // Gestion_Filieres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(689, 442);
+            this.Controls.Add(this.export_btn);
             this.Controls.Add(this.label_state);
             this.Controls.Add(this.table_filiere);
             this.Controls.Add(this.btn_rechercher);
@@ -222,6 +234,7 @@ namespace Gestion_Filieres
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.DataGridView table_filiere;
         private System.Windows.Forms.Label label_state;
+        private System.Windows.Forms.Button export_btn;
     }
 }
 

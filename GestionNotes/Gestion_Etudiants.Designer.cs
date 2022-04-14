@@ -51,6 +51,7 @@ namespace Gestion_Etudiants
             this.text_filiere = new System.Windows.Forms.ComboBox();
             this.text_niveau = new System.Windows.Forms.ComboBox();
             this.label_state = new System.Windows.Forms.Label();
+            this.export_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table_eleve)).BeginInit();
             this.SuspendLayout();
             // 
@@ -254,7 +255,7 @@ namespace Gestion_Etudiants
             this.table_eleve.RowHeadersWidth = 62;
             this.table_eleve.RowTemplate.Height = 28;
             this.table_eleve.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.table_eleve.Size = new System.Drawing.Size(668, 184);
+            this.table_eleve.Size = new System.Drawing.Size(668, 177);
             this.table_eleve.TabIndex = 10;
             this.table_eleve.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.table_eleve_CellContentClick);
             this.table_eleve.SelectionChanged += new System.EventHandler(this.table_eleve_SelectionChanged);
@@ -290,11 +291,22 @@ namespace Gestion_Etudiants
             this.label_state.TabIndex = 13;
             this.label_state.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // export_btn
+            // 
+            this.export_btn.Location = new System.Drawing.Point(10, 414);
+            this.export_btn.Name = "export_btn";
+            this.export_btn.Size = new System.Drawing.Size(75, 23);
+            this.export_btn.TabIndex = 14;
+            this.export_btn.Text = "export";
+            this.export_btn.UseVisualStyleBackColor = true;
+            this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
+            // 
             // Gestion_Etudiants
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(689, 442);
+            this.Controls.Add(this.export_btn);
             this.Controls.Add(this.label_state);
             this.Controls.Add(this.text_niveau);
             this.Controls.Add(this.text_filiere);
@@ -355,6 +367,7 @@ namespace Gestion_Etudiants
         private System.Windows.Forms.ComboBox text_filiere;
         private System.Windows.Forms.ComboBox text_niveau;
         private System.Windows.Forms.Label label_state;
+        private System.Windows.Forms.Button export_btn;
     }
 }
 

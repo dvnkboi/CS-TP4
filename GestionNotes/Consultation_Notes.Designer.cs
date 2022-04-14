@@ -39,6 +39,7 @@ namespace Consultation_Notes
             this.comboBox_matiere = new System.Windows.Forms.ComboBox();
             this.text_moyenne_annuelle = new System.Windows.Forms.TextBox();
             this.btn_rechercher = new System.Windows.Forms.Button();
+            this.export_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table_consutation)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,11 +152,22 @@ namespace Consultation_Notes
             this.btn_rechercher.UseVisualStyleBackColor = true;
             this.btn_rechercher.Click += new System.EventHandler(this.btn_rechercher_Click);
             // 
+            // export_btn
+            // 
+            this.export_btn.Location = new System.Drawing.Point(14, 423);
+            this.export_btn.Name = "export_btn";
+            this.export_btn.Size = new System.Drawing.Size(75, 23);
+            this.export_btn.TabIndex = 11;
+            this.export_btn.Text = "export";
+            this.export_btn.UseVisualStyleBackColor = true;
+            this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
+            // 
             // Consultation_Notes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 455);
+            this.Controls.Add(this.export_btn);
             this.Controls.Add(this.btn_rechercher);
             this.Controls.Add(this.text_moyenne_annuelle);
             this.Controls.Add(this.comboBox_matiere);
@@ -189,5 +201,6 @@ namespace Consultation_Notes
         private System.Windows.Forms.TextBox text_moyenne_annuelle;
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.DataGridView table_consutation;
+        private System.Windows.Forms.Button export_btn;
     }
 }

@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using GestionNotes.utils;
+using ModelApp;
+using System.IO;
 
 namespace Gestion_Filieres
 {
@@ -76,8 +78,8 @@ namespace Gestion_Filieres
             if (text_code.Text == "") return;
 
             Filiere existanceCheck = (from Filiere fil in Filiere.All<Filiere>()
-                                    where fil.code == text_code.Text
-                                    select fil).FirstOrDefault<Filiere>();
+                                      where fil.code == text_code.Text
+                                      select fil).FirstOrDefault<Filiere>();
 
             selectedFil = new Filiere
             {
@@ -136,7 +138,8 @@ namespace Gestion_Filieres
         private Dictionary<string, object> GenCriteria()
         {
             Dictionary<string, object> criteria = new Dictionary<string, object>();
-            if (text_code.Enabled == true && text_code.Text != "") {
+            if (text_code.Enabled == true && text_code.Text != "")
+            {
                 criteria.Add("code", text_code.Text);
                 return criteria;
             };
@@ -153,7 +156,7 @@ namespace Gestion_Filieres
         private void table_eleve_SelectionChanged(object sender, EventArgs e)
         {
             if (tableSet) return;
-            selectedFil = (Filiere) table_filiere.Rows?[table_filiere.SelectedCells.Count > 0 ? table_filiere.SelectedCells[0].RowIndex : 0].DataBoundItem;
+            selectedFil = (Filiere)table_filiere.Rows?[table_filiere.SelectedCells.Count > 0 ? table_filiere.SelectedCells[0].RowIndex : 0].DataBoundItem;
             setInputs(selectedFil.code, selectedFil.designation);
         }
 
@@ -179,6 +182,19 @@ namespace Gestion_Filieres
         private void opDone(string msg = "Done")
         {
             label_state.Text = msg;
+        }
+
+        private void export_btn_Click(object sender, EventArgs e)
+        {
+            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "filieres.xlsx");
+            ConvEngine.CreateXLS<Filiere>((from Filiere f in filieres select f).ToList<Filiere>(), docPath);
+
+            MessageBox.Show(
+                    $"Exported excel sheet at {docPath}",
+                    "Export",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.None
+                );
         }
     }
 }

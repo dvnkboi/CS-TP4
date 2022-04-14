@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GestionNotes.Models;
+using ModelApp;
 
 namespace Consultation_Notes
 {
@@ -16,6 +18,7 @@ namespace Consultation_Notes
         private List<dynamic> filieres;
         private List<dynamic> matieres;
         private List<dynamic> niveaus;
+        private List<dynamic> bilan;
         private Matiere selectedMat;
         private Filiere selectedFil;
         private int? selectedNiveau;
@@ -98,7 +101,7 @@ namespace Consultation_Notes
         {
             if (selectedFil == null || selectedMat == null || selectedNiveau == null) return;
 
-            List<object> bilan = new List<object>();
+            bilan = new List<dynamic>();
             List<dynamic> eleves = Eleve.select<Eleve>(new Dictionary<string, object>()
             {
                 {"code_fil", comboBox_filiere.Text },
@@ -136,6 +139,19 @@ namespace Consultation_Notes
             table_consutation.DataSource = bilan;
 
             
+        }
+
+        private void export_btn_Click(object sender, EventArgs e)
+        {
+            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"consultation_{comboBox_niveau.Text}_{comboBox_matiere.Text}.xlsx");
+            ConvEngine.CreateXLS<Bilan>((from Bilan b in bilan select b).ToList<Bilan>(), docPath);
+
+            MessageBox.Show(
+                    $"Exported excel sheet at {docPath}",
+                    "Export",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.None
+                );
         }
     }
 

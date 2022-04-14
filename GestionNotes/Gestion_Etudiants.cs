@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using GestionNotes.utils;
+using System.IO;
+using ModelApp;
 
 namespace Gestion_Etudiants
 {
@@ -225,6 +227,19 @@ namespace Gestion_Etudiants
         private void opDone(string msg = "Done")
         {
             label_state.Text = msg;
+        }
+
+        private void export_btn_Click(object sender, EventArgs e)
+        {
+            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"etudiants.xlsx");
+            ConvEngine.CreateXLS<Eleve>((from Eleve el in elvs select el).ToList<Eleve>(), docPath);
+
+            MessageBox.Show(
+                    $"Exported excel sheet at {docPath}",
+                    "Export",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.None
+                );
         }
     }
 }
