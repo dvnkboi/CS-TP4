@@ -14,6 +14,7 @@ BEGIN
     select e.id, e.niveau, new.code_elv, e.code_fil, avg(n.note) as moy
     from eleve e, note n
     where e.code = new.code_elv
+    and n.code_elv = e.code
     group by e.code, e.niveau) as moyT
   ON DUPLICATE KEY UPDATE moyenne = moyT.moy;
    
@@ -43,6 +44,7 @@ BEGIN
     select e.id, e.niveau, new.code_elv, e.code_fil, avg(n.note) as moy
     from eleve e, note n
     where e.code = new.code_elv
+    and n.code_elv = e.code
     group by e.code, e.niveau) as moyT
   ON DUPLICATE KEY UPDATE moyenne = moyT.moy;
    
@@ -71,6 +73,7 @@ BEGIN
     select e.id, e.niveau, old.code_elv, e.code_fil, avg(n.note) as moy
     from eleve e, note n
     where e.code = old.code_elv
+    and n.code_elv = e.code
     group by e.code, e.niveau) as moyT
   ON DUPLICATE KEY UPDATE moyenne = moyT.moy;
    
