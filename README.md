@@ -152,4 +152,4 @@ inheritable abstract class that implements basic crud operations, and allows cas
         - ` Type` C# type
 ---
 ## GUI app
-Work in progress
+this is a demo app using the methods provided in the model library to preview a functional application 
