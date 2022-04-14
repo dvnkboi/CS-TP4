@@ -80,14 +80,14 @@ namespace Consultation_Notes
             comboBox_matiere.Items.Clear();
 
             List<dynamic> modules = (from mod in Module.@select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
-                      select mod).ToList();
+                                     select mod).ToList();
 
             if (modules == null) return;
 
             foreach (Module mod in modules)
             {
                 matieres.AddRange((from Matiere mat in Matiere.@select<Matiere>(new Dictionary<string, object>() { { "code_mod", mod.code } })
-                                            select mat
+                                   select mat
                                           ).ToList<Matiere>());
             }
 
@@ -115,7 +115,7 @@ namespace Consultation_Notes
             Note noteTmp;
 
 
-            foreach(Eleve elv in eleves)
+            foreach (Eleve elv in eleves)
             {
                 noteTmp = Note.select<Note>(new Dictionary<string, object>() { { "code_mat", selectedMat.code }, { "code_elv", elv.code } }).FirstOrDefault();
                 if (noteTmp != null)
@@ -133,25 +133,38 @@ namespace Consultation_Notes
             if (bilan.Count == 0) return;
 
             text_moyenne_annuelle.Text = (from Bilan bil in bilan
-                              select bil.note).Average().ToString();
+                                          select bil.note).Average().ToString();
 
             table_consutation.DataSource = null;
             table_consutation.DataSource = bilan;
 
-            
+
         }
 
         private void export_btn_Click(object sender, EventArgs e)
         {
-            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"consultation_{comboBox_niveau.Text}_{comboBox_matiere.Text}.xlsx");
-            ConvEngine.CreateXLS<Bilan>((from Bilan b in bilan select b).ToList<Bilan>(), docPath);
+            try
+            {
+                string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"consultation_{comboBox_niveau.Text}_{comboBox_matiere.Text}.xlsx");
+                ConvEngine.CreateXLS<Bilan>((from Bilan b in bilan select b).ToList<Bilan>(), docPath);
 
-            MessageBox.Show(
-                    $"Exported excel sheet at {docPath}",
-                    "Export",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.None
-                );
+                MessageBox.Show(
+                        $"Exported excel sheet at {docPath}",
+                        "Export",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.None
+                    );
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                        $"Export failed, check path or provided data",
+                        "Export error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+            }
+
         }
     }
 

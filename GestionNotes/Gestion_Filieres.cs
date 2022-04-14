@@ -186,15 +186,27 @@ namespace Gestion_Filieres
 
         private void export_btn_Click(object sender, EventArgs e)
         {
-            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "filieres.xlsx");
-            ConvEngine.CreateXLS<Filiere>((from Filiere f in filieres select f).ToList<Filiere>(), docPath);
+            try
+            {
+                string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "filieres.xlsx");
+                ConvEngine.CreateXLS<Filiere>((from Filiere f in filieres select f).ToList<Filiere>(), docPath);
 
-            MessageBox.Show(
-                    $"Exported excel sheet at {docPath}",
-                    "Export",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.None
-                );
+                MessageBox.Show(
+                        $"Exported excel sheet at {docPath}",
+                        "Export",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.None
+                    );
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                        $"Export failed, check path or provided data",
+                        "Export error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+            }
         }
     }
 }

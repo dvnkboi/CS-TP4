@@ -144,15 +144,27 @@ namespace Bilan_Annuel
 
         private void export_btn_Click(object sender, EventArgs e)
         {
-            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"bilan_{comboBox_niveau.Text}_{comboBox_etudiant.Text}.xlsx");
-            ConvEngine.CreateXLS<Bilan>((from Bilan b in bilan select b).ToList<Bilan>(), docPath);
+            try
+            {
+                string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"bilan_{comboBox_niveau.Text}_{comboBox_etudiant.Text}.xlsx");
+                ConvEngine.CreateXLS<Bilan>((from Bilan b in bilan select b).ToList<Bilan>(), docPath);
 
-            MessageBox.Show(
-                    $"Exported excel sheet at {docPath}",
-                    "Export",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.None
-                );
+                MessageBox.Show(
+                        $"Exported excel sheet at {docPath}",
+                        "Export",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.None
+                    );
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                        $"Export failed, check path or provided data",
+                        "Export error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+            }
         }
 
         private void table_bilan_CellContentClick(object sender, DataGridViewCellEventArgs e)

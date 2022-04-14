@@ -231,15 +231,27 @@ namespace Gestion_Etudiants
 
         private void export_btn_Click(object sender, EventArgs e)
         {
-            string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"etudiants.xlsx");
-            ConvEngine.CreateXLS<Eleve>((from Eleve el in elvs select el).ToList<Eleve>(), docPath);
+            try
+            {
+                string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"etudiants.xlsx");
+                ConvEngine.CreateXLS<Eleve>((from Eleve el in elvs select el).ToList<Eleve>(), docPath);
 
-            MessageBox.Show(
-                    $"Exported excel sheet at {docPath}",
-                    "Export",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.None
-                );
+                MessageBox.Show(
+                        $"Exported excel sheet at {docPath}",
+                        "Export",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.None
+                    );
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                        $"Export failed, check path or provided data",
+                        "Export error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+            }
         }
     }
 }
