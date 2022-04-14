@@ -1,84 +1,186 @@
 drop trigger if exists calc_moyenne_insert;
-DELIMITER $$
+go
+create trigger calc_moyenne_insert
+on note
+after insert, update as
+begin
+  
+  declare @code_fil varchar(255);
+  declare @niveau int;
+  declare @fil_id int;
+  declare @elv_id int;
+  declare @val_moy float;
+  declare @code_elv varchar(255);
+  begin
+    Select TOP (1) @code_elv = code_elv from INSERTED;
 
-CREATE TRIGGER calc_moyenne_insert AFTER insert on note FOR EACH ROW
-BEGIN
-  DECLARE code_fil varchar(255);
-  DECLARE niveau integer;
-  DECLARE fil_id integer;
-  DECLARE elv_id integer;
-  select code_fil, niveau, f.id, e.id into @code_fil, @niveau, @fil_id, @elv_id from eleve e, filiere f where e.code = new.code_elv and f.code = e.code_fil;
+    select
+      @code_fil = e.code_fil,
+      @niveau = e.niveau,
+      @fil_id = f.id,
+      @elv_id = e.id
+    from
+      eleve e,
+      filiere f
+    where (
+      e.code = @code_elv
+      and f.code = e.code_fil
+    );
 
-  INSERT INTO moyenne(id, niveau,code_elv, code_fil, moyenne) 
-  select * from (
-    select e.id, e.niveau, new.code_elv, e.code_fil, avg(n.note) as moy
+    select @val_moy = avg(n.note)
     from eleve e, note n
-    where e.code = new.code_elv
-    group by e.code, e.niveau) as moyT
-  ON DUPLICATE KEY UPDATE moyenne = moyT.moy;
-   
-  UPDATE eleve e 
-    SET e.niveau = e.niveau + 1 
-    WHERE e.code = new.code_elv 
-    and (select m.moyenne FROM moyenne m WHERE m.id = e.id and m.niveau = e.niveau) >= 12 
-    and (SELECT count(*) FROM note WHERE code_elv = new.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = new.code_elv);
+    where e.code = @code_elv
+    group by e.code, e.niveau;
 
-END $$
-DELIMITER ;
+    UPDATE m
+    SET    moyenne = @val_moy
+    from
+        eleve e, moyenne m
+      where e.code = @code_elv and e.niveau = m.niveau;
+
+    IF @@ROWCOUNT = 0 
+      insert into moyenne
+        select *
+        from (
+            select
+            e.id,
+            e.niveau,
+            e.code,
+            e.code_fil,
+            avg(n.note) moy
+            from
+            eleve e,
+            note n
+            where e.code = @code_elv
+            group by e.id, e.code, e.niveau, e.code_fil
+        ) moyT;
 
 
-drop trigger if exists calc_moyenne_update;
-DELIMITER $$
+    update e
+    set
+      e.niveau = (e.niveau + 1)
+    from eleve e
+    where (
+      e.code = @code_elv
+      and (
+        select m.moyenne
+        from moyenne m
+        where (
+          m.id = e.id
+          and m.niveau = e.niveau
+        )
+      ) >= 12
+      and (
+        select count(*)
+        from note n
+        where n.code_elv = @code_elv
+      ) = (
+        select count(m.id)
+        from
+          matiere m,
+          module mo
+        where (
+          m.code_mod = mo.code
+          and mo.code_fil = e.code_fil
+          and e.code = @code_elv
+        )
+      )
+    );
+  end;
+end;;
 
-CREATE TRIGGER calc_moyenne_update AFTER update on note FOR EACH ROW
-BEGIN
-  DECLARE code_fil varchar(255);
-  DECLARE niveau integer;
-  DECLARE fil_id integer;
-  DECLARE elv_id integer;
-  select code_fil, niveau, f.id, e.id into @code_fil, @niveau, @fil_id, @elv_id from eleve e, filiere f where e.code = new.code_elv and f.code = e.code_fil;
+go
 
-  INSERT INTO moyenne(id, niveau,code_elv, code_fil, moyenne) 
-  select * from (
-    select e.id, e.niveau, new.code_elv, e.code_fil, avg(n.note) as moy
-    from eleve e, note n
-    where e.code = new.code_elv
-    group by e.code, e.niveau) as moyT
-  ON DUPLICATE KEY UPDATE moyenne = moyT.moy;
-   
-  UPDATE eleve e 
-    SET e.niveau = e.niveau + 1 
-    WHERE e.code = new.code_elv 
-    and (select m.moyenne FROM moyenne m WHERE m.id = e.id and m.niveau = e.niveau) >= 12 
-    and (SELECT count(*) FROM note WHERE code_elv = new.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = new.code_elv);
-
-END $$
-DELIMITER ;
 
 drop trigger if exists calc_moyenne_delete;
-DELIMITER $$
+go
+create trigger calc_moyenne_delete
+on note
+after delete as
+begin
+  
+  declare @code_fil varchar(255);
+  declare @niveau int;
+  declare @fil_id int;
+  declare @elv_id int;
+  declare @val_moy float;
+  declare @code_elv varchar(255);
+  begin
+    Select TOP (1) @code_elv = code_elv from DELETED;
 
-CREATE TRIGGER calc_moyenne_delete AFTER delete on note FOR EACH ROW
-BEGIN
-  DECLARE code_fil varchar(255);
-  DECLARE niveau integer;
-  DECLARE fil_id integer;
-  DECLARE elv_id integer;
-  select code_fil, niveau, f.id, e.id into @code_fil, @niveau, @fil_id, @elv_id from eleve e, filiere f where e.code = old.code_elv and f.code = e.code_fil;
+    select
+      @code_fil = e.code_fil,
+      @niveau = e.niveau,
+      @fil_id = f.id,
+      @elv_id = e.id
+    from
+      eleve e,
+      filiere f
+    where (
+      e.code = @code_elv
+      and f.code = e.code_fil
+    );
 
-  INSERT INTO moyenne(id, niveau,code_elv, code_fil, moyenne) 
-  select * from (
-    select e.id, e.niveau, old.code_elv, e.code_fil, avg(n.note) as moy
+    select @val_moy = avg(n.note)
     from eleve e, note n
-    where e.code = old.code_elv
-    group by e.code, e.niveau) as moyT
-  ON DUPLICATE KEY UPDATE moyenne = moyT.moy;
-   
-  UPDATE eleve e 
-    SET e.niveau = e.niveau + 1 
-    WHERE e.code = old.code_elv 
-    and (select m.moyenne FROM moyenne m WHERE m.id = e.id and m.niveau = e.niveau) >= 12 
-    and (SELECT count(*) FROM note WHERE code_elv = old.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = old.code_elv);
+    where e.code = @code_elv
+    group by e.code, e.niveau;
 
-END $$
-DELIMITER ;
+    UPDATE m
+    SET    moyenne = @val_moy
+    from
+        eleve e, moyenne m
+      where e.code = @code_elv and e.niveau = m.niveau;
+
+    IF @@ROWCOUNT = 0 
+      insert into moyenne
+        select *
+        from (
+            select
+            e.id,
+            e.niveau,
+            e.code,
+            e.code_fil,
+            avg(n.note) moy
+            from
+            eleve e,
+            note n
+            where e.code = @code_elv
+            group by e.id, e.code, e.niveau, e.code_fil
+        ) moyT;
+
+
+    update e
+    set
+      e.niveau = (e.niveau + 1)
+    from eleve e
+    where (
+      e.code = @code_elv
+      and (
+        select m.moyenne
+        from moyenne m
+        where (
+          m.id = e.id
+          and m.niveau = e.niveau
+        )
+      ) >= 12
+      and (
+        select count(*)
+        from note n
+        where n.code_elv = @code_elv
+      ) = (
+        select count(m.id)
+        from
+          matiere m,
+          module mo
+        where (
+          m.code_mod = mo.code
+          and mo.code_fil = e.code_fil
+          and e.code = @code_elv
+        )
+      )
+    );
+  end;
+end;;
+
+go
