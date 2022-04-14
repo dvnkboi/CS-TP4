@@ -200,12 +200,12 @@ namespace Gestion_Etudiants
 
         private void btn_gestionNotes_Click(object sender, EventArgs e)
         {
-            Gestion_Notes.Gestion_Notes gn = new Gestion_Notes.Gestion_Notes();
+            Gestion_Notes.Gestion_Notes gn = new Gestion_Notes.Gestion_Notes() { Owner = this };
             gn.text_code_eleve.Text = selectedElv.code;
             gn.ShowDialog();
         }
 
-        private void resetTable()
+        public void resetTable()
         {
             elvs = Eleve.All<Eleve>();
             table_eleve.DataSource = null;

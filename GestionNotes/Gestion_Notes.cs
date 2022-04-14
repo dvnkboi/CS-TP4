@@ -183,5 +183,12 @@ namespace Gestion_Notes
         {
             label_state.Text = msg;
         }
+
+        private void Gestion_Notes_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Owner is Home.Home) return;
+            var parent = (Gestion_Etudiants.Gestion_Etudiants) Owner;
+            parent.resetTable(); 
+        }
     }
 }

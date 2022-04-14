@@ -21,7 +21,7 @@ BEGIN
     SET e.niveau = e.niveau + 1 
     WHERE e.code = new.code_elv 
     and (select m.moyenne FROM moyenne m WHERE m.id = e.id and m.niveau = e.niveau) >= 12 
-    and (SELECT count(*) FROM note WHERE code_elv = new.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = new.code_elv);
+    and (SELECT count(*) FROM note WHERE code_elv = new.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = new.code_elv and e.niveau = mo.niveau);
 
 END $$
 DELIMITER ;
@@ -50,7 +50,7 @@ BEGIN
     SET e.niveau = e.niveau + 1 
     WHERE e.code = new.code_elv 
     and (select m.moyenne FROM moyenne m WHERE m.id = e.id and m.niveau = e.niveau) >= 12 
-    and (SELECT count(*) FROM note WHERE code_elv = new.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = new.code_elv);
+    and (SELECT count(*) FROM note WHERE code_elv = new.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = new.code_elv and e.niveau = mo.niveau);
 
 END $$
 DELIMITER ;
@@ -78,7 +78,7 @@ BEGIN
     SET e.niveau = e.niveau + 1 
     WHERE e.code = old.code_elv 
     and (select m.moyenne FROM moyenne m WHERE m.id = e.id and m.niveau = e.niveau) >= 12 
-    and (SELECT count(*) FROM note WHERE code_elv = old.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = old.code_elv);
+    and (SELECT count(*) FROM note WHERE code_elv = old.code_elv) = (SELECT count(m.id) from matiere m,module mo where m.code_mod = mo.code and mo.code_fil = e.code_fil and e.code = old.code_elv and e.niveau = mo.niveau);
 
 END $$
 DELIMITER ;
