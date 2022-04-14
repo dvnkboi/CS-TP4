@@ -11,6 +11,7 @@ begin
   declare @elv_id int;
   declare @val_moy float;
   declare @code_elv varchar(255);
+  declare @updated int = 0;
   begin
     Select TOP (1) @code_elv = code_elv from INSERTED;
 
@@ -29,32 +30,37 @@ begin
 
     select @val_moy = avg(n.note)
     from eleve e, note n
-    where e.code = @code_elv
+    where e.code = @code_elv and e.code = n.code_elv
     group by e.code, e.niveau;
 
-    UPDATE m
-    SET    moyenne = @val_moy
-    from
-        eleve e, moyenne m
-      where e.code = @code_elv and e.niveau = m.niveau;
 
-    IF @@ROWCOUNT = 0 
-      insert into moyenne
-        select *
-        from (
-            select
-            e.id,
-            e.niveau,
-            e.code,
-            e.code_fil,
-            avg(n.note) moy
-            from
-            eleve e,
-            note n
-            where e.code = @code_elv
-            group by e.id, e.code, e.niveau, e.code_fil
-        ) moyT;
-
+    IF EXISTS (SELECT 1 FROM moyenne WHERE niveau = @niveau and code_elv = @code_elv)
+    BEGIN
+        set @updated = @updated + 1
+        UPDATE m
+        SET    moyenne = @val_moy
+        from
+            moyenne m
+            where m.code_elv = @code_elv and m.niveau = @niveau;
+    END
+    ELSE
+    BEGIN
+        set @updated = @updated + 100
+        insert into moyenne
+            select * from
+                (select
+                e.id,
+                e.niveau,
+                e.code,
+                e.code_fil,
+                avg(n.note) moy
+                from
+                eleve e,
+                note n
+                where e.code = @code_elv and n.code_elv = e.code
+                group by e.id, e.niveau, e.code, e.code_fil
+            ) moyT;
+    END
 
     update e
     set
@@ -86,6 +92,8 @@ begin
         )
       )
     );
+
+    select @code_elv,@val_moy,@niveau, count(*), @updated from inserted;
   end;
 end;;
 
@@ -105,6 +113,7 @@ begin
   declare @elv_id int;
   declare @val_moy float;
   declare @code_elv varchar(255);
+  declare @updated int = 0;
   begin
     Select TOP (1) @code_elv = code_elv from DELETED;
 
@@ -123,32 +132,37 @@ begin
 
     select @val_moy = avg(n.note)
     from eleve e, note n
-    where e.code = @code_elv
+    where e.code = @code_elv and e.code = n.code_elv
     group by e.code, e.niveau;
 
-    UPDATE m
-    SET    moyenne = @val_moy
-    from
-        eleve e, moyenne m
-      where e.code = @code_elv and e.niveau = m.niveau;
 
-    IF @@ROWCOUNT = 0 
-      insert into moyenne
-        select *
-        from (
-            select
-            e.id,
-            e.niveau,
-            e.code,
-            e.code_fil,
-            avg(n.note) moy
-            from
-            eleve e,
-            note n
-            where e.code = @code_elv
-            group by e.id, e.code, e.niveau, e.code_fil
-        ) moyT;
-
+    IF EXISTS (SELECT 1 FROM moyenne WHERE niveau = @niveau and code_elv = @code_elv)
+    BEGIN
+        set @updated = @updated + 1
+        UPDATE m
+        SET    moyenne = @val_moy
+        from
+            moyenne m
+            where m.code_elv = @code_elv and m.niveau = @niveau;
+    END
+    ELSE
+    BEGIN
+        set @updated = @updated + 100
+        insert into moyenne
+            select * from
+                (select
+                e.id,
+                e.niveau,
+                e.code,
+                e.code_fil,
+                avg(n.note) moy
+                from
+                eleve e,
+                note n
+                where e.code = @code_elv and n.code_elv = e.code
+                group by e.id, e.niveau, e.code, e.code_fil
+            ) moyT;
+    END
 
     update e
     set
@@ -180,6 +194,8 @@ begin
         )
       )
     );
+
+    select @code_elv,@val_moy,@niveau, count(*), @updated from inserted;
   end;
 end;;
 
