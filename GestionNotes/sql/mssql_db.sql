@@ -74,29 +74,28 @@ values(2, 'GSTR', 'Genie Reseaux et telecome');
 insert into
   filiere
 values(3, 'GIL', 'Genie industriel et logistique');
+
+
 insert into
   module
-values(
-    1,
-    'GIL34',
-    'Fabrication mécanique',
-    2,
-    'Semestre 3',
-    'GIL'
-  );
+values(1,'GIL34','Fabrication mécanique',2,'Semestre 3','GIL');
 insert into
   module
-values(
-    2,
-    'GINF41',
-    'Technologies distribuees',
-    2,
-    'Semestre 4',
-    'GINF'
-  );
+values(2,'GINF41','Technologies distribuees',2,'Semestre 4','GINF');
 insert into
   module
 values(3, 'GSTR34', 'Telecom 5', 2, 'Semestre 3', 'GSTR');
+insert into
+  module
+values(4,'GIL51','MIL Supply chain',3,'Semestre 5','GIL');
+insert into
+  module
+values(5,'GINF51','Technologies .NET et JEE',3,'Semestre 5','GINF');
+insert into
+  module
+values(6, 'GSTR53', 'Telecom 7', 3, 'Semestre 5', 'GSTR');
+
+
 insert into
   eleve
 values(18, 'A180450', 'TISGUI', 'Nassma', 2, 'GSTR');
@@ -115,45 +114,41 @@ values(8, 'S332505', 'DABDOUBI', 'Aymane', 2, 'GINF');
 insert into
   eleve
 values(47, 'A654327', 'RAMY', 'Ayman', 2, 'GINF');
+
+
 insert into
   matiere
-values(
-    1,
-    'profab',
-    'Procedes de fabrication',
-    42,
-    'GIL34'
-  );
+values(1,'profab','Procedes de fabrication',42,'GIL34');
 insert into
   matiere
 values(2, 'CFAO', 'CFAO(Catia)', 21, 'GIL34');
 insert into
   matiere
-values(
-    3,
-    'c# prog',
-    'Programmation en C#',
-    32,
-    'GINF41'
-  );
+values(3,'c# prog','Programmation en C#',32,'GINF41');
 insert into
   matiere
-values(
-    4,
-    'intro JEE',
-    'Introduction a J2EE',
-    32,
-    'GINF41'
-  );
+values(4,'intro JEE','Introduction a J2EE',32,'GINF41');
 insert into
   matiere
 values(5, 'antennes', 'Antennes', 32, 'GSTR34');
 insert into
   matiere
-values(
-    6,
-    'disp micro-ondes',
-    'Dispositifs Micro-ondes',
-    32,
-    'GSTR34'
-  );
+values(6,'disp micro-ondes','Dispositifs Micro-ondes',32,'GSTR34');
+insert into
+  matiere
+values(7,'Sup Chain man','Supply chain management',42,'GIL51');
+insert into
+  matiere
+values(8, 'ordon', 'Ordonnancement', 21, 'GIL51');
+insert into
+  matiere
+values(9,'Prog mob .NET','Programation mobile .NET',21,'GINF51');
+insert into
+  matiere
+values(10,'archi J2EE','Architectures J2EE',42,'GINF51');
+insert into
+  matiere
+values(11, 'capt sans fil', 'Reseaux de capteurs sans fils', 21, 'GSTR53');
+insert into
+  matiere
+values(12,'telecom sat','Telecommunications satellitaires',21,'GSTR53');
