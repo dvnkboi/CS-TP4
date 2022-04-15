@@ -5,7 +5,7 @@ this project implements a db connection library, console test for it, and studen
 this is the console app that tests all methods in the model library using the Eleve table in a database called csharp
 
 ---
-
+ 
 ## ModelApp
 this is the connection library, can connect to MsSql and MySql databases
 
