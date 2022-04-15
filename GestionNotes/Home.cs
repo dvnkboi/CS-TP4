@@ -55,7 +55,7 @@ namespace Home
 
             Color themeColor = WinTheme.GetAccentColor();
 
-            this.BackColor = Color.FromArgb(220, ControlPaint.Dark(themeColor,0.92f));
+            this.BackColor = Color.FromArgb(220, ControlPaint.Dark(themeColor,0.8f));
             menuStrip1.BackColor = Color.FromArgb(254, themeColor);
 
             MARGINS margins = new MARGINS();

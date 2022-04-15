@@ -57,6 +57,7 @@ namespace Consultation_Notes
                            select fil).FirstOrDefault();
 
             comboBox_niveau.Items.Clear();
+
             niveaus = (from m in Module.@select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code } })
                        select m.niveau).Distinct().ToList();
             comboBox_niveau.Items.AddRange(niveaus.ToArray());
@@ -77,6 +78,7 @@ namespace Consultation_Notes
 
             selectedNiveau = int.Parse(comboBox_niveau.Text);
 
+            matieres.Clear();
             comboBox_matiere.Items.Clear();
 
             List<dynamic> modules = (from mod in Module.@select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
