@@ -57,6 +57,7 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 drop trigger if exists calc_moyenne_delete;
 DELIMITER $$
 
