@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GestionNotes.utils;
 using System.Linq;
 using System.IO;
+using GestionNotes.Models;
 
 namespace ConsoleModel
 {
@@ -17,28 +18,65 @@ namespace ConsoleModel
             Console.WriteLine("----------------------------------------------");
 
             //create connection
+            Console.WriteLine("\n------------------CONNECTION------------------");
+
+            Console.WriteLine("\nConnection sql string: Server=127.0.0.1;Database=csharp;Uid=root;Pwd=*******;");
             Connection.Connect("Server=127.0.0.1;Database=csharp;Uid=root;Pwd=8576;", "MySql");
+
+            Console.WriteLine("\n-----------------CONNECTION OK----------------");
 
             Eleve elv0 = new() { id = 1649766495, code = "uwuUWU", nom = "test_proc", prenom = "proc_insert", code_fil = "ginf", niveau = 2 };
 
             Console.WriteLine("\n------------------PROCEDURES------------------");
+            Console.WriteLine("\nINSERT:");
             elv0.delete();
             elv0.save("insert_eleve");
-            Console.WriteLine((Eleve)elv0.find());
+            Console.WriteLine(elv0.find());
 
+            Console.WriteLine("\nUPDATE:");
             elv0.prenom = "proc_update";
             elv0.save("update_eleve");
-            Console.WriteLine((Eleve)elv0.find());
+            Console.WriteLine(elv0.find());
 
+            Console.WriteLine("\nDELETE:");
             elv0.delete("delete_eleve");
-            Console.WriteLine(((Eleve)elv0.find())?.ToString() ?? "not found");
+            Console.WriteLine((elv0.find())?.ToString() ?? "not found");
 
             Console.WriteLine("\n-----------------PROCEDURES OK----------------");
+            Console.WriteLine("\n-------------------TRIGGERS-------------------");
+
+            elv0.save();
+            Note note0 = new() { id = 1649766495, code_elv = "uwuUWU", code_mat = "c# prog", note = 12 };
+            Note note1 = new() { id = 1321315533, code_elv = "uwuUWU", code_mat = "intro JEE", note = 10 };
+
+            Console.WriteLine("\nBefore note insert");
+            Console.WriteLine(Moyenne.find<Moyenne>(elv0.id)?.ToString() ?? "moyenne not found");
+
+            Console.WriteLine("\nInsert note1 = 12");
+            elv0.nom = "test_trigger";
+            elv0.prenom = "test_insert";
+            note0.save();
+            Console.WriteLine($"{elv0.find()} \n {Moyenne.find<Moyenne>(elv0.id)}");
+
+            Console.WriteLine("\nInsert note2 = 10");
+            elv0.nom = "test_trigger";
+            elv0.prenom = "test_insert";
+            note1.save();
+            Console.WriteLine($"{elv0.find()} \n {Moyenne.find<Moyenne>(elv0.id)}");
+
+            Console.WriteLine("\nInsert note2 = 13");
+            elv0.nom = "test_trigger";
+            elv0.prenom = "test_update";
+            note1.note = 13;
+            note1.save();
+            Console.WriteLine($"{elv0.find()} \n {Moyenne.find<Moyenne>(elv0.id)}");            
+
+            Console.WriteLine("\n------------------TRIGGERS OK-----------------");
             Console.WriteLine("\n--------------------FIELDS--------------------");
 
             //description of student table
             Dictionary<string, string> fields = Connection.GetTableFields("eleve");
-            Console.WriteLine("ELEVE:");
+            Console.WriteLine("\nELEVE:");
             foreach (KeyValuePair<string, string> field in fields)
             {
                 Console.WriteLine(field.Key + " | " + field.Value);
@@ -55,23 +93,23 @@ namespace ConsoleModel
 
             //save student 
             elv1.save();
-            Console.WriteLine($"student {elv1.code} saved");
+            Console.WriteLine($"\nStudent {elv1.code} saved");
 
-            Console.WriteLine("\n find output:");
+            Console.WriteLine("\nfind output:");
 
             //check if eleve exists in db
-            Eleve elvFound = (Eleve)elv1.find();
-            Eleve elvFoundStatic = (Eleve)Eleve.find<Eleve>(elv1.id);
+            Eleve elvFound = elv1.find();
+            Eleve elvFoundStatic = Eleve.find<Eleve>(elv1.id);
             Console.WriteLine("non static " + elvFound?.ToString() ?? "not found");
             Console.WriteLine("static " + elvFoundStatic?.ToString() ?? "not found static");
 
             //delete student
             elv1.delete();
 
-            Console.WriteLine("\n find output after delete:");
+            Console.WriteLine("\nfind output after delete:");
 
             //check existance again
-            elvFound = (Eleve)elv1.find();
+            elvFound = elv1.find();
             Console.WriteLine(elvFound?.ToString() ?? "not found");
 
             Console.WriteLine("\n----------------MANIPULATION OK---------------");
@@ -84,7 +122,7 @@ namespace ConsoleModel
             elv4.save();
 
             //show all students
-            Console.WriteLine($"All students:");
+            Console.WriteLine($"\nAll students:");
             List<dynamic> elvs = Eleve.All<Eleve>();
             foreach (Eleve eleve in elvs)
             {
@@ -101,6 +139,7 @@ namespace ConsoleModel
                 {"code_fil","ginf" }
             };
 
+            Console.WriteLine("\nSelect niveau = 2 and code_fil = ginf:");
             //select and display
             List<dynamic> selection = Eleve.select<Eleve>(criteria);
             foreach (Eleve eleve in selection)
@@ -113,9 +152,9 @@ namespace ConsoleModel
 
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             ConvEngine.CreateCSV<Eleve>(Eleve.All<Eleve>().OfType<Eleve>().ToList<Eleve>(), Path.Combine(docPath, "test_mysql.csv"));
-            Console.WriteLine("wrote CSV at " + Path.Combine(docPath, "test_mysql.csv"));
+            Console.WriteLine("\nWrote CSV at " + Path.Combine(docPath, "test_mysql.csv"));
             ConvEngine.CreateXLS<Eleve>(Eleve.All<Eleve>().OfType<Eleve>().ToList<Eleve>(), Path.Combine(docPath, "test_mysql.xlsx"));
-            Console.WriteLine("wrote CSV at " + Path.Combine(docPath, "test_mysql.xlsx"));
+            Console.WriteLine("\nWrote CSV at " + Path.Combine(docPath, "test_mysql.xlsx"));
 
             Console.WriteLine("\n------------------EXPORT OK-------------------");
             Console.WriteLine("\n-------------------CLEAN UP-------------------");
@@ -124,6 +163,10 @@ namespace ConsoleModel
             elv2.delete();
             elv3.delete();
             elv4.delete();
+            note0.delete();
+            note1.delete();
+            elv0.delete();
+            Console.WriteLine("\nTest students deleted");
 
             Console.WriteLine("\n-----------------CLEAN UP OK------------------");
             Console.WriteLine("\n------------------TEST DONE-------------------");
@@ -132,30 +175,67 @@ namespace ConsoleModel
             Console.WriteLine("---------------------Mssql--------------------");
             Console.WriteLine("----------------------------------------------");
 
+            Console.WriteLine("\n------------------CONNECTION------------------");
             //create connection
+            Console.WriteLine("\nConnection sql string: Data Source=STEALTH-15;Initial Catalog=csharp;Integrated Security=True");
             Connection.Connect("Data Source=STEALTH-15;Initial Catalog=csharp;Integrated Security=True", "MsSql");
+            Console.WriteLine("\nConnection sql string: STEALTH-15;Initial Catalog=csharp;Persist Security Info=True;User ID=sa;Password=******");
             Connection.Connect("Data Source=STEALTH-15;Initial Catalog=csharp;Persist Security Info=True;User ID=sa;Password=8576", "MsSql");
+
+            Console.WriteLine("\n-----------------CONNECTION OK----------------");
 
             elv0 = new() { id = 1649766495, code = "uwuUWU", nom = "test_proc", prenom = "proc_insert", code_fil = "ginf", niveau = 2 };
 
             Console.WriteLine("\n------------------PROCEDURES------------------");
+            Console.WriteLine("\nINSERT:");
             elv0.delete();
             elv0.save("insert_eleve");
-            Console.WriteLine((Eleve)elv0.find());
+            Console.WriteLine(elv0.find());
 
+            Console.WriteLine("\nUPDATE:");
             elv0.prenom = "proc_update";
             elv0.save("update_eleve");
-            Console.WriteLine((Eleve)elv0.find());
+            Console.WriteLine(elv0.find());
 
+            Console.WriteLine("\nDELETE:");
             elv0.delete("delete_eleve");
-            Console.WriteLine(((Eleve)elv0.find())?.ToString() ?? "not found");
+            Console.WriteLine((elv0.find())?.ToString() ?? "not found");
 
             Console.WriteLine("\n-----------------PROCEDURES OK----------------");
+            Console.WriteLine("\n-------------------TRIGGERS-------------------");
+
+            elv0.save();
+            note0 = new() { id = 1649766495, code_elv = "uwuUWU", code_mat = "c# prog", note = 12 };
+            note1 = new() { id = 1321315533, code_elv = "uwuUWU", code_mat = "intro JEE", note = 10 };
+
+            Console.WriteLine("\nBefore note insert");
+            Console.WriteLine(Moyenne.find<Moyenne>(elv0.id)?.ToString() ?? "moyenne not found");
+
+            Console.WriteLine("\nInsert note1 = 12");
+            elv0.nom = "test_trigger";
+            elv0.prenom = "test_insert";
+            note0.save();
+            Console.WriteLine($"{elv0.find()} \n {Moyenne.find<Moyenne>(elv0.id)}");
+
+            Console.WriteLine("\nInsert note2 = 10");
+            elv0.nom = "test_trigger";
+            elv0.prenom = "test_insert";
+            note1.save();
+            Console.WriteLine($"{elv0.find()} \n {Moyenne.find<Moyenne>(elv0.id)}");
+
+            Console.WriteLine("\nInsert note2 = 13");
+            elv0.nom = "test_trigger";
+            elv0.prenom = "test_update";
+            note1.note = 13;
+            note1.save();
+            Console.WriteLine($"{elv0.find()} \n {Moyenne.find<Moyenne>(elv0.id)}");
+
+            Console.WriteLine("\n------------------TRIGGERS OK-----------------");
             Console.WriteLine("\n--------------------FIELDS--------------------");
 
             //description of student table
-            fields = Connection.GetTableFields("moyenne");
-            Console.WriteLine("ELEVE:");
+            fields = Connection.GetTableFields("eleve");
+            Console.WriteLine("\nELEVE:");
             foreach (KeyValuePair<string, string> field in fields)
             {
                 Console.WriteLine(field.Key + " | " + field.Value);
@@ -172,23 +252,23 @@ namespace ConsoleModel
 
             //save student 
             elv1.save();
-            Console.WriteLine($"student {elv1.code} saved");
+            Console.WriteLine($"\nStudent {elv1.code} saved");
 
-            Console.WriteLine("\n find output:");
+            Console.WriteLine("\nfind output:");
 
             //check if eleve exists in db
-            elvFound = (Eleve)elv1.find();
-            elvFoundStatic = (Eleve)Eleve.find<Eleve>(elv1.id);
+            elvFound = elv1.find();
+            elvFoundStatic = Eleve.find<Eleve>(elv1.id);
             Console.WriteLine("non static " + elvFound?.ToString() ?? "not found");
             Console.WriteLine("static " + elvFoundStatic?.ToString() ?? "not found static");
 
             //delete student
             elv1.delete();
 
-            Console.WriteLine("\n find output after delete:");
+            Console.WriteLine("\nfind output after delete:");
 
             //check existance again
-            elvFound = (Eleve)elv1.find();
+            elvFound = elv1.find();
             Console.WriteLine(elvFound?.ToString() ?? "not found");
 
             Console.WriteLine("\n----------------MANIPULATION OK---------------");
@@ -201,7 +281,7 @@ namespace ConsoleModel
             elv4.save();
 
             //show all students
-            Console.WriteLine($"All students:");
+            Console.WriteLine($"\nAll students:");
             elvs = Eleve.All<Eleve>();
             foreach (Eleve eleve in elvs)
             {
@@ -218,6 +298,7 @@ namespace ConsoleModel
                 {"code_fil","ginf" }
             };
 
+            Console.WriteLine("\nSelect niveau = 2 and code_fil = ginf:");
             //select and display
             selection = Eleve.select<Eleve>(criteria);
             foreach (Eleve eleve in selection)
@@ -230,9 +311,9 @@ namespace ConsoleModel
 
             docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             ConvEngine.CreateCSV<Eleve>(Eleve.All<Eleve>().OfType<Eleve>().ToList<Eleve>(), Path.Combine(docPath, "test_mssql.csv"));
-            Console.WriteLine("wrote CSV at " + Path.Combine(docPath, "test_mssql.csv"));
+            Console.WriteLine("\nWrote CSV at " + Path.Combine(docPath, "test_mssql.csv"));
             ConvEngine.CreateXLS<Eleve>(Eleve.All<Eleve>().OfType<Eleve>().ToList<Eleve>(), Path.Combine(docPath, "test_mssql.xlsx"));
-            Console.WriteLine("wrote CSV at " + Path.Combine(docPath, "test_mssql.xlsx"));
+            Console.WriteLine("\nWrote CSV at " + Path.Combine(docPath, "test_mssql.xlsx"));
 
             Console.WriteLine("\n------------------EXPORT OK-------------------");
             Console.WriteLine("\n-------------------CLEAN UP-------------------");
@@ -241,6 +322,10 @@ namespace ConsoleModel
             elv2.delete();
             elv3.delete();
             elv4.delete();
+            note0.delete();
+            note1.delete();
+            elv0.delete();
+            Console.WriteLine("\nTest students deleted");
 
             Console.WriteLine("\n-----------------CLEAN UP OK------------------");
             Console.WriteLine("\n------------------TEST DONE-------------------");
