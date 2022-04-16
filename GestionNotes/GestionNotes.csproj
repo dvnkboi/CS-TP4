@@ -8,6 +8,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Sql\mssql_db.sql" />
+    <None Remove="Sql\mssql_procedures.sql" />
+    <None Remove="Sql\mssql_triggers.sql" />
+    <None Remove="Sql\mysql_db.sql" />
+    <None Remove="Sql\mysql_procedures.sql" />
+    <None Remove="Sql\mysql_triggers.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Sql\mssql_db.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sql\mssql_procedures.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sql\mssql_triggers.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sql\mysql_db.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sql\mysql_procedures.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sql\mysql_triggers.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ModelApp\ModelApp.csproj" />
   </ItemGroup>
 

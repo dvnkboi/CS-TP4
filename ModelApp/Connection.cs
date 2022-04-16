@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Text;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Common;
 
 namespace ModelApp
 {
@@ -13,11 +15,18 @@ namespace ModelApp
         public static IDbCommand cmd = null;
         public static string Server = null;
         public static Dictionary<string, Dictionary<string, string>> _schemaMap = new Dictionary<string, Dictionary<string, string>>();
+        public static bool isConnected
+        {
+            get
+            {
+                return con != null && con.State == ConnectionState.Open;
+            }
+        }
 
         public static void Connect(string cstr, string server)
         {
             Server = server.Trim().ToLower();
-            if (con != null && con.State == ConnectionState.Open) return;
+            if (con != null && isConnected) return;
 
             switch (Server)
             {
@@ -87,7 +96,24 @@ namespace ModelApp
 
         public static void Close()
         {
-            if (con != null && con.State == ConnectionState.Open) con.Close();
+            if (con != null && isConnected) con.Close();
+        }
+
+        public static void Execute(string text)
+        {
+            switch (Server)
+            {
+                case "mssql":
+                    Server server = new Server(new ServerConnection((Microsoft.Data.SqlClient.SqlConnection)con));
+                    server.ConnectionContext.ExecuteNonQuery(text);
+                    break;
+                case "mysql":
+                    MySqlScript script = new MySqlScript((MySqlConnection)con, text);
+                    script.Execute();
+                    break;
+                default:
+                    throw new Exception("database server not supported... yikes kinda cringe");
+            }
         }
 
         public static void AddParameter(string key, Object value)

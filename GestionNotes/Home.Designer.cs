@@ -30,6 +30,7 @@ namespace Home
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filiereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matieresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,6 +39,7 @@ namespace Home
             this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.billanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel_bg = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +48,7 @@ namespace Home
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToolStripMenuItem,
             this.gestionToolStripMenuItem,
             this.affichageToolStripMenuItem,
             this.billanToolStripMenuItem,
@@ -56,6 +59,16 @@ namespace Home
             this.menuStrip1.Size = new System.Drawing.Size(800, 37);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // connectToolStripMenuItem
+            // 
+            this.connectToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.connectToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
+            this.connectToolStripMenuItem.Padding = new System.Windows.Forms.Padding(7);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(78, 37);
+            this.connectToolStripMenuItem.Text = "Connect";
+            this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // gestionToolStripMenuItem
             // 
@@ -76,7 +89,7 @@ namespace Home
             this.filiereToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.filiereToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.filiereToolStripMenuItem.Name = "filiereToolStripMenuItem";
-            this.filiereToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.filiereToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.filiereToolStripMenuItem.Text = "Filieres";
             this.filiereToolStripMenuItem.Click += new System.EventHandler(this.filiereToolStripMenuItem_Click);
             // 
@@ -85,7 +98,7 @@ namespace Home
             this.matieresToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.matieresToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.matieresToolStripMenuItem.Name = "matieresToolStripMenuItem";
-            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.matieresToolStripMenuItem.Text = "Matieres";
             // 
             // etudiantsToolStripMenuItem
@@ -93,7 +106,7 @@ namespace Home
             this.etudiantsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.etudiantsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.etudiantsToolStripMenuItem.Name = "etudiantsToolStripMenuItem";
-            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.etudiantsToolStripMenuItem.Text = "Etudiants";
             this.etudiantsToolStripMenuItem.Click += new System.EventHandler(this.etudiantsToolStripMenuItem_Click);
             // 
@@ -102,7 +115,7 @@ namespace Home
             this.notesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.notesToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
-            this.notesToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.notesToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.notesToolStripMenuItem.Text = "Notes";
             this.notesToolStripMenuItem.Click += new System.EventHandler(this.notesToolStripMenuItem_Click);
             // 
@@ -137,11 +150,20 @@ namespace Home
             this.quitterToolStripMenuItem.Text = "Quitter";
             this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
             // 
+            // panel_bg
+            // 
+            this.panel_bg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_bg.Location = new System.Drawing.Point(0, 37);
+            this.panel_bg.Name = "panel_bg";
+            this.panel_bg.Size = new System.Drawing.Size(800, 383);
+            this.panel_bg.TabIndex = 1;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 420);
+            this.Controls.Add(this.panel_bg);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.SystemColors.Control;
@@ -171,5 +193,7 @@ namespace Home
         private System.Windows.Forms.ToolStripMenuItem affichageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem billanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
+        private System.Windows.Forms.Panel panel_bg;
     }
 }

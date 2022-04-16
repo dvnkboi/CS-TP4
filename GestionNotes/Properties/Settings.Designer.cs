@@ -22,5 +22,41 @@ namespace GestionNotes.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string conString {
+            get {
+                return ((string)(this["conString"]));
+            }
+            set {
+                this["conString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string conServer {
+            get {
+                return ((string)(this["conServer"]));
+            }
+            set {
+                this["conServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool reset {
+            get {
+                return ((bool)(this["reset"]));
+            }
+            set {
+                this["reset"] = value;
+            }
+        }
     }
 }
