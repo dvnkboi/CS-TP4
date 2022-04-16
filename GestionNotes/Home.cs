@@ -26,7 +26,7 @@ namespace Home
 
         private void etudiantsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(ModelApp.Connection.isConnected)
+            if(ModelApp.Connection.IsConnected)
                 new Gestion_Etudiants.Gestion_Etudiants().ShowDialog();
             else
             {
@@ -42,7 +42,7 @@ namespace Home
         
         private void notesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ModelApp.Connection.isConnected)
+            if (ModelApp.Connection.IsConnected)
                 new Gestion_Notes.Gestion_Notes() { Owner = this }.ShowDialog();
             else
             {
@@ -58,7 +58,7 @@ namespace Home
 
         private void billanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ModelApp.Connection.isConnected)
+            if (ModelApp.Connection.IsConnected)
                 new Bilan_Annuel.Bilan_Annuel().ShowDialog();
             else
             {
@@ -74,7 +74,7 @@ namespace Home
 
         private void filiereToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ModelApp.Connection.isConnected)
+            if (ModelApp.Connection.IsConnected)
                 new Gestion_Filieres.Gestion_Filieres().ShowDialog();
             else
             {
@@ -90,7 +90,7 @@ namespace Home
 
         private void affichageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ModelApp.Connection.isConnected)
+            if (ModelApp.Connection.IsConnected)
                 new Consultation_Notes.Consultation_Notes().ShowDialog();
             else
             {

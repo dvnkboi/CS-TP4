@@ -14,8 +14,9 @@ namespace ModelApp
         public static IDbConnection con = null;
         public static IDbCommand cmd = null;
         public static string Server = null;
+        public static string conString = null;
         public static Dictionary<string, Dictionary<string, string>> _schemaMap = new Dictionary<string, Dictionary<string, string>>();
-        public static bool isConnected
+        public static bool IsConnected
         {
             get
             {
@@ -23,10 +24,24 @@ namespace ModelApp
             }
         }
 
+        public static bool DatabaseProvided(string conString, string Server = null)
+        {
+            switch (Server)
+            {
+                case "mssql":
+                    return conString.ToLower().Contains("initial catalog");
+                case "mysql":
+                    return conString.ToLower().Contains("database");
+                default:
+                    throw new Exception("database server not supported... yikes kinda cringe");
+            }
+        }
+
         public static void Connect(string cstr, string server)
         {
             Server = server.Trim().ToLower();
-            if (con != null && isConnected) return;
+            conString = cstr;
+            if (con != null && IsConnected) return;
 
             switch (Server)
             {
@@ -96,7 +111,7 @@ namespace ModelApp
 
         public static void Close()
         {
-            if (con != null && isConnected) con.Close();
+            if (con != null && IsConnected) con.Close();
         }
 
         public static void Execute(string text)
@@ -129,6 +144,66 @@ namespace ModelApp
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(new MySqlParameter(key, value));
                     break;
+                default:
+                    throw new Exception("database server not supported... yikes kinda cringe");
+            }
+        }
+
+        public static void CreateDb(string conString,string server,string db)
+        {
+            Server = server.ToLower().Trim();
+            switch (Server)
+            {
+                case "mssql":
+                    Connect(concatDb(conString, server, "master"), "mssql");
+                    IUD($"Create database {db}");
+                    break;
+                case "mysql":
+                    Connect(concatDb(conString, server, "mysql"), "mysql");
+                    IUD($"Create database {db}");
+                    break;
+                default:
+                    throw new Exception("database server not supported... yikes kinda cringe");
+            }
+        }
+
+        public static string concatDb(string conString, string server, string db)
+        {
+            Server = server.ToLower().Trim();
+            string cstr = conString;
+            switch (Server)
+            {
+                case "mssql":
+                    cstr += $"Initial Catalog={db};";
+                    return cstr;
+                case "mysql":
+                    cstr += $"Database={db};";
+                    return cstr;
+                default:
+                    throw new Exception("database server not supported... yikes kinda cringe");
+            }
+        }
+
+        public static string concatStr(string host, string server, string user = null, string pass = null , string db = null, string[] opt = null)
+        {
+            Server = server.ToLower().Trim();
+            string cstr = "";
+            switch (Server)
+            {
+                case "mssql":
+                    cstr += $"Data Source={host};";
+                    cstr += db != null && db.Trim() != "" ? $"Initial Catalog={db};" : "";
+                    cstr += user != null && user.Trim() != "" ? $"User ID={user};" : "";
+                    cstr += pass != null && pass.Trim() != "" ? $"Password={pass};" : "";
+                    cstr += opt != null &&  opt.Length != 0 ? $"{String.Join(";",opt)};" : "";
+                    return cstr;
+                case "mysql":
+                    cstr += $"Server={host};";
+                    cstr += db != null && db.Trim() != "" ? $"Database={db};" : "";
+                    cstr += user != null && user.Trim() != "" ? $"Uid={user};" : "";
+                    cstr += pass != null && pass.Trim() != "" ? $"Pwd={pass};" : "";
+                    cstr += opt != null && opt.Length != 0 ? $"{String.Join(";",opt)};" : "";
+                    return cstr;
                 default:
                     throw new Exception("database server not supported... yikes kinda cringe");
             }

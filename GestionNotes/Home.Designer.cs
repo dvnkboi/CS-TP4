@@ -33,7 +33,6 @@ namespace Home
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filiereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.matieresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.etudiantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.affichageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,7 +73,6 @@ namespace Home
             // 
             this.gestionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filiereToolStripMenuItem,
-            this.matieresToolStripMenuItem,
             this.etudiantsToolStripMenuItem,
             this.notesToolStripMenuItem});
             this.gestionToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -89,24 +87,16 @@ namespace Home
             this.filiereToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.filiereToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.filiereToolStripMenuItem.Name = "filiereToolStripMenuItem";
-            this.filiereToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
+            this.filiereToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.filiereToolStripMenuItem.Text = "Filieres";
             this.filiereToolStripMenuItem.Click += new System.EventHandler(this.filiereToolStripMenuItem_Click);
-            // 
-            // matieresToolStripMenuItem
-            // 
-            this.matieresToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.matieresToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.matieresToolStripMenuItem.Name = "matieresToolStripMenuItem";
-            this.matieresToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
-            this.matieresToolStripMenuItem.Text = "Matieres";
             // 
             // etudiantsToolStripMenuItem
             // 
             this.etudiantsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.etudiantsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.etudiantsToolStripMenuItem.Name = "etudiantsToolStripMenuItem";
-            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
+            this.etudiantsToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.etudiantsToolStripMenuItem.Text = "Etudiants";
             this.etudiantsToolStripMenuItem.Click += new System.EventHandler(this.etudiantsToolStripMenuItem_Click);
             // 
@@ -115,7 +105,7 @@ namespace Home
             this.notesToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.notesToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.notesToolStripMenuItem.Name = "notesToolStripMenuItem";
-            this.notesToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
+            this.notesToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.notesToolStripMenuItem.Text = "Notes";
             this.notesToolStripMenuItem.Click += new System.EventHandler(this.notesToolStripMenuItem_Click);
             // 
@@ -187,7 +177,6 @@ namespace Home
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem gestionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filiereToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem matieresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem etudiantsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem notesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem affichageToolStripMenuItem;

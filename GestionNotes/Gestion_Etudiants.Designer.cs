@@ -53,6 +53,7 @@ namespace Gestion_Etudiants
             this.label_state = new System.Windows.Forms.Label();
             this.export_btn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.seperator = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.table_eleve)).BeginInit();
             this.SuspendLayout();
             // 
@@ -234,10 +235,10 @@ namespace Gestion_Etudiants
             // 
             // btn_gestionNotes
             // 
-            this.btn_gestionNotes.Location = new System.Drawing.Point(453, 201);
+            this.btn_gestionNotes.Location = new System.Drawing.Point(506, 201);
             this.btn_gestionNotes.Margin = new System.Windows.Forms.Padding(2);
             this.btn_gestionNotes.Name = "btn_gestionNotes";
-            this.btn_gestionNotes.Size = new System.Drawing.Size(202, 27);
+            this.btn_gestionNotes.Size = new System.Drawing.Size(149, 27);
             this.btn_gestionNotes.TabIndex = 9;
             this.btn_gestionNotes.Text = "Gestion des notes";
             this.btn_gestionNotes.UseVisualStyleBackColor = true;
@@ -314,11 +315,23 @@ namespace Gestion_Etudiants
             this.label6.TabIndex = 15;
             this.label6.Text = "Gestion Des Etudiants";
             // 
+            // seperator
+            // 
+            this.seperator.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.seperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.seperator.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.seperator.Location = new System.Drawing.Point(526, 188);
+            this.seperator.Margin = new System.Windows.Forms.Padding(0);
+            this.seperator.Name = "seperator";
+            this.seperator.Size = new System.Drawing.Size(110, 2);
+            this.seperator.TabIndex = 16;
+            // 
             // Gestion_Etudiants
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(689, 442);
+            this.Controls.Add(this.seperator);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.export_btn);
             this.Controls.Add(this.label_state);
@@ -350,7 +363,7 @@ namespace Gestion_Etudiants
             this.MinimumSize = new System.Drawing.Size(705, 481);
             this.Name = "Gestion_Etudiants";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestion";
+            this.Text = "S";
             this.Load += new System.EventHandler(this.Gestion_Etudiants_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_eleve)).EndInit();
             this.ResumeLayout(false);
@@ -384,6 +397,7 @@ namespace Gestion_Etudiants
         private System.Windows.Forms.Label label_state;
         private System.Windows.Forms.Button export_btn;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label seperator;
     }
 }
 

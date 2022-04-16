@@ -77,9 +77,54 @@ namespace GestionNotes
 
         public void DbTask_Work(object sender, DoWorkEventArgs e)
         {
+            int progress = 0;
+            int tasks = 5;
+            if (!ModelApp.Connection.DatabaseProvided(conString, server))
+            {
+                try
+                {
+                    backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Creating Database" }, { "error", false } });
+                    Task.Delay(100).Wait();
+                    ModelApp.Connection.Close();
+
+                    ModelApp.Connection.CreateDb(conString, server, "gestion_notes_app_csharp");
+                    conString = ModelApp.Connection.concatDb(conString, server, "gestion_notes_app_csharp");
+                }
+                catch (Exception ex)
+                {
+                    if(ex.Message.ToLower().Contains("exists"))
+                    {
+                        conString = ModelApp.Connection.concatDb(conString, server, "gestion_notes_app_csharp");
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "Error creating database " + ex.Message,
+                            "Creation error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                            backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Creating Database" }, { "error", true } });
+                            return;
+                    }
+                    
+                }
+                progress += 100/tasks;
+                backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Creating Database" }, { "error", false } });
+            }
+            else
+            {
+                progress += 100 / tasks;
+                backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Skipping database creation" }, { "error", false } });
+                Task.Delay(100).Wait();
+            }
+
+            
+
             try
             {
-                backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", false } });
+                backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", false } });
+                Task.Delay(100).Wait();
                 ModelApp.Connection.Close();
                 ModelApp.Connection.Connect(conString, server);
             }
@@ -91,17 +136,19 @@ namespace GestionNotes
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
-                backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", true } });
+                backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", true } });
                 return;
             }
 
-            backgroundTask.ReportProgress(25, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", false } });
+            progress += 100 / tasks;
+            backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", false } });
 
             if (migrate)
             {
                 try
                 {
-                    backgroundTask.ReportProgress(25, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", false } });
+                    backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", false } });
+                    Task.Delay(100).Wait();
                     string Location = Path.Combine(Environment.CurrentDirectory, $@"Sql\{server}_db.sql");
                     string script = File.ReadAllText(Location);
                     ModelApp.Connection.Execute(script);
@@ -114,15 +161,17 @@ namespace GestionNotes
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
-                    backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", true } });
+                    backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", true } });
                     return;
                 }
 
-                backgroundTask.ReportProgress(50, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", false } });
+                progress += 100 / tasks;
+                backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", false } });
 
                 try
                 {
-                    backgroundTask.ReportProgress(50, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", false } });
+                    backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", false } });
+                    Task.Delay(100).Wait();
                     string Location = Path.Combine(Environment.CurrentDirectory, $@"Sql\{server}_procedures.sql");
                     string script = File.ReadAllText(Location);
                     ModelApp.Connection.Execute(script);
@@ -135,15 +184,17 @@ namespace GestionNotes
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
-                    backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", true } });
+                    backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", true } });
                     return;
                 }
 
-                backgroundTask.ReportProgress(75, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", false } });
+                progress += 100 / tasks;
+                backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", false } });
 
                 try
                 {
-                    backgroundTask.ReportProgress(75, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", false } });
+                    backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", false } });
+                    Task.Delay(100).Wait();
                     string Location = Path.Combine(Environment.CurrentDirectory, $@"Sql\{server}_triggers.sql");
                     string script = File.ReadAllText(Location);
                     ModelApp.Connection.Execute(script);
@@ -156,12 +207,14 @@ namespace GestionNotes
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     );
-                    backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", true } });
+                    backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", true } });
                     return;
                 }
 
             }
-            backgroundTask.ReportProgress(100, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", false } });
+
+            progress += 100 / tasks;
+            backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", false } });
         }
     }
 }
