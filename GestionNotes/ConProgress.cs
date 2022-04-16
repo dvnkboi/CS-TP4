@@ -92,6 +92,7 @@ namespace GestionNotes
                     MessageBoxIcon.Error
                 );
                 backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", true } });
+                return;
             }
 
             backgroundTask.ReportProgress(25, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", false } });
@@ -114,6 +115,7 @@ namespace GestionNotes
                         MessageBoxIcon.Error
                     );
                     backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", true } });
+                    return;
                 }
 
                 backgroundTask.ReportProgress(50, new Dictionary<string, object>() { { "text", "Migrating database" }, { "error", false } });
@@ -134,6 +136,7 @@ namespace GestionNotes
                         MessageBoxIcon.Error
                     );
                     backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", true } });
+                    return;
                 }
 
                 backgroundTask.ReportProgress(75, new Dictionary<string, object>() { { "text", "Migrating procedures" }, { "error", false } });
@@ -154,11 +157,10 @@ namespace GestionNotes
                         MessageBoxIcon.Error
                     );
                     backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", true } });
+                    return;
                 }
 
                 backgroundTask.ReportProgress(100, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", false } });
-
-
             }
         }
     }

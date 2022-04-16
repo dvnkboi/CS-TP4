@@ -42,13 +42,14 @@ namespace Gestion_Filieres
             this.table_filiere = new System.Windows.Forms.DataGridView();
             this.label_state = new System.Windows.Forms.Label();
             this.export_btn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.table_filiere)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 47);
+            this.label1.Location = new System.Drawing.Point(34, 61);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 15);
@@ -59,7 +60,7 @@ namespace Gestion_Filieres
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 82);
+            this.label2.Location = new System.Drawing.Point(35, 96);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 15);
@@ -69,7 +70,7 @@ namespace Gestion_Filieres
             // 
             // text_designation
             // 
-            this.text_designation.Location = new System.Drawing.Point(78, 79);
+            this.text_designation.Location = new System.Drawing.Point(73, 93);
             this.text_designation.Margin = new System.Windows.Forms.Padding(2);
             this.text_designation.Name = "text_designation";
             this.text_designation.Size = new System.Drawing.Size(157, 23);
@@ -77,7 +78,7 @@ namespace Gestion_Filieres
             // 
             // text_code
             // 
-            this.text_code.Location = new System.Drawing.Point(78, 44);
+            this.text_code.Location = new System.Drawing.Point(73, 58);
             this.text_code.Margin = new System.Windows.Forms.Padding(2);
             this.text_code.Name = "text_code";
             this.text_code.Size = new System.Drawing.Size(157, 23);
@@ -87,7 +88,7 @@ namespace Gestion_Filieres
             // check_code
             // 
             this.check_code.AutoSize = true;
-            this.check_code.Location = new System.Drawing.Point(239, 48);
+            this.check_code.Location = new System.Drawing.Point(234, 62);
             this.check_code.Margin = new System.Windows.Forms.Padding(2);
             this.check_code.Name = "check_code";
             this.check_code.Size = new System.Drawing.Size(15, 14);
@@ -98,7 +99,7 @@ namespace Gestion_Filieres
             // check_designation
             // 
             this.check_designation.AutoSize = true;
-            this.check_designation.Location = new System.Drawing.Point(239, 83);
+            this.check_designation.Location = new System.Drawing.Point(234, 97);
             this.check_designation.Margin = new System.Windows.Forms.Padding(2);
             this.check_designation.Name = "check_designation";
             this.check_designation.Size = new System.Drawing.Size(15, 14);
@@ -188,11 +189,24 @@ namespace Gestion_Filieres
             this.export_btn.UseVisualStyleBackColor = true;
             this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Padding = new System.Windows.Forms.Padding(10, 6, 10, 6);
+            this.label3.Size = new System.Drawing.Size(178, 33);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Gestion Des Filieres";
+            // 
             // Gestion_Filieres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(689, 442);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.export_btn);
             this.Controls.Add(this.label_state);
             this.Controls.Add(this.table_filiere);
@@ -213,7 +227,7 @@ namespace Gestion_Filieres
             this.MinimumSize = new System.Drawing.Size(705, 481);
             this.Name = "Gestion_Filieres";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestion des filieres";
+            this.Text = "Gestion";
             this.Load += new System.EventHandler(this.Gestion_Filieres_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_filiere)).EndInit();
             this.ResumeLayout(false);
@@ -236,6 +250,7 @@ namespace Gestion_Filieres
         private System.Windows.Forms.DataGridView table_filiere;
         private System.Windows.Forms.Label label_state;
         private System.Windows.Forms.Button export_btn;
+        private System.Windows.Forms.Label label3;
     }
 }
 

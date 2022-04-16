@@ -110,8 +110,6 @@ namespace GestionNotes
             // check_migrate
             // 
             this.check_migrate.AutoSize = true;
-            this.check_migrate.Checked = true;
-            this.check_migrate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.check_migrate.Location = new System.Drawing.Point(252, 71);
             this.check_migrate.Name = "check_migrate";
             this.check_migrate.Size = new System.Drawing.Size(178, 19);

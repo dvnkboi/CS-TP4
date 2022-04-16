@@ -40,6 +40,7 @@ namespace Consultation_Notes
             this.text_moyenne_annuelle = new System.Windows.Forms.TextBox();
             this.btn_rechercher = new System.Windows.Forms.Button();
             this.export_btn = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.table_consutation)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,6 +125,7 @@ namespace Consultation_Notes
             // comboBox_matiere
             // 
             this.comboBox_matiere.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_matiere.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox_matiere.FormattingEnabled = true;
             this.comboBox_matiere.Location = new System.Drawing.Point(687, 49);
             this.comboBox_matiere.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -162,11 +164,24 @@ namespace Consultation_Notes
             this.export_btn.UseVisualStyleBackColor = true;
             this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Padding = new System.Windows.Forms.Padding(10, 6, 10, 6);
+            this.label6.Size = new System.Drawing.Size(202, 33);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Consultation De Notes";
+            // 
             // Consultation_Notes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 455);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.export_btn);
             this.Controls.Add(this.btn_rechercher);
             this.Controls.Add(this.text_moyenne_annuelle);
@@ -185,7 +200,7 @@ namespace Consultation_Notes
             this.MinimumSize = new System.Drawing.Size(949, 494);
             this.Name = "Consultation_Notes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Consultation_Notes";
+            this.Text = "Affichage";
             this.Load += new System.EventHandler(this.Consultation_Notes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_consutation)).EndInit();
             this.ResumeLayout(false);
@@ -206,5 +221,6 @@ namespace Consultation_Notes
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.DataGridView table_consutation;
         private System.Windows.Forms.Button export_btn;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -40,12 +40,14 @@ namespace Gestion_Notes
             this.btn_rechercher = new System.Windows.Forms.Button();
             this.comboBox_matiere = new System.Windows.Forms.ComboBox();
             this.label_state = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // code_eleve
             // 
             this.code_eleve.AutoSize = true;
-            this.code_eleve.Location = new System.Drawing.Point(98, 79);
+            this.code_eleve.Location = new System.Drawing.Point(34, 55);
             this.code_eleve.Name = "code_eleve";
             this.code_eleve.Size = new System.Drawing.Size(65, 15);
             this.code_eleve.TabIndex = 0;
@@ -54,7 +56,7 @@ namespace Gestion_Notes
             // matiere
             // 
             this.matiere.AutoSize = true;
-            this.matiere.Location = new System.Drawing.Point(98, 155);
+            this.matiere.Location = new System.Drawing.Point(52, 84);
             this.matiere.Name = "matiere";
             this.matiere.Size = new System.Drawing.Size(47, 15);
             this.matiere.TabIndex = 1;
@@ -63,7 +65,7 @@ namespace Gestion_Notes
             // note
             // 
             this.note.AutoSize = true;
-            this.note.Location = new System.Drawing.Point(98, 231);
+            this.note.Location = new System.Drawing.Point(66, 141);
             this.note.Name = "note";
             this.note.Size = new System.Drawing.Size(33, 15);
             this.note.TabIndex = 2;
@@ -72,21 +74,21 @@ namespace Gestion_Notes
             // 
             // text_code_eleve
             // 
-            this.text_code_eleve.Location = new System.Drawing.Point(272, 79);
+            this.text_code_eleve.Location = new System.Drawing.Point(105, 51);
             this.text_code_eleve.Name = "text_code_eleve";
             this.text_code_eleve.Size = new System.Drawing.Size(121, 23);
             this.text_code_eleve.TabIndex = 3;
             // 
             // text_note
             // 
-            this.text_note.Location = new System.Drawing.Point(272, 231);
+            this.text_note.Location = new System.Drawing.Point(105, 138);
             this.text_note.Name = "text_note";
             this.text_note.Size = new System.Drawing.Size(121, 23);
             this.text_note.TabIndex = 5;
             // 
             // btn_nouveau
             // 
-            this.btn_nouveau.Location = new System.Drawing.Point(544, 79);
+            this.btn_nouveau.Location = new System.Drawing.Point(346, 51);
             this.btn_nouveau.Name = "btn_nouveau";
             this.btn_nouveau.Size = new System.Drawing.Size(141, 23);
             this.btn_nouveau.TabIndex = 6;
@@ -96,7 +98,7 @@ namespace Gestion_Notes
             // 
             // btn_save
             // 
-            this.btn_save.Location = new System.Drawing.Point(544, 151);
+            this.btn_save.Location = new System.Drawing.Point(346, 80);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(141, 23);
             this.btn_save.TabIndex = 7;
@@ -106,9 +108,9 @@ namespace Gestion_Notes
             // 
             // btn_supprimer
             // 
-            this.btn_supprimer.Location = new System.Drawing.Point(729, 79);
+            this.btn_supprimer.Location = new System.Drawing.Point(346, 109);
             this.btn_supprimer.Name = "btn_supprimer";
-            this.btn_supprimer.Size = new System.Drawing.Size(132, 23);
+            this.btn_supprimer.Size = new System.Drawing.Size(141, 23);
             this.btn_supprimer.TabIndex = 9;
             this.btn_supprimer.Text = "Supprimer";
             this.btn_supprimer.UseVisualStyleBackColor = true;
@@ -116,9 +118,9 @@ namespace Gestion_Notes
             // 
             // btn_rechercher
             // 
-            this.btn_rechercher.Location = new System.Drawing.Point(729, 151);
+            this.btn_rechercher.Location = new System.Drawing.Point(346, 138);
             this.btn_rechercher.Name = "btn_rechercher";
-            this.btn_rechercher.Size = new System.Drawing.Size(132, 23);
+            this.btn_rechercher.Size = new System.Drawing.Size(141, 23);
             this.btn_rechercher.TabIndex = 10;
             this.btn_rechercher.Text = "Rechercher";
             this.btn_rechercher.UseVisualStyleBackColor = true;
@@ -128,7 +130,7 @@ namespace Gestion_Notes
             // 
             this.comboBox_matiere.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_matiere.FormattingEnabled = true;
-            this.comboBox_matiere.Location = new System.Drawing.Point(272, 147);
+            this.comboBox_matiere.Location = new System.Drawing.Point(105, 80);
             this.comboBox_matiere.Name = "comboBox_matiere";
             this.comboBox_matiere.Size = new System.Drawing.Size(121, 23);
             this.comboBox_matiere.TabIndex = 11;
@@ -145,11 +147,34 @@ namespace Gestion_Notes
             this.label_state.TabIndex = 12;
             this.label_state.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(10, 6, 10, 6);
+            this.label1.Size = new System.Drawing.Size(169, 33);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Gestion Des Notes";
+            // 
+            // label2
+            // 
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Location = new System.Drawing.Point(111, 120);
+            this.label2.Margin = new System.Windows.Forms.Padding(0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(110, 2);
+            this.label2.TabIndex = 14;
+            // 
             // Gestion_Notes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(946, 290);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label_state);
             this.Controls.Add(this.comboBox_matiere);
             this.Controls.Add(this.btn_rechercher);
@@ -167,7 +192,7 @@ namespace Gestion_Notes
             this.MinimumSize = new System.Drawing.Size(962, 329);
             this.Name = "Gestion_Notes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestion des notes";
+            this.Text = "Gestion";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gestion_Notes_FormClosing);
             this.Load += new System.EventHandler(this.Gestion_Notes_Load);
             this.Shown += new System.EventHandler(this.Gestion_Notes_Shown);
@@ -189,6 +214,8 @@ namespace Gestion_Notes
         public System.Windows.Forms.TextBox text_code_eleve;
         public System.Windows.Forms.TextBox text_note;
         private System.Windows.Forms.Label label_state;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

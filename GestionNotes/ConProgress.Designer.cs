@@ -77,7 +77,7 @@ namespace GestionNotes
             this.MinimumSize = new System.Drawing.Size(450, 132);
             this.Name = "ConProgress";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Connection Status";
+            this.Text = "Connection";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConProgress_FormClosing);
             this.Load += new System.EventHandler(this.ConProgress_Load);
             this.ResumeLayout(false);

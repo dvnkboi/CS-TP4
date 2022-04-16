@@ -40,6 +40,7 @@ namespace Bilan_Annuel
             this.text_moyenne_annuelle = new System.Windows.Forms.TextBox();
             this.btn_rechercher = new System.Windows.Forms.Button();
             this.export_btn = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.table_bilan)).BeginInit();
             this.SuspendLayout();
             // 
@@ -163,11 +164,24 @@ namespace Bilan_Annuel
             this.export_btn.UseVisualStyleBackColor = true;
             this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Padding = new System.Windows.Forms.Padding(10, 6, 10, 6);
+            this.label5.Size = new System.Drawing.Size(128, 33);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Bilan Annuel";
+            // 
             // Bilan_Annuel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 455);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.export_btn);
             this.Controls.Add(this.btn_rechercher);
             this.Controls.Add(this.text_moyenne_annuelle);
@@ -186,7 +200,7 @@ namespace Bilan_Annuel
             this.MinimumSize = new System.Drawing.Size(949, 494);
             this.Name = "Bilan_Annuel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Bilan_Annuel";
+            this.Text = "Bilan";
             this.Load += new System.EventHandler(this.Bilan_Annuel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_bilan)).EndInit();
             this.ResumeLayout(false);
@@ -207,5 +221,6 @@ namespace Bilan_Annuel
         private System.Windows.Forms.Button btn_rechercher;
         private System.Windows.Forms.DataGridView table_bilan;
         private System.Windows.Forms.Button export_btn;
+        private System.Windows.Forms.Label label5;
     }
 }
