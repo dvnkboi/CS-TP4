@@ -12,7 +12,6 @@ namespace ConsoleModel
     {
         static void Main(string[] args)
         {
-
             Console.WriteLine("\n----------------------------------------------");
             Console.WriteLine("---------------------Mysql--------------------");
             Console.WriteLine("----------------------------------------------");
