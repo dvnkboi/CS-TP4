@@ -73,8 +73,8 @@ Library that handles Connection to MySql and MsSql databases
 
 
 #### Model
-inheritable abstract class that implements basic crud operations, and allows casting to the child class.
-example: `Student s = (Student)Student.find<Student>(id);`
+inheritable abstract class that implements basic crud operations, and allows casting to the child class.  
+example: `Student s = (Student)Student.find<Student>(id);`  
 *all database operations are done on a table with the same name as the current class example:`Students`*.  
   - properties:
     - `int id`
