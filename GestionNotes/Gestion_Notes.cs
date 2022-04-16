@@ -190,5 +190,10 @@ namespace Gestion_Notes
             var parent = (Gestion_Etudiants.Gestion_Etudiants) Owner;
             parent.resetTable(); 
         }
+
+        private void seperator_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.LightGray, ButtonBorderStyle.Solid);
+        }
     }
 }

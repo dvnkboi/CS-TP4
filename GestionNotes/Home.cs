@@ -106,23 +106,7 @@ namespace Home
 
         private void Home_Load(object sender, EventArgs e)
         {
-
-            menuStrip1.Renderer = new MenuStripRenderer();
-            Color themeColor = WinTheme.GetAccentColor();
-
-            this.BackColor = Color.FromArgb(240, ControlPaint.Dark(themeColor, 0.7f));
-            menuStrip1.BackColor = Color.FromArgb(254, themeColor);
-            panel_bg.BackColor = Color.FromArgb(50, Color.Black);
-
-            //MARGINS margins = new MARGINS();
-            //margins.Top = Height;
-            //margins.Left = Left;
-            //Console.WriteLine("SetAero: 7 = {0}, 10 = {1}",
-            //DllHelper.SetAero7(this.Handle, margins),
-            //DllHelper.SetAero10(this.Handle));
-
-            Console.WriteLine("SetAero: 10 = {0}",
-            DllHelper.SetAero10(this.Handle));
+            this.drawTheme();
 
             if (Debugger.IsAttached && (bool)GestionNotes.Properties.Settings.Default["reset"])
                 GestionNotes.Properties.Settings.Default.Reset();
@@ -136,6 +120,34 @@ namespace Home
             }
 
             
+        }
+
+        private void drawTheme()
+        {
+
+            menuStrip1.Renderer = new MenuStripRenderer();
+            Color themeColor = WinTheme.GetAccentColor();
+
+            this.BackColor = Color.FromArgb(240, ControlPaint.Dark(themeColor, 0.7f));
+            menuStrip1.BackColor = Color.FromArgb(254, themeColor);
+            panel_bg.BackColor = Color.FromArgb(70, Color.Black);
+
+            //MARGINS margins = new MARGINS();
+            //margins.Top = Height;
+            //margins.Left = Left;
+            //Console.WriteLine("SetAero: 7 = {0}, 10 = {1}",
+            //DllHelper.SetAero7(this.Handle, margins),
+            //DllHelper.SetAero10(this.Handle));
+
+            var Handle = this.Handle;
+            BackgroundWorker bg = new BackgroundWorker();
+            bg.DoWork += (o, ea) =>
+            {
+                Console.WriteLine("SetAero: 10 = {0}",
+                DllHelper.SetAero10(Handle));
+            };
+
+            bg.RunWorkerAsync();
         }
 
         private void bg_pnl_Paint(object sender, PaintEventArgs e)

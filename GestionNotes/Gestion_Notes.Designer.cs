@@ -41,7 +41,7 @@ namespace Gestion_Notes
             this.comboBox_matiere = new System.Windows.Forms.ComboBox();
             this.label_state = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.seperator = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // code_eleve
@@ -141,7 +141,7 @@ namespace Gestion_Notes
             this.label_state.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_state.AutoSize = true;
             this.label_state.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label_state.Location = new System.Drawing.Point(892, 262);
+            this.label_state.Location = new System.Drawing.Point(457, 168);
             this.label_state.Name = "label_state";
             this.label_state.Size = new System.Drawing.Size(0, 15);
             this.label_state.TabIndex = 12;
@@ -159,21 +159,24 @@ namespace Gestion_Notes
             this.label1.TabIndex = 13;
             this.label1.Text = "Gestion Des Notes";
             // 
-            // label2
+            // seperator
             // 
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(111, 120);
-            this.label2.Margin = new System.Windows.Forms.Padding(0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 2);
-            this.label2.TabIndex = 14;
+            this.seperator.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.seperator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.seperator.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.seperator.Location = new System.Drawing.Point(111, 120);
+            this.seperator.Margin = new System.Windows.Forms.Padding(0);
+            this.seperator.Name = "seperator";
+            this.seperator.Size = new System.Drawing.Size(110, 2);
+            this.seperator.TabIndex = 14;
+            this.seperator.Paint += new System.Windows.Forms.PaintEventHandler(this.seperator_Paint);
             // 
             // Gestion_Notes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(946, 290);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(502, 189);
+            this.Controls.Add(this.seperator);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label_state);
             this.Controls.Add(this.comboBox_matiere);
@@ -188,8 +191,8 @@ namespace Gestion_Notes
             this.Controls.Add(this.code_eleve);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(962, 329);
-            this.MinimumSize = new System.Drawing.Size(962, 329);
+            this.MaximumSize = new System.Drawing.Size(518, 228);
+            this.MinimumSize = new System.Drawing.Size(518, 228);
             this.Name = "Gestion_Notes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestion";
@@ -215,7 +218,7 @@ namespace Gestion_Notes
         public System.Windows.Forms.TextBox text_note;
         private System.Windows.Forms.Label label_state;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label seperator;
     }
 }
 

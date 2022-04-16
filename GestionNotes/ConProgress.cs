@@ -57,7 +57,7 @@ namespace GestionNotes
 
         private void DbTask_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Dictionary<string, object> state = (Dictionary<string,object>) e.UserState;
+            Dictionary<string, object> state = (Dictionary<string, object>)e.UserState;
             progress_con.Value = e.ProgressPercentage;
             error = (bool)state["error"];
             label_status.Text = (string)state["text"];
@@ -70,7 +70,7 @@ namespace GestionNotes
         private void DbTask_Done(object sender, RunWorkerCompletedEventArgs e)
         {
             Dictionary<string, object> state = (Dictionary<string, object>)e.UserState;
-            Properties.Settings.Default["conString"] = conString; 
+            Properties.Settings.Default["conString"] = conString;
             Properties.Settings.Default["conServer"] = server;
             Properties.Settings.Default.Save();
         }
@@ -79,7 +79,7 @@ namespace GestionNotes
         {
             try
             {
-                backgroundTask.ReportProgress(0, new Dictionary<string, object>() { {"text", "Connecting" },{ "error", false } });
+                backgroundTask.ReportProgress(0, new Dictionary<string, object>() { { "text", "Connecting" }, { "error", false } });
                 ModelApp.Connection.Close();
                 ModelApp.Connection.Connect(conString, server);
             }
@@ -160,8 +160,8 @@ namespace GestionNotes
                     return;
                 }
 
-                backgroundTask.ReportProgress(100, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", false } });
             }
+            backgroundTask.ReportProgress(100, new Dictionary<string, object>() { { "text", "Migrating triggers" }, { "error", false } });
         }
     }
 }
