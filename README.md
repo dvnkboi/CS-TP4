@@ -16,7 +16,7 @@ Library that handles Connection to MySql and MsSql databases
     - `IDbConnection con`  
     - `IDbConnection cmd`
   - functions:
-    - `Connect()` opens connection to given database server using connection string
+    - `static Connect()` opens connection to given database server using connection string
       - **parameters**
         - ` string cstr` connection string to connect with
         - ` string server` database server type to connect to, currently supported: MySql MsSql
@@ -24,41 +24,48 @@ Library that handles Connection to MySql and MsSql databases
         - ` void`
     
     
-    - `IUD()` executes an insert/update/delete query
+    - `static IUD()` executes an insert/update/delete query
       - **parameters**
         - ` string req` request to execute
       - **Returns**
         - `int` number of lines affected
+     
+     
+    - `static Execute()` executes an sql string
+      - **parameters**
+        - ` string text` sql text to execute, this method is useful when trying to programatically create triggers, procedures ... 
+      - **Returns**
+        - `void`
 
 
-    - `Select()` executes a select query
+    - `static Select()` executes a select query
       - **parameters**
         - ` string req` request to execute
       - **Returns**
         - `IDataReader` dataReader containing the result rows
 
 
-    - `GetTableFields()` gets the table fields and their types of a selected table
+    - `static GetTableFields()` gets the table fields and their types of a selected table
       - **parameters**
         - ` string table` table to get the fields for
       - **Returns**
         - `Dictionary<string,string>` Dictionary containing field names as keys and their types as values
 
 
-    - `AddParameter()` sets command type to stored procedure and adds parameter to it
+    - `static AddParameter()` sets command type to stored procedure and adds parameter to it
       - **parameters**
         - ` string key` key of parameter to add 
         - ` Object value` value to set to the parameter
       - **Returns**
         - `void`
 
-    - `ResetCmd()` resets command text, type and parameter array
+    - `static ResetCmd()` resets command text, type and parameter array
       - **parameters**
         - ` none`
       - **Returns**
         - `void`
     
-    - `Close()` Closes connection to db
+    - `static Close()` Closes connection to db
       - **parameters**
         - ` none`
       - **Returns**
@@ -66,7 +73,8 @@ Library that handles Connection to MySql and MsSql databases
 
 
 #### Model
-inheritable abstract class that implements basic crud operations, and allows casting to a target class.
+inheritable abstract class that implements basic crud operations, and allows casting to the child class.
+example: `Student s = (Student)Student.find<Student>(id);`
 *all database operations are done on a table with the same name as the current class example:`Students`*.  
   - properties:
     - `int id`
@@ -84,7 +92,7 @@ inheritable abstract class that implements basic crud operations, and allows cas
         - ` none`
       - **Returns**
         - `Object` result of the find query, castable to the current class
-    - `find<T>()` retrieves the current instance from the database using the id property
+    - `static find<T>()` retrieves the current instance from the database using the id property
       - **parameters**
         - ` object id` primary key of element to find, castable to calling class 
       - **Returns**
@@ -105,7 +113,7 @@ inheritable abstract class that implements basic crud operations, and allows cas
         - `List<dynamic>` list of objects found cast to the current class
 
 
-    - `All<T>()` static method that retrieves all objects from the table
+    - `static All<T>()` static method that retrieves all objects from the table
       - **parameters**
         - ` none` 
       - **Returns**
@@ -119,13 +127,13 @@ inheritable abstract class that implements basic crud operations, and allows cas
         - `List<dynamic>` list of objects found cast to the current class
 
 
-    - `Select<T>()` static method that retrieves Select objects from the table using criteria
+    - `static Select<T>()` static method that retrieves Select objects from the table using criteria
       - **parameters**
         - ` Dictionary<string,object> criteria` criteria to use for the select query example:`{ "id" : 1 }`
       - **Returns**
         - `List<dynamic>` list of objects found cast to the Template class given
     
-    - `ObjectToDictionary<T>()` method that converts an object to a Dictionary
+    - `static ObjectToDictionary<T>()` method that converts an object to a Dictionary
       - **parameters**
         - ` Object obj` object to convert to a dictionary
       - **Returns**
@@ -139,13 +147,13 @@ inheritable abstract class that implements basic crud operations, and allows cas
         - ` Object` object with the current class type created from the dictionary
 
 
-    - `DictionaryToObject<T>()` static method that converts a dictionary to an object
+    - `static DictionaryToObject<T>()` static method that converts a dictionary to an object
       - **parameters**
         - ` Dictionary<string,object> dico` dictionary to convert to an object
       - **Returns**
         - ` Object` object with the Template class type created from the dictionary
 
-    - `SqlToType()` method that converts a sql type to a C# type
+    - `static SqlToType()` method that converts a sql type to a C# type
       - **parameters**
         - ` string type` sql type to convert to a C# type
       - **Returns**
