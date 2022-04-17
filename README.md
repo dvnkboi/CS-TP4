@@ -13,8 +13,14 @@ this is the connection library, can connect to MsSql and MySql databases
 #### Connection 
 Library that handles Connection to MySql and MsSql databases
   - properties:
-    - `IDbConnection con`  
-    - `IDbConnection cmd`
+    - `IDbConnection con` internal connection to database
+    - `IDbConnection cmd` internal command to execute
+    - `string Server` current server used 
+    - `string ConString` current connection string used
+    - `Dictionnary<string,Dictionnary<string,string>> _SchemaMap` internal table field cache
+    - `IsConnected` getter for current connection state
+
+
   - functions:
     - `static Connect()` opens connection to given database server using connection string
       - **parameters**
@@ -59,17 +65,57 @@ Library that handles Connection to MySql and MsSql databases
       - **Returns**
         - `void`
 
+
     - `static ResetCmd()` resets command text, type and parameter array
       - **parameters**
         - ` none`
       - **Returns**
         - `void`
     
+
     - `static Close()` Closes connection to db
       - **parameters**
         - ` none`
       - **Returns**
         - `void`
+
+
+    - `static DatabaseProvided()` returns whether connection string contains a database
+      - **parameters**
+        - ` string conString` connection string to parse
+        - ` string server` database server type
+      - **Returns**
+        - `bool` whether database exists in connection string
+
+
+    - `static CreateDb()` creates a database in the DMBS with given name 
+      - **parameters**
+        - ` string conString` connection string to parse
+        - ` string server` database server type
+        - ` string db` database name to create
+      - **Returns**
+        - `void`
+
+
+    - `static ConcatDb()` concatenates database name to connection string
+      - **parameters**
+        - ` string conString` connection string to parse
+        - ` string server` database server type
+        - ` string db` database name to create
+      - **Returns**
+        - `void`
+
+
+    - `static ConcatStr()` concatenates connection string parameters
+      - **parameters**
+        - ` string host` host of the db connection
+        - ` string server` database server type
+        - ` string user=null` *(optional)* username to connect with, can be null or "" (in case using intergated security)
+        - ` string pass=null` *(optional)* password to connect with, can be null or ""
+        - ` string db=null` *(optional)* database to use, can be null
+        - ` string[] opt` *(optional)* parameter array (example: `integrated security=True`)
+      - **Returns**
+        - `string` connection string
 
 
 #### Model
@@ -80,26 +126,26 @@ example: `Student s = (Student)Student.find<Student>(id);`
     - `int id`
     - `string sql`
   - functions:
-    - `save()` saves the object to the database using stocked procedures, and falling back to sql if no stored procedure is found
+    - `Save()` saves the object to the database using stocked procedures, and falling back to sql if no stored procedure is found
       - **parameters**
         - ` string procedure`*(optional)* name of the procedure to use for update/insert
       - **Returns**
         - `int` number of lines affected
     
     
-    - `find()` retrieves the current instance from the database using the id property
+    - `Find()` retrieves the current instance from the database using the id property
       - **parameters**
         - ` none`
       - **Returns**
         - `Object` result of the find query, castable to the current class
-    - `static find<T>()` retrieves the current instance from the database using the id property
+    - `static Find<T>()` retrieves the current instance from the database using the id property
       - **parameters**
         - ` object id` primary key of element to find, castable to calling class 
       - **Returns**
         - `Object` result of the find query, castable to the current class
 
 
-    - `delete()` deletes the current instance from the database using the id property
+    - `Delete()` deletes the current instance from the database using the id property
       - **parameters**
         - ` string procedure`*(optional)* name of the procedure to use for delete 
       - **Returns**
@@ -153,11 +199,33 @@ example: `Student s = (Student)Student.find<Student>(id);`
       - **Returns**
         - ` Object` object with the Template class type created from the dictionary
 
+
     - `static SqlToType()` method that converts a sql type to a C# type
       - **parameters**
         - ` string type` sql type to convert to a C# type
       - **Returns**
         - ` Type` C# type
+
+#### ConvEngine
+A conversion class that is able to convert generic collections to data to different file outputs
+example:  
+`List<Etudiant> e = Etudiant.All<Etudiant>();`  
+`ConvEngine.CreateXLS<Etudiant>(e, "C:\etudiants.xlsx")`  
+  - functions:
+    - `static CreateCsv<T>()` creates CSV of the given List to the given file path
+      - **parameters**
+        - ` List<T> list` generic list of items to parse
+        - ` string procedure` filepath to write to
+      - **Returns**
+        - `void`
+    
+    - `static CreateXLS<T>()` creates XLSX of the given List to the given file path
+      - **parameters**
+        - ` List<T> list` generic list of items to parse
+        - ` string procedure` filepath to write to
+      - **Returns**
+        - `void`
+    
 ---
 ## GUI app
 this is a demo app using the methods provided in the model library to preview a functional application with students, their classes and test marks.
