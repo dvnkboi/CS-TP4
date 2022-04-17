@@ -14,8 +14,8 @@ namespace ModelApp
         public static IDbConnection con = null;
         public static IDbCommand cmd = null;
         public static string Server = null;
-        public static string conString = null;
-        public static Dictionary<string, Dictionary<string, string>> _schemaMap = new Dictionary<string, Dictionary<string, string>>();
+        public static string ConString = null;
+        public static Dictionary<string, Dictionary<string, string>> _SchemaMap = new Dictionary<string, Dictionary<string, string>>();
         public static bool IsConnected
         {
             get
@@ -24,7 +24,7 @@ namespace ModelApp
             }
         }
 
-        public static bool DatabaseProvided(string conString, string Server = null)
+        public static bool DatabaseProvided(string conString, string Server)
         {
             switch (Server)
             {
@@ -40,7 +40,7 @@ namespace ModelApp
         public static void Connect(string cstr, string server)
         {
             Server = server.Trim().ToLower();
-            conString = cstr;
+            ConString = cstr;
             if (con != null && IsConnected) return;
 
             switch (Server)
@@ -67,7 +67,7 @@ namespace ModelApp
             return scalar;
         }
 
-        public static void resetCmd()
+        public static void ResetCmd()
         {
             cmd.CommandText = "";
             cmd.CommandType = CommandType.Text;
@@ -82,7 +82,7 @@ namespace ModelApp
 
         public static Dictionary<string, string> GetTableFields(string table)
         {
-            if (_schemaMap.ContainsKey(table)) return _schemaMap[table];
+            if (_SchemaMap.ContainsKey(table)) return _SchemaMap[table];
 
             switch (Server)
             {
@@ -105,7 +105,7 @@ namespace ModelApp
             }
 
             reader.Close();
-            _schemaMap.Add(table, res);
+            _SchemaMap.Add(table, res);
             return res;
         }
 
@@ -155,11 +155,11 @@ namespace ModelApp
             switch (Server)
             {
                 case "mssql":
-                    Connect(concatDb(conString, server, "master"), "mssql");
+                    Connect(ConcatDb(conString, server, "master"), "mssql");
                     IUD($"Create database {db}");
                     break;
                 case "mysql":
-                    Connect(concatDb(conString, server, "mysql"), "mysql");
+                    Connect(ConcatDb(conString, server, "mysql"), "mysql");
                     IUD($"Create database {db}");
                     break;
                 default:
@@ -167,7 +167,7 @@ namespace ModelApp
             }
         }
 
-        public static string concatDb(string conString, string server, string db)
+        public static string ConcatDb(string conString, string server, string db)
         {
             Server = server.ToLower().Trim();
             string cstr = conString;
@@ -184,7 +184,7 @@ namespace ModelApp
             }
         }
 
-        public static string concatStr(string host, string server, string user = null, string pass = null , string db = null, string[] opt = null)
+        public static string ConcatStr(string host, string server, string user = null, string pass = null , string db = null, string[] opt = null)
         {
             Server = server.ToLower().Trim();
             string cstr = "";

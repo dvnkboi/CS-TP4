@@ -363,7 +363,7 @@ namespace Gestion_Etudiants
             this.MinimumSize = new System.Drawing.Size(705, 481);
             this.Name = "Gestion_Etudiants";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "S";
+            this.Text = "Gestion";
             this.Load += new System.EventHandler(this.Gestion_Etudiants_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_eleve)).EndInit();
             this.ResumeLayout(false);

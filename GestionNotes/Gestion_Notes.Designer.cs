@@ -194,7 +194,7 @@ namespace Gestion_Notes
             this.MaximumSize = new System.Drawing.Size(518, 228);
             this.MinimumSize = new System.Drawing.Size(518, 228);
             this.Name = "Gestion_Notes";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gestion";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gestion_Notes_FormClosing);
             this.Load += new System.EventHandler(this.Gestion_Notes_Load);

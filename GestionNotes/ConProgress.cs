@@ -78,7 +78,9 @@ namespace GestionNotes
         public void DbTask_Work(object sender, DoWorkEventArgs e)
         {
             int progress = 0;
-            int tasks = 5;
+            int tasks = 2;
+            tasks += migrate ? 3 : 0;
+
             if (!ModelApp.Connection.DatabaseProvided(conString, server))
             {
                 try
@@ -88,13 +90,13 @@ namespace GestionNotes
                     ModelApp.Connection.Close();
 
                     ModelApp.Connection.CreateDb(conString, server, "gestion_notes_app_csharp");
-                    conString = ModelApp.Connection.concatDb(conString, server, "gestion_notes_app_csharp");
+                    conString = ModelApp.Connection.ConcatDb(conString, server, "gestion_notes_app_csharp");
                 }
                 catch (Exception ex)
                 {
-                    if(ex.Message.ToLower().Contains("exists"))
+                    if (ex.Message.ToLower().Contains("exists"))
                     {
-                        conString = ModelApp.Connection.concatDb(conString, server, "gestion_notes_app_csharp");
+                        conString = ModelApp.Connection.ConcatDb(conString, server, "gestion_notes_app_csharp");
                     }
                     else
                     {
@@ -104,12 +106,12 @@ namespace GestionNotes
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
-                            backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Creating Database" }, { "error", true } });
-                            return;
+                        backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Creating Database" }, { "error", true } });
+                        return;
                     }
-                    
+
                 }
-                progress += 100/tasks;
+                progress += 100 / tasks;
                 backgroundTask.ReportProgress(progress, new Dictionary<string, object>() { { "text", "Creating Database" }, { "error", false } });
             }
             else
@@ -119,7 +121,7 @@ namespace GestionNotes
                 Task.Delay(100).Wait();
             }
 
-            
+
 
             try
             {

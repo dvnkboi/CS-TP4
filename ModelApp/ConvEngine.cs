@@ -48,10 +48,10 @@ namespace ModelApp
             }
         }
 
-        public static void CreateXLS<T>(List<T> list, string targetFile)
+        public static void CreateXLS<T>(List<T> list, string filePath)
         {
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-            using (var xls = new ExcelPackage(targetFile))
+            using (var xls = new ExcelPackage(filePath))
             {
                 var target = xls.Workbook.Worksheets.SingleOrDefault(x => x.Name == typeof(T).Name);
                 if(target != null) 

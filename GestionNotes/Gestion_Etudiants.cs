@@ -120,7 +120,7 @@ namespace Gestion_Etudiants
                 niveau = int.Parse(text_niveau.Text)
             };
 
-            selectedElv.save();
+            selectedElv.Save();
 
             resetTable();
             selectCurrent();
@@ -130,7 +130,7 @@ namespace Gestion_Etudiants
         private void btn_supprimer_Click(object sender, EventArgs e)
         {
             opDone("");
-            selectedElv.delete();
+            selectedElv.Delete();
             resetTable();
             opDone("Deleted");
         }
@@ -150,7 +150,7 @@ namespace Gestion_Etudiants
                 return;
             }
 
-            selectedElv = (Eleve)Eleve.select<Eleve>(criteria).FirstOrDefault();
+            selectedElv = (Eleve)Eleve.Select<Eleve>(criteria).FirstOrDefault();
 
             if (selectedElv == null)
             {

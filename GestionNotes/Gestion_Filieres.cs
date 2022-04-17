@@ -88,7 +88,7 @@ namespace Gestion_Filieres
                 designation = text_designation.Text,
             };
 
-            selectedFil.save();
+            selectedFil.Save();
 
             resetTable();
             selectCurrent();
@@ -98,7 +98,7 @@ namespace Gestion_Filieres
         private void btn_supprimer_Click(object sender, EventArgs e)
         {
             opDone("");
-            selectedFil.delete();
+            selectedFil.Delete();
             resetTable();
             opDone("Deleted");
         }
@@ -118,7 +118,7 @@ namespace Gestion_Filieres
                 return;
             }
 
-            selectedFil = (Filiere)Filiere.select<Filiere>(criteria).FirstOrDefault();
+            selectedFil = (Filiere)Filiere.Select<Filiere>(criteria).FirstOrDefault();
 
             if (selectedFil == null)
             {

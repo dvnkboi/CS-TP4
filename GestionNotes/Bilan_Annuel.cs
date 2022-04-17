@@ -54,7 +54,7 @@ namespace Bilan_Annuel
                            select fil).FirstOrDefault();
 
             comboBox_niveau.Items.Clear();
-            niveaus = (from m in Module.@select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code } })
+            niveaus = (from m in Module.Select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code } })
                        select m.niveau).Distinct().ToList();
 
             comboBox_niveau.Items.AddRange(niveaus.ToArray());
@@ -77,7 +77,7 @@ namespace Bilan_Annuel
 
             comboBox_etudiant.Items.Clear();
 
-            eleves = (from elv in Eleve.@select<Eleve>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
+            eleves = (from elv in Eleve.Select<Eleve>(new Dictionary<string, object>() { { "code_fil", selectedFil.code }, { "niveau", selectedNiveau } })
                       select elv).ToList();
 
             string[] eleveNames = (from Eleve elv in eleves
@@ -91,7 +91,7 @@ namespace Bilan_Annuel
         {
             if (selectedElv == null || selectedFil == null || selectedNiveau == null) return;
 
-            List<Module> modules = (from Module mod in Module.@select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code } })
+            List<Module> modules = (from Module mod in Module.Select<Module>(new Dictionary<string, object>() { { "code_fil", selectedFil.code } })
                                     select mod
                              ).ToList();
 
@@ -102,7 +102,7 @@ namespace Bilan_Annuel
 
             foreach (Module mod in modules)
             {
-                matieres.Add(mod.semestre, (from Matiere mat in Matiere.@select<Matiere>(new Dictionary<string, object>() { { "code_mod", mod.code } })
+                matieres.Add(mod.semestre, (from Matiere mat in Matiere.Select<Matiere>(new Dictionary<string, object>() { { "code_mod", mod.code } })
                                             select mat
                                           ).ToList<Matiere>());
             }
@@ -116,7 +116,7 @@ namespace Bilan_Annuel
             {
                 foreach (Matiere mat in matObj.Value)
                 {
-                    noteTmp = Note.@select<Note>(new Dictionary<string, object>() { { "code_mat", mat.code }, { "code_elv", selectedElv.code } }).FirstOrDefault();
+                    noteTmp = Note.Select<Note>(new Dictionary<string, object>() { { "code_mat", mat.code }, { "code_elv", selectedElv.code } }).FirstOrDefault();
                     if (noteTmp != null)
                     {
                         bilan.Add(new Bilan()
@@ -146,8 +146,10 @@ namespace Bilan_Annuel
         {
             try
             {
-                string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"bilan_{comboBox_niveau.Text}_{comboBox_etudiant.Text}.xlsx");
-                ConvEngine.CreateXLS<Bilan>((from Bilan b in bilan select b).ToList<Bilan>(), docPath);
+                List<Bilan> exportBilan = (from Bilan b in bilan select b).ToList<Bilan>();
+                exportBilan.Add(new Bilan() { semestre = "Moyenne", note = Double.Parse(text_moyenne_annuelle.Text) });
+                string docPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"bilan Niv{comboBox_niveau.Text} {comboBox_etudiant.Text}.xlsx");
+                ConvEngine.CreateXLS<Bilan>(exportBilan, docPath);
 
                 MessageBox.Show(
                         $"Exported excel sheet at {docPath}",

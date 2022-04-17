@@ -58,20 +58,20 @@ namespace ModelApp
             return obj;
         }
 
-        public int save(string procedure = null)
+        public int Save(string procedure = null)
         {
             Dictionary<string, string> dico = new Dictionary<string, string>();
             dico = ObjectToDictionary<string>(this);
             int ret = -1;
 
-            Model ExistanceCheck = this.find();
+            Model ExistanceCheck = this.Find();
 
             if (ExistanceCheck == null)
             {
                 //insert
                 try
                 {
-                    Connection.resetCmd();
+                    Connection.ResetCmd();
                     sql = procedure!=null ? procedure : throw new Exception("no procedure passed");
                     foreach (KeyValuePair<string, string> field in dico)
                     {
@@ -81,7 +81,7 @@ namespace ModelApp
                 }
                 catch (Exception)
                 {
-                    Connection.resetCmd();
+                    Connection.ResetCmd();
                     sql = $"insert into {this.GetType().Name}(";
 
                     foreach (KeyValuePair<string, string> field in dico)
@@ -105,7 +105,7 @@ namespace ModelApp
                 //update
                 try
                 {
-                    Connection.resetCmd();
+                    Connection.ResetCmd();
                     sql = procedure != null ? procedure : throw new Exception("no procedure passed");
                     foreach (KeyValuePair<string, string> field in dico)
                     {
@@ -116,7 +116,7 @@ namespace ModelApp
                 }
                 catch(Exception)
                 {
-                    Connection.resetCmd();
+                    Connection.ResetCmd();
                     string tableAlias = this.GetType().Name.Substring(0, 1);
                     sql = $"update {this.GetType().Name} {tableAlias} set ";
                     dico.Remove("id");
@@ -130,11 +130,11 @@ namespace ModelApp
                 }
             }
 
-            Connection.resetCmd();
+            Connection.ResetCmd();
             return ret;
         }
 
-        public dynamic find()
+        public dynamic Find()
         {
             Dictionary<string, object> dico = new Dictionary<string, object>();
             Dictionary<string, string> ch = new Dictionary<string, string>();
@@ -166,7 +166,7 @@ namespace ModelApp
             return DictionaryToObject(dico);
         }
 
-        public static dynamic find<T>(object id)
+        public static dynamic Find<T>(object id)
         {
             Dictionary<string, object> dico = new Dictionary<string, object>();
             Dictionary<string, string> ch = new Dictionary<string, string>();
@@ -198,25 +198,25 @@ namespace ModelApp
             return DictionaryToObject<T>(dico);
         }
 
-        public int delete(string procedure = null)
+        public int Delete(string procedure = null)
         {
             int ret = 0;
 
             try
             {
-                Connection.resetCmd();
+                Connection.ResetCmd();
                 sql = procedure != null ? procedure : throw new Exception("no procedure passed");
                 Connection.AddParameter("id", id);
                 ret = Connection.IUD(sql);
             }
             catch(Exception)
             {
-                Connection.resetCmd();
+                Connection.ResetCmd();
                 sql = $"delete from {this.GetType().Name} where id='{id}'";
                 ret = Connection.IUD(sql);
             }
 
-            Connection.resetCmd();
+            Connection.ResetCmd();
             return ret;
         }
 
@@ -301,7 +301,7 @@ namespace ModelApp
             return retList;
         }
 
-        public List<dynamic> select(Dictionary<string, object> dico)
+        public List<dynamic> Select(Dictionary<string, object> dico)
         {
             Dictionary<string, object> dicoRes = new Dictionary<string, object>();
             Dictionary<string, string> ch = new Dictionary<string, string>();
@@ -353,7 +353,7 @@ namespace ModelApp
             return retList;
         }
 
-        public static List<dynamic> select<T>(Dictionary<string, object> dico)
+        public static List<dynamic> Select<T>(Dictionary<string, object> dico)
         {
             Dictionary<string, object> dicoRes = new Dictionary<string, object>();
             Dictionary<string, string> ch = new Dictionary<string, string>();

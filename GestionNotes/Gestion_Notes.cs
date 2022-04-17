@@ -80,7 +80,7 @@ namespace Gestion_Notes
             }
 
             selectedNote = new Note { id = unixTimestamp, code_mat = selectedMat.code, code_elv = selectedElv.code, note = text_note.Text != "" ? float.Parse(text_note.Text) : 0 };
-            selectedNote.save();
+            selectedNote.Save();
 
             //List<dynamic> notesEtudiant = ModelApp.Model.select<Note>(new Dictionary<string, object>() { { "code_elv", selectedElv.code } });
 
@@ -111,7 +111,7 @@ namespace Gestion_Notes
                            where comboBox_matiere.Text == m.code
                            select m).FirstOrDefault();
 
-            selectedNote = (Note)ModelApp.Model.select<Note>(new Dictionary<string, object> { { "code_mat", selectedMat.code }, { "code_elv", selectedElv.code } }).FirstOrDefault();
+            selectedNote = (Note)ModelApp.Model.Select<Note>(new Dictionary<string, object> { { "code_mat", selectedMat.code }, { "code_elv", selectedElv.code } }).FirstOrDefault();
 
             text_note.Text = selectedNote?.note.ToString();
         }
@@ -132,7 +132,7 @@ namespace Gestion_Notes
 
             Dictionary<string, object> criteria = new Dictionary<string, object>();
             criteria.Add("code", text_code_eleve.Text);
-            selectedElv = (Eleve)ModelApp.Model.select<Eleve>(criteria).FirstOrDefault();
+            selectedElv = (Eleve)ModelApp.Model.Select<Eleve>(criteria).FirstOrDefault();
             if (selectedElv == null && init > 0)
             {
                 MessageBox.Show(
@@ -154,11 +154,11 @@ namespace Gestion_Notes
             criteria.Add("code_fil", code_fil);
             criteria.Add("niveau", selectedElv.niveau);
 
-            List<dynamic> modules = ModelApp.Model.select<Module>(criteria);
+            List<dynamic> modules = ModelApp.Model.Select<Module>(criteria);
 
             foreach (Module mod in modules)
             {
-                List<dynamic> mats = ModelApp.Model.select<Matiere>(new Dictionary<string, object> { { "code_mod", mod.code } });
+                List<dynamic> mats = ModelApp.Model.Select<Matiere>(new Dictionary<string, object> { { "code_mod", mod.code } });
                 foreach (Matiere mat in mats)
                 {
                     matieres.Add(mat);
@@ -174,7 +174,7 @@ namespace Gestion_Notes
         private void btn_supprimer_Click(object sender, EventArgs e)
         {
             opDone("");
-            selectedNote.delete();
+            selectedNote.Delete();
             text_note.Text = "";
             opDone("Deleted");
         }
